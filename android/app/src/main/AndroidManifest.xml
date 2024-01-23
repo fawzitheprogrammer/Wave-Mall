@@ -33,7 +33,7 @@
     </queries>
 
     <application
-        android:label="6Valley"
+        android:label="Wave Mall"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
