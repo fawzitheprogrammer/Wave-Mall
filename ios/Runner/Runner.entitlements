@@ -10,7 +10,7 @@
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.sixamtech.sixValley</string>
+		<string>$(AppIdentifierPrefix)com.wavemall.swifttech</string>
 	</array>
 </dict>
 </plist>

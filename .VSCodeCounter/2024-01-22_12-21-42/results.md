@@ -2,7 +2,7 @@
 
 Date : 2024-01-22 12:21:42
 
-Directory g:\\codecanyon-PCAdfcae-6valley-multivendor-ecommerce-complete-ecommerce-mobile-app-web-and-admin-panel\\Wave Mall\\lib
+Directory g:\\codecanyon-PCAdfcae-SwiftTech-multivendor-ecommerce-complete-ecommerce-mobile-app-web-and-admin-panel\\Wave Mall\\lib
 
 Total : 428 files,  35421 codes, 373 comments, 5905 blanks, all 41699 lines
 

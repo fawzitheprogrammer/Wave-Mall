@@ -1,4 +1,4 @@
-# 6valley ecommerce
+# Wave Mall
 
 A new Flutter setup application for starting a project.
 
