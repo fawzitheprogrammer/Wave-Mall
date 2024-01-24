@@ -47,7 +47,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.wavemall.swifttech"
+        applicationId "com.swift.wavemall.app"
         minSdkVersion 21
         targetSdkVersion 33
         compileSdkVersion 33

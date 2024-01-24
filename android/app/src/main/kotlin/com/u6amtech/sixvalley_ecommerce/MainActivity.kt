@@ -1,4 +1,4 @@
-package com.wavemall.swifttech
+package com.swift.wavemall.app
 
 import io.flutter.embedding.android.FlutterActivity
 

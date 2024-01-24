@@ -10,7 +10,7 @@
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.wavemall.swifttech</string>
+		<string>$(AppIdentifierPrefix)com.swift.wavemall.app</string>
 	</array>
 </dict>
 </plist>
