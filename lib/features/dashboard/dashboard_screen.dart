@@ -124,7 +124,7 @@ class CustomMenuItem extends StatelessWidget {
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
       onTap: onTap,
-      child: Padding(padding: const EdgeInsets.all(8),
+      child: Padding(padding: const EdgeInsets.all(4),
         child: SizedBox(width: isSelected ? 90 : 50, child: Column(crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center, mainAxisSize: MainAxisSize.min, children: [
 
