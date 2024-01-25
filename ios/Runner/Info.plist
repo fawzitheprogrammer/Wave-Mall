@@ -50,6 +50,8 @@
     </dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This app need camera access for taking photo for user profile picture.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Wave Mall requires access to your location to provide personalized shopping and navigation experiences within malls.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location to manage delivery address when add a new address.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
