@@ -68,13 +68,13 @@ class MoreHeaderSection extends StatelessWidget {
                     Text(profile.userInfoModel?.phone??'', style: textRegular.copyWith(color: ColorResources.white)),
                   ],)),
 
-                  InkWell(onTap: ()=> Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(width: 40, child: Image.asset(Provider.of<ThemeProvider>(context).darkTheme ?
-                      Images.sunnyDay: Images.theme, color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white: null)),
-                    ),
-                  ),
+                  // InkWell(onTap: ()=> Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     child: SizedBox(width: 40, child: Image.asset(Provider.of<ThemeProvider>(context).darkTheme ?
+                  //     Images.sunnyDay: Images.theme, color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white: null)),
+                  //   ),
+                  // ),
                 ],),
               ),
             ],

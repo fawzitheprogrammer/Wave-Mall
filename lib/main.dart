@@ -138,7 +138,7 @@ class MyApp extends StatelessWidget {
       title: AppConstants.appName,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: Provider.of<ThemeProvider>(context).darkTheme ? dark : light,
+      theme: dark,
       locale: Provider.of<LocalizationProvider>(context).locale,
       localizationsDelegates: [
         AppLocalization.delegate,

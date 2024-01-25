@@ -38,10 +38,10 @@ class SettingsScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
               children: [
-                SwitchListTile(value: Provider.of<ThemeProvider>(context).darkTheme,
-                  onChanged: (bool isActive) =>Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
-                  title: Text(getTranslated('dark_theme', context)!,
-                      style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeLarge)),),
+                // SwitchListTile(value: Provider.of<ThemeProvider>(context).darkTheme,
+                //   onChanged: (bool isActive) =>Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
+                //   title: Text(getTranslated('dark_theme', context)!,
+                //       style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeLarge)),),
 
                 TitleButton(image: Images.language,
                   title: getTranslated('choose_language', context),

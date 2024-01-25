@@ -47,13 +47,13 @@ class _SelectCurrencyBottomSheetState extends State<SelectCurrencyBottomSheet> {
                 ListView.builder(
                   padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: currencyProvider.configModel?.currencyList?.length,
+                    itemCount: 1,
                     shrinkWrap: true,
                     itemBuilder: (context, index){
                       return InkWell(
                         onTap: (){
                           setState(() {
-                            selectedIndex = index;
+                            selectedIndex = 1;
                           });
                         },
                         child: Padding(padding: const EdgeInsets.fromLTRB(Dimensions.paddingSizeDefault, 0,Dimensions.paddingSizeDefault, 0),
@@ -65,12 +65,12 @@ class _SelectCurrencyBottomSheetState extends State<SelectCurrencyBottomSheet> {
                                 Container(padding: const EdgeInsets.all(Dimensions.paddingSizeEight),
                                     decoration:BoxDecoration(shape: BoxShape.circle,
                                         color: selectedIndex == index? Theme.of(context).primaryColor: Theme.of(context).primaryColor.withOpacity(.5)) ,
-                                    child: Text(currencyProvider.configModel!.currencyList![index].symbol??'',
+                                    child: Text(currencyProvider.configModel!.currencyList![1].symbol??'',
                                         style: textRegular.copyWith(color : Theme.of(context).cardColor))),
 
                                 Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
                                   child: Padding(padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                                    child: Text(currencyProvider.configModel!.currencyList![index].name!)))
+                                    child: Text(currencyProvider.configModel!.currencyList![1].name!)))
 
                               ],),
                             ),),
