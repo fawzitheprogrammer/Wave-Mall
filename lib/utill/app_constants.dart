@@ -216,12 +216,12 @@ class AppConstants {
     LanguageModel(
         imageUrl: Images.ar,
         languageName: 'االغة العربی',
-        countryCode: 'SA',
+        countryCode: 'AE',
         languageCode: 'ar'),
     LanguageModel(
-        imageUrl: Images.ar,
+        imageUrl: Images.ku,
         languageName: 'زمانی كوردی',
-        countryCode: 'SA',
-        languageCode: 'sa'),
+        countryCode: 'IR',
+        languageCode: 'fa'),
   ];
 }
