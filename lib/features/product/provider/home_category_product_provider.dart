@@ -26,7 +26,7 @@ class HomeCategoryProductProvider extends ChangeNotifier {
 
         if(apiResponse.response!.data.toString() == '{}'){
           if (kDebugMode) {
-            print('==yup====>${apiResponse.response!.data}');
+            print('=============================YUUUUUUUUUUUUUUUUUUUUUUP ==========================>${apiResponse.response!.data}');
           }
 
         }else{

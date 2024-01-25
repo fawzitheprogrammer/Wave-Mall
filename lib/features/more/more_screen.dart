@@ -190,7 +190,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                 title: getTranslated('settings', context),
                                 navigateTo: const SettingsScreen()),
                           ],
-                        ),
+                        ), 
                       ),
                     ),
 
