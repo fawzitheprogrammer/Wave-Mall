@@ -221,7 +221,7 @@ class AppConstants {
     LanguageModel(
         imageUrl: Images.ar,
         languageName: 'زمانی كوردی',
-        countryCode: 'KU',
-        languageCode: 'fa'),
+        countryCode: 'SA',
+        languageCode: 'sa'),
   ];
 }
