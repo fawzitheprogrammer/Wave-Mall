@@ -129,22 +129,24 @@ class _SellerCardState extends State<SellerCard> {
                     child: Stack(
                       children: [
                         Container(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(
-                                        Dimensions.paddingSizeOverLarge)),
-                                color: Theme.of(context).highlightColor),
-                            child: ClipRRect(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(
-                                        Dimensions.paddingSizeOverLarge)),
-                                child: CustomImage(
-                                    image:
-                                        '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl!}/${widget.sellerModel!.shop?.image}',
-                                    width: 60,
-                                    height: 60))),
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                  Radius.circular(
+                                      Dimensions.paddingSizeOverLarge)),
+                              color: Theme.of(context).highlightColor),
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                    Dimensions.paddingSizeOverLarge)),
+                            child: CustomImage(
+                                image:
+                                    '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl!}/${widget.sellerModel!.shop?.image}',
+                                width: 60,
+                                height: 60),
+                          ),
+                        ),
                         if (widget.sellerModel!.shop!.temporaryClose ??
                             false || vacationIsOn)
                           Container(
@@ -236,19 +238,27 @@ class _SellerCardState extends State<SellerCard> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
-                                "${widget.sellerModel?.ratingCount ?? 0}",
-                                style: textBold.copyWith(
+                              Flexible(
+                                child: Text(
+                                  "${widget.sellerModel?.ratingCount ?? 0}",
+                                  style: textBold.copyWith(
                                     fontSize: Dimensions.fontSizeDefault,
-                                    color: Theme.of(context).primaryColor),
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                              // const SizedBox(
-                              //   width: 5,
-                              // ),
-                              Text(
-                                "${getTranslated('reviews', context)}",
-                                style: textBold.copyWith(
-                                    fontSize: Dimensions.fontSizeSmall),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  "${getTranslated('reviews', context)}",
+                                  style: textBold.copyWith(
+                                      fontSize: Dimensions.fontSizeSmall),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
@@ -262,26 +272,35 @@ class _SellerCardState extends State<SellerCard> {
                           padding: const EdgeInsets.all(
                               Dimensions.paddingSizeExtraSmall),
                           decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).hintColor.withOpacity(.125),
-                              borderRadius: BorderRadius.circular(
-                                  Dimensions.paddingSizeExtraSmall)),
+                            color:
+                                Theme.of(context).hintColor.withOpacity(.125),
+                            borderRadius: BorderRadius.circular(
+                                Dimensions.paddingSizeExtraSmall),
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                NumberFormat.compact().format(
-                                    widget.sellerModel?.productCount ?? 0),
-                                style: textBold.copyWith(
+                              Flexible(
+                                child: Text(
+                                  NumberFormat.compact().format(
+                                      widget.sellerModel?.productCount ?? 0),
+                                  style: textBold.copyWith(
                                     fontSize: Dimensions.fontSizeDefault,
-                                    color: Theme.of(context).primaryColor),
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                               const SizedBox(
                                   width: Dimensions.paddingSizeExtraSmall),
-                              Text(
-                                "${getTranslated('products', context)}",
-                                style: textBold.copyWith(
-                                    fontSize: Dimensions.fontSizeSmall),
+                              Flexible(
+                                child: Text(
+                                  "${getTranslated('products', context)}",
+                                  style: textBold.copyWith(
+                                      fontSize: Dimensions.fontSizeSmall),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
