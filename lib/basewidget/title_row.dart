@@ -115,7 +115,7 @@ class TitleRow extends StatelessWidget {
                     child: InkWell(onTap: onTap as void Function()?,
                       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                             isDetailsPage == null ? Text(getTranslated('VIEW_ALL', context)!,
-                                style: titilliumRegular.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).primaryColor,
+                                style: titilliumRegular.copyWith(color:  Theme.of(context).colorScheme.tertiary,
                                   fontSize: Dimensions.fontSizeDefault,)) : const SizedBox.shrink(),
                           ]),
                     ),

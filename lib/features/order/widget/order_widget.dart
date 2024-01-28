@@ -65,7 +65,7 @@ class OrderWidget extends StatelessWidget {
                         style: textMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).hintColor)),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                    Text(PriceConverter.convertPrice(context, orderModel!.orderAmount), style: titilliumSemiBold.copyWith(fontSize: Dimensions.fontSizeLarge, color: ColorResources.getPrimary(context)),),])),
+                    Text(PriceConverter.convertPrice(context, orderModel!.orderAmount), style: titilliumSemiBold.copyWith(fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).colorScheme.tertiary),),])),
 
 
 

@@ -89,7 +89,7 @@ class _SearchInboxWidgetState extends State<SearchInboxWidget> {
               child: Container(padding: const EdgeInsets.all(10),
                 width: 45,height: 50 ,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                     borderRadius: const BorderRadius.all(Radius.circular(Dimensions.paddingSizeSmall))),
-                child:  Image.asset(Images.search, color: Colors.white),
+                child:  Image.asset(Images.search, color: Theme.of(context).colorScheme.tertiary),
               ),
             ),
           )

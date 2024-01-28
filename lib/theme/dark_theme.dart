@@ -11,7 +11,7 @@ ThemeData dark = ThemeData(
   colorScheme: const ColorScheme.dark(
     primary: Color(0xFF1455AC),
     secondary: Color(0xFF78BDFC),
-    tertiary: Color(0xFF865C0A),
+    tertiary: Color.fromARGB(255, 237, 159, 4),
     tertiaryContainer: Color(0xFF6C7A8E),
     background: Color(0xFF2D2D2D),
     onPrimary: Color(0xFFB7D7FE),

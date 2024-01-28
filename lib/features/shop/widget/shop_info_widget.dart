@@ -87,7 +87,7 @@ class ShopInfoWidget extends StatelessWidget {
                                   ChatScreen(id: sellerId, name: sellerName)));
                             }
                           },
-                            child : Image.asset(Images.chatImage, height: Dimensions.iconSizeDefault),
+                            child : Image.asset(Images.chatImage, height: Dimensions.iconSizeDefault,color: Theme.of(context).colorScheme.tertiary,),
                           ),
                         ],
                         ),
@@ -102,12 +102,12 @@ class ShopInfoWidget extends StatelessWidget {
 
                                 if(sellerProvider.sellerModel!.minimumOrderAmount != null && sellerProvider.sellerModel!.minimumOrderAmount! > 0)
                                 Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-                                  child: Text('|', style: textRegular.copyWith(color: Theme.of(context).primaryColor),),),
+                                  child: Text('|', style: textRegular.copyWith(color: Theme.of(context).colorScheme.tertiary),),),
 
                                 if(sellerProvider.sellerModel!.minimumOrderAmount != null && sellerProvider.sellerModel!.minimumOrderAmount! > 0)
                                 Text('${sellerProvider.sellerModel!.totalReview} ${getTranslated('reviews', context)}',
                                   style: titleRegular.copyWith(fontSize: Dimensions.fontSizeSmall,
-                                      color: Theme.of(context).primaryColor),
+                                      color: Theme.of(context).colorScheme.tertiary),
                                   maxLines: 1, overflow: TextOverflow.ellipsis,),
                               ])),
                           const SizedBox(height: Dimensions.paddingSizeSmall),
@@ -119,21 +119,21 @@ class ShopInfoWidget extends StatelessWidget {
 
                             Text('${PriceConverter.convertPrice(context, sellerProvider.sellerModel!.minimumOrderAmount)} ${getTranslated('minimum_order', context)}',
                               style: titleRegular.copyWith(fontSize: Dimensions.fontSizeSmall,
-                                  color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).colorScheme.tertiary),
                               maxLines: 1, overflow: TextOverflow.ellipsis,):
                             Text('${sellerProvider.sellerModel!.totalReview} ${getTranslated('reviews', context)}',
                               style: titleRegular.copyWith(fontSize: Dimensions.fontSizeSmall,
-                                  color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).colorScheme.tertiary),
                               maxLines: 1, overflow: TextOverflow.ellipsis,),
 
 
 
                             Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-                              child: Text('|', style: textRegular.copyWith(color: Theme.of(context).primaryColor),),),
+                              child: Text('|', style: textRegular.copyWith(color: Theme.of(context).colorScheme.tertiary),),),
 
                             Text('${sellerProvider.sellerModel!.totalProduct} ${getTranslated('products', context)}',
                               style: titleRegular.copyWith(fontSize: Dimensions.fontSizeSmall,
-                                  color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).colorScheme.tertiary),
                               maxLines: 1, overflow: TextOverflow.ellipsis,),
 
                           ],

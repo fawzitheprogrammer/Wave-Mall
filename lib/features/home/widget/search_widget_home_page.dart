@@ -30,7 +30,7 @@ class SearchWidgetHomePage extends StatelessWidget {
             Container(width: 40,height: 40,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.all(Radius.circular(Dimensions.paddingSizeExtraSmall))),
               child: Icon(Icons.search, color: Provider.of<ThemeProvider>(context, listen: false).darkTheme?
-              Colors.white : Theme.of(context).cardColor, size: Dimensions.iconSizeSmall),
+              Colors.white :  Theme.of(context).colorScheme.tertiary, size: Dimensions.iconSizeSmall),
             ),
           ]),
         ),

@@ -106,9 +106,9 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> with Ti
                                 isScrollable: true,
                                 padding: const EdgeInsets.all(0),
                                 controller: _tabController,
-                                labelColor: Theme.of(context).primaryColor,
+                                labelColor: Theme.of(context).colorScheme.tertiary,
                                 unselectedLabelColor: Theme.of(context).hintColor,
-                                indicatorColor: Theme.of(context).primaryColor,
+                                indicatorColor: Theme.of(context).colorScheme.tertiary,
                                 indicatorWeight: 1,
                                 onTap: (value){
                                   sellerProvider.setMenuItemIndex(value);
@@ -138,11 +138,11 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> with Ti
 
                                 child: Container(decoration: BoxDecoration(
                                     color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Colors.white: Theme.of(context).cardColor,
-                                    border: Border.all(color: Theme.of(context).primaryColor.withOpacity(.5)),
+                                    border: Border.all(color: Theme.of(context).colorScheme.tertiary.withOpacity(.5)),
                                     borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall)),
                                     width: 30,height: 30,
                                     child: Padding(padding: const EdgeInsets.all(5.0),
-                                        child: Image.asset(Images.filterImage))),
+                                        child: Image.asset(Images.filterImage,color: Theme.of(context).colorScheme.tertiary,))),
                               ),
                             )
                         ],

@@ -145,8 +145,7 @@ class FeaturedDealCard extends StatelessWidget {
                                 discount: product.discount!.toDouble(),
                               ),
                               style: textBold.copyWith(
-                                  color: ColorResources.getArrowButtonColor(
-                                      context),
+                                  color: Theme.of(context).colorScheme.tertiary,
                                   fontSize: Dimensions.fontSizeDefault),
                             ),
                           ]),

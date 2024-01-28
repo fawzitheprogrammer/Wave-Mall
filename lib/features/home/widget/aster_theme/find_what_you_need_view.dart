@@ -68,7 +68,7 @@ class FindWhatYouNeedView extends StatelessWidget {
                          Padding(padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                               Text('${productProvider.findWhatYouNeedModel!.findWhatYouNeed![index].name}',
-                                style: textRegular.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeLarge, fontWeight: FontWeight.w600)),
+                                style: textRegular.copyWith(color: Theme.of(context).colorScheme.tertiary, fontSize: Dimensions.fontSizeLarge, fontWeight: FontWeight.w600)),
                               const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
                               Text('${productProvider.findWhatYouNeedModel!.findWhatYouNeed![index].productCount} ${getTranslated('products', context)}',

@@ -346,7 +346,7 @@ class _MoreScreenState extends State<MoreScreen> {
                           width: 30,
                           child: Image.asset(
                             Images.logOut,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).errorColor,
                           )),
                       title: Text(
                           isGuestMode
@@ -540,7 +540,7 @@ class TitleButton extends StatelessWidget {
               builder: (context, notificationProvider, _) {
               return CircleAvatar(
                 radius: 12,
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor:  Theme.of(context).colorScheme.tertiary,
                 child: Text(
                     notificationProvider.notificationModel?.newNotificationItem
                             .toString() ??
@@ -556,7 +556,7 @@ class TitleButton extends StatelessWidget {
                   builder: (context, profileProvider, _) {
                   return CircleAvatar(
                     radius: 12,
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
                     child: Text(
                         profileProvider.userInfoModel?.referCount.toString() ??
                             '0',
@@ -572,7 +572,7 @@ class TitleButton extends StatelessWidget {
         width: 25,
         height: 25,
         fit: BoxFit.fill,
-        color: Theme.of(context).primaryColor.withOpacity(.6),
+        color:  Theme.of(context).colorScheme.tertiary,
       ),
       title: Text(title!,
           style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeLarge)),

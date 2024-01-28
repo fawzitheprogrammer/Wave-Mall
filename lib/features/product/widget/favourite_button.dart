@@ -40,7 +40,7 @@ class FavouriteButton extends StatelessWidget {
             ),
             child: Padding(padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
               child: Icon( wishProvider.addedIntoWish.contains(productId) ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
-                  color: wishProvider.addedIntoWish.contains(productId) ? const Color(0xFFFF5050): Theme.of(context).primaryColor, size: 25),
+                  color: wishProvider.addedIntoWish.contains(productId) ? const Color(0xFFFF5050): Theme.of(context).colorScheme.tertiary, size: 25),
             ),
           ),
         );

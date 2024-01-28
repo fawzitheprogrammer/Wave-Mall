@@ -103,7 +103,7 @@ class ProductImageView extends StatelessWidget {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Padding(padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                                    child: Image.asset(Images.compare, color: compare.compIds.contains(productModel!.id) ?Theme.of(context).cardColor : Theme.of(context).primaryColor),)));
+                                    child: Image.asset(Images.compare, color: compare.compIds.contains(productModel!.id) ?Theme.of(context).cardColor : Theme.of(context).colorScheme.tertiary),)));
                             }
                           ),
                         ),
@@ -120,7 +120,7 @@ class ProductImageView extends StatelessWidget {
                             child: Container(width: 40, height: 40,
                               decoration: BoxDecoration(color: Theme.of(context).cardColor, shape: BoxShape.circle),
                               child: Padding(padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                                child: Image.asset(Images.share, color: Theme.of(context).primaryColor)))))
+                                child: Image.asset(Images.share, color: Theme.of(context).colorScheme.tertiary)))))
                       ],
                     ),
                   ),

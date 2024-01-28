@@ -22,7 +22,11 @@ class PriceConverter {
         'right';
 
     return '${inRight ? '' : Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol}'
-        '${(singleCurrency ? price : price! * Provider.of<SplashProvider>(context, listen: false).myCurrency!.exchangeRate! * (1 / Provider.of<SplashProvider>(context, listen: false).usdCurrency!.exchangeRate!))!.toStringAsFixed(Provider.of<SplashProvider>(context, listen: false).configModel!.decimalPointSettings ?? 1).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}'
+        '${(singleCurrency ? price : price! * Provider.of<SplashProvider>(context, listen: false).myCurrency!.exchangeRate! * (1 / Provider.of<SplashProvider>(context, listen: false).usdCurrency!.exchangeRate!))!
+            //If you want to make the decimal point reactive based on fetched data then replace 0 in toStringAsFixe
+            //With the piece of code below
+            //Provider.of<SplashProvider>(context, listen: false).configModel!.decimalPointSettings ?? 1
+            .toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')} '
         '${inRight ? Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol : ''}';
   }
 

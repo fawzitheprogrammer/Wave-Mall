@@ -24,16 +24,16 @@ class ChatTypeButton extends StatelessWidget {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start,mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(text!, style: chat.userTypeIndex == index ?
-                  robotoBold.copyWith(color: Theme.of(context).primaryColor):
+                  robotoBold.copyWith(color: Theme.of(context).colorScheme.tertiary):
 
                   textRegular.copyWith(color: Theme.of(context).textTheme.bodyLarge?.color)),
 
                   (chat.userTypeIndex == index && index == 0)?
                   Padding(padding: const EdgeInsets.only(top: Dimensions.paddingSizeExtraSmall),
-                      child: Container(color: Theme.of(context).primaryColor, height: 2,width: 34),):
+                      child: Container(color: Theme.of(context).colorScheme.tertiary, height: 2,width: 34),):
                   (chat.userTypeIndex == index && index == 1)?
                   Padding(padding: const EdgeInsets.only(top: Dimensions.paddingSizeExtraSmall),
-                    child: Container(color: Theme.of(context).primaryColor, height: 2,width: 75),):
+                    child: Container(color: Theme.of(context).colorScheme.tertiary, height: 2,width: 75),):
                   const Padding(padding: EdgeInsets.only(top: Dimensions.paddingSizeExtraSmall),
                       child: SizedBox()),
                 ],

@@ -54,7 +54,7 @@ class ProductTitleView extends StatelessWidget {
                     discount: productModel!.discount, discountType: productModel!.discountType):''}'
                     '${endingPrice !=null ? ' - ${PriceConverter.convertPrice(context, endingPrice,
                     discount: productModel!.discount, discountType: productModel!.discountType)}' : ''}',
-                  style: titilliumBold.copyWith(color: ColorResources.getPrimary(context),
+                  style: titilliumBold.copyWith(color: Theme.of(context).colorScheme.tertiary,
                       fontSize: Dimensions.fontSizeLarge),
                 ),
 

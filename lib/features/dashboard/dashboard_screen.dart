@@ -128,19 +128,19 @@ class CustomMenuItem extends StatelessWidget {
         child: SizedBox(width: isSelected ? 90 : 50, child: Column(crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center, mainAxisSize: MainAxisSize.min, children: [
 
-            Image.asset(icon, color: isSelected? Theme.of(context).primaryColor: Theme.of(context).hintColor,
+            Image.asset(icon, color: isSelected?  Theme.of(context).colorScheme.tertiary: Theme.of(context).hintColor,
                 width: Dimensions.menuIconSize, height: Dimensions.menuIconSize),
 
             isSelected ?
              Text(getTranslated(name, context)!, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: textBold.copyWith(color:  Theme.of(context).primaryColor)) :
+              style: textBold.copyWith(color:  Theme.of(context).colorScheme.tertiary)) :
 
             Text(getTranslated(name, context)!, maxLines: 1, overflow: TextOverflow.ellipsis,
                 style: textRegular.copyWith(color: Theme.of(context).hintColor)),
 
             if(isSelected)
               Container(width: 5,height: 3,
-                decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(Dimensions.paddingSizeDefault)),)
+                decoration: BoxDecoration(color:  Theme.of(context).colorScheme.tertiary, borderRadius: BorderRadius.circular(Dimensions.paddingSizeDefault)),)
 
           ],
         )),

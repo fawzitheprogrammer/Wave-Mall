@@ -121,7 +121,7 @@ class _BottomCartViewState extends State<BottomCartView> {
             ),
             child: Text(
               getTranslated('add_to_cart', context)!,
-              style: titilliumSemiBold.copyWith(fontSize: Dimensions.fontSizeLarge, color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).highlightColor),
+              style: titilliumSemiBold.copyWith(fontSize: Dimensions.fontSizeLarge, color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
         )),

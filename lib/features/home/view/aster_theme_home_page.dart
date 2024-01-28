@@ -152,11 +152,7 @@ class _AsterThemeHomePageState extends State<AsterThemeHomePage> {
                 centerTitle: false,
                 automaticallyImplyLeading: false,
                 backgroundColor: Theme.of(context).highlightColor,
-                title: Image.asset(
-                    Provider.of<ThemeProvider>(context).darkTheme
-                        ? Images.logoWithNameImageWhite
-                        : Images.logoWithNameImage,
-                    height: 35),
+                title: Image.asset(Images.logoWithNameImageWhite, height: 35),
                 actions: const [
                   CartWidgetHomePage(),
                 ],
