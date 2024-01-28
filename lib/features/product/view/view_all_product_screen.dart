@@ -15,13 +15,14 @@ class AllProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(title: productType == ProductType.featuredProduct ? '${getTranslated('featured_product', context)}':productType == ProductType.justForYou ?'${getTranslated('just_for_you', context)}':'${getTranslated('latest_product', context)}'),
 
       body: SafeArea(
         child: RefreshIndicator(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           onRefresh: () async {
           },
           child: CustomScrollView(

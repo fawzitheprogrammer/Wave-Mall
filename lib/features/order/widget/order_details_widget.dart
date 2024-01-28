@@ -70,7 +70,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                 Text("${getTranslated('price', context)}: ",
                   style: titilliumRegular.copyWith(color: ColorResources.hintTextColor, fontSize: 14),),
                 Text(PriceConverter.convertPrice(context, widget.orderDetailsModel.price),
-                  style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context), fontSize: 16),),
+                  style: titilliumSemiBold.copyWith(color: Theme.of(context).colorScheme.tertiary, fontSize: 16),),
 
                 widget.orderDetailsModel.productDetails!.taxModel == 'exclude'?
                 Text('(${getTranslated('tax', context)} ${widget.orderDetailsModel.tax})',

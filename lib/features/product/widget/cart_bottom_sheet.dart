@@ -178,7 +178,7 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                             ) : const SizedBox(),
                             const SizedBox(width: Dimensions.paddingSizeDefault),
                             Text(PriceConverter.convertPrice(context, widget.product!.unitPrice, discountType: widget.product!.discountType, discount: widget.product!.discount),
-                              style: titilliumRegular.copyWith(color: ColorResources.getPrimary(context), fontSize: Dimensions.fontSizeExtraLarge),),],),]),),]),],),
+                              style: titilliumRegular.copyWith(color: Theme.of(context).colorScheme.tertiary, fontSize: Dimensions.fontSizeExtraLarge),),],),]),),]),],),
                 ),
 
 
@@ -314,7 +314,7 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                     Text(getTranslated('total_price', context)!, style: robotoBold),
                     const SizedBox(width: Dimensions.paddingSizeSmall),
                     Text(PriceConverter.convertPrice(context, priceWithQuantity),
-                      style: titilliumBold.copyWith(color: ColorResources.getPrimary(context), fontSize: Dimensions.fontSizeLarge),
+                      style: titilliumBold.copyWith(color: Theme.of(context).colorScheme.tertiary, fontSize: Dimensions.fontSizeLarge),
                     ),
                     widget.product!.taxModel == 'exclude'?
                     Padding(padding: const EdgeInsets.only(top: Dimensions.paddingSizeExtraSmall),
@@ -346,7 +346,9 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
 
                       Expanded(
-                        child: CustomButton(isBuy:true,radius: 6,
+                        child: CustomButton(
+                          textColor: Colors.black,
+                          isBuy:true,radius: 6,
                             buttonText: getTranslated(stock < widget.product!.minimumOrderQty! && widget.product!.productType == "physical" ? 'out_of_stock' : 'buy_now', context),
                             onTap: stock < widget.product!.minimumOrderQty!  && widget.product!.productType == "physical" ? null :() {
                               if(stock! >= widget.product!.minimumOrderQty! || widget.product!.productType == "digital") {
@@ -426,14 +428,14 @@ class QuantityButton extends StatelessWidget {
         width: 40,height: 40,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(width: 1, color: Theme.of(context).primaryColor)
+            border: Border.all(width: 1, color:  Theme.of(context).colorScheme.tertiary)
         ),
         child: Icon(
           isIncrement ? Icons.add : Icons.remove,
-          color: isIncrement ? quantity! >= stock! && !digitalProduct? ColorResources.getLowGreen(context) : ColorResources.getPrimary(context)
+          color: isIncrement ? quantity! >= stock! && !digitalProduct? ColorResources.getLowGreen(context) : Theme.of(context).colorScheme.tertiary
               : quantity! > 1
-              ? ColorResources.getPrimary(context)
-              : ColorResources.getTextTitle(context),
+              ? Theme.of(context).colorScheme.tertiary
+              :  Theme.of(context).colorScheme.tertiary,
           size: isCartWidget?26:20,
         ),
       ),

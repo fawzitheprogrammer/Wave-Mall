@@ -32,7 +32,7 @@ class PaymentInfo extends StatelessWidget {
               Text(getTranslated('PAYMENT_PLATFORM', context)!,
                   style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
 
-              Text(order!.orders!.paymentMethod!.replaceAll('_', ' ').capitalize(), style: titilliumBold.copyWith(color: Theme.of(context).primaryColor)),
+              Text(order!.orders!.paymentMethod!.replaceAll('_', ' ').capitalize(), style: titilliumBold.copyWith(color: Theme.of(context).colorScheme.tertiary)),
             ]),
           ]),
     );

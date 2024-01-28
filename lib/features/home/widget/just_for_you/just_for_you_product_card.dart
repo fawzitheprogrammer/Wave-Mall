@@ -72,7 +72,7 @@ class JustForYouProductCard extends StatelessWidget {
                           Flexible(child: Text(PriceConverter.convertPrice(context,
                                 product.unitPrice, discountType: product.discountType,
                                 discount: product.discount),
-                                style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context))),),
+                                style: titilliumSemiBold.copyWith(color: Theme.of(context).colorScheme.tertiary)),),
                         ]),
 
 
@@ -94,7 +94,7 @@ class JustForYouProductCard extends StatelessWidget {
               product.discount! > 0 ?
               Positioned(top: 10, left: 0, child: Container(height: 20,
                 padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-                decoration: BoxDecoration(color: ColorResources.getPrimary(context),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.tertiary,
                   borderRadius: const BorderRadius.only(topRight: Radius.circular(Dimensions.paddingSizeExtraSmall), bottomRight: Radius.circular(Dimensions.paddingSizeExtraSmall)),),
 
                 child: Center(

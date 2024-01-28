@@ -10,10 +10,27 @@ class AmountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeExtraSmall),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: Dimensions.paddingSizeExtraSmall),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeDefault, color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(.5))),
-        Text(amount, style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeDefault)),
+        Text(
+          title!,
+          style: titilliumRegular.copyWith(
+            fontSize: Dimensions.fontSizeDefault,
+            color:
+                Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(.5),
+          ),
+        ),
+        Text(
+          amount,
+          style: titilliumRegular
+              .copyWith(fontSize: Dimensions.fontSizeDefault)
+              .copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
       ]),
     );
   }

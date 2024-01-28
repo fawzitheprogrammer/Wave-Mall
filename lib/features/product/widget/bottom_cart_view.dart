@@ -75,7 +75,7 @@ class _BottomCartViewState extends State<BottomCartView> {
           child: Stack(children: [
             GestureDetector(
                 onTap: ()  =>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const CartScreen())),
-                child: Image.asset(Images.cartArrowDownImage, color: ColorResources.getPrimary(context))),
+                child: Image.asset(Images.cartArrowDownImage, color: Theme.of(context).colorScheme.tertiary)),
             Positioned(
               top: 0,
               right: 10,
@@ -86,7 +86,7 @@ class _BottomCartViewState extends State<BottomCartView> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: ColorResources.getPrimary(context),
+                    color: Theme.of(context).colorScheme.tertiary,
                   ),
                   child: Text(
                     cart.cartList.length.toString(),

@@ -125,7 +125,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           style: textRegular.copyWith(fontSize: Dimensions.fontSizeLarge),
           textInputAction: widget.inputAction,
           keyboardType: widget.inputType,
-          cursorColor: Theme.of(context).primaryColor,
+          cursorColor: Theme.of(context).colorScheme.tertiary,
           textCapitalization: widget.capitalization,
           enabled: widget.isEnabled,
           autofocus: false,
@@ -162,7 +162,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor, //widget.borderColor,
+                    color: Theme.of(context).colorScheme.tertiary, //widget.borderColor,
                     width: widget.showBorder ? 0 : .75,
                   )),
               enabledBorder: OutlineInputBorder(
@@ -207,20 +207,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ? InkWell(
                       onTap: widget.prefixOnTap,
                       child: Container(
-                          width: widget.prefixHeight,
-                          padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(widget.borderRadius),
-                                  bottomLeft:
-                                      Radius.circular(widget.borderRadius))),
-                          child: Center(
-                              child: Image.asset(widget.prefixIcon!,
-                                  height: 20,
-                                  width: 20,
-                                  color: Theme.of(context)
-                                      .primaryColor
-                                      .withOpacity(.6)))),
+                        width: widget.prefixHeight,
+                        padding: const EdgeInsets.all(1),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(widget.borderRadius),
+                                bottomLeft:
+                                    Radius.circular(widget.borderRadius))),
+                        child: Center(
+                            child: Image.asset(
+                          widget.prefixIcon!,
+                          height: 20,
+                          width: 20,
+                          color: Theme.of(context).colorScheme.tertiary.withOpacity(.6),
+                        )),
+                      ),
                     )
                   : widget.showCodePicker
                       ? SizedBox(
@@ -233,7 +234,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                                   '+964',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color:Theme.of(context).primaryColor,
+                                    color: Theme.of(context).colorScheme.tertiary,
                                   ),
                                 ),
                               )

@@ -154,12 +154,12 @@ class CartScreenState extends State<CartScreen> {
                         Row(children: [
                             Text('${getTranslated('total_price', context)} ', style: titilliumSemiBold.copyWith(
                                 fontSize: Dimensions.fontSizeLarge,
-                                color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).primaryColor)),
+                                color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor :  Theme.of(context).colorScheme.tertiary)),
                             Text('${getTranslated('inc_vat_tax', context)}', style: titilliumSemiBold.copyWith(
                                 fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).hintColor))]),
 
                         Text(PriceConverter.convertPrice(context, amount+tax+shippingAmount-freeDeliveryAmountDiscount), style: titilliumSemiBold.copyWith(
-                            color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).primaryColor,
+                            color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor :  Theme.of(context).colorScheme.tertiary,
                             fontSize: Dimensions.fontSizeLarge))])),
 
 
@@ -221,7 +221,7 @@ class CartScreenState extends State<CartScreen> {
                               tax: tax, onlyDigital: sellerGroupList.length != totalPhysical, hasPhysical: totalPhysical > 0)));
                           }
                       },
-                      child: Container(decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+                      child: Container(decoration: BoxDecoration(color:  Theme.of(context).colorScheme.tertiary,
                             borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall)),
 
                         child: Center(child: Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall,
@@ -280,10 +280,10 @@ class CartScreenState extends State<CartScreen> {
                                           child: Row(children: [
                                               Flexible(child: Text(sellerGroupList[index].shopInfo!, maxLines: 1, overflow: TextOverflow.ellipsis,
                                                     textAlign: TextAlign.start, style: textBold.copyWith(fontSize: Dimensions.fontSizeLarge,
-                                                      color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).primaryColor)),),
+                                                      color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor :  Theme.of(context).colorScheme.tertiary)),),
                                               Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
                                                 child: Text('(${cartProductList[index].length})',
-                                                  style: textBold.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeLarge))),
+                                                  style: textBold.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor :  Theme.of(context).colorScheme.tertiary, fontSize: Dimensions.fontSizeLarge))),
 
                                             ]))),
 
@@ -316,7 +316,7 @@ class CartScreenState extends State<CartScreen> {
                                                 maxLines: 1, overflow: TextOverflow.ellipsis,textAlign: TextAlign.end)),
 
 
-                                           Icon(Icons.keyboard_arrow_down, color: Theme.of(context).primaryColor),
+                                           Icon(Icons.keyboard_arrow_down, color:  Theme.of(context).colorScheme.tertiary),
                                           ]),
                                         ),
                                       ),
@@ -382,10 +382,10 @@ class CartScreenState extends State<CartScreen> {
                                 if(sellerGroupList[index].freeDeliveryOrderAmount?.status == 1 && hasPhysical)
                                 Padding(padding: const EdgeInsets.only(bottom : Dimensions.paddingSizeSmall,left: Dimensions.paddingSizeDefault,right: Dimensions.paddingSizeDefault, top: Dimensions.paddingSizeSmall),
                                   child: Row(children: [
-                                    SizedBox(height: 16, child: Image.asset(Images.freeShipping, color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor: Theme.of(context).primaryColor,)),
+                                    SizedBox(height: 16, child: Image.asset(Images.freeShipping, color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor:  Theme.of(context).colorScheme.tertiary,)),
                                     if(sellerGroupList[index].freeDeliveryOrderAmount!.amountNeed! > 0)
                                       Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-                                        child: Text(PriceConverter.convertPrice(context, sellerGroupList[index].freeDeliveryOrderAmount!.amountNeed!), style: textMedium.copyWith(color: Theme.of(context).primaryColor)),),
+                                        child: Text(PriceConverter.convertPrice(context, sellerGroupList[index].freeDeliveryOrderAmount!.amountNeed!), style: textMedium.copyWith(color:  Theme.of(context).colorScheme.tertiary)),),
                                     sellerGroupList[index].freeDeliveryOrderAmount!.percentage! < 100?
                                     Text('${getTranslated('add_more_for_free_delivery', context)}', style: textMedium.copyWith(color: Theme.of(context).hintColor)):
                                     Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
@@ -401,7 +401,7 @@ class CartScreenState extends State<CartScreen> {
                                     width: MediaQuery.of(context).size.width - 40,
                                     lineHeight: 4.0,
                                     percent: sellerGroupList[index].freeDeliveryOrderAmount!.percentage! / 100,
-                                    backgroundColor: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).primaryColor.withOpacity(.5):Theme.of(context).primaryColor.withOpacity(.2),
+                                    backgroundColor: Provider.of<ThemeProvider>(context, listen: false).darkTheme?  Theme.of(context).colorScheme.tertiary.withOpacity(.5): Theme.of(context).colorScheme.tertiary.withOpacity(.2),
                                     progressColor: (sellerGroupList[index].freeDeliveryOrderAmount!.percentage! < 100 && !Provider.of<ThemeProvider>(context, listen: false).darkTheme)? Theme.of(context).colorScheme.onSecondary : Colors.green,
                                   ),
                                 ),
@@ -438,7 +438,7 @@ class CartScreenState extends State<CartScreen> {
                               style: titilliumSemiBold.copyWith(color: Theme.of(context).hintColor),
                               maxLines: 1, overflow: TextOverflow.ellipsis,),
                             const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-                            Icon(Icons.keyboard_arrow_down, color: Theme.of(context).primaryColor),
+                            Icon(Icons.keyboard_arrow_down, color:  Theme.of(context).colorScheme.tertiary),
                           ]),
                         ]),
                       ),

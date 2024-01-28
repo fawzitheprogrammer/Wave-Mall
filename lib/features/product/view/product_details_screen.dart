@@ -86,10 +86,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: Column(children: [
                             Container(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault, vertical: Dimensions.paddingSizeSmall),
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
-                                  color:!isReview? Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor.withOpacity(.25) : Theme.of(context).primaryColor.withOpacity(.05):Colors.transparent),
-                              child: Text('${getTranslated('specification', context)}', style: textRegular.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).primaryColor),),),
+                                  color:!isReview? Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor.withOpacity(.25) : Theme.of(context).colorScheme.tertiary.withOpacity(.05):Colors.transparent),
+                              child: Text('${getTranslated('specification', context)}', style: textRegular.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).colorScheme.tertiary),),),
                             if(!isReview)
-                              Container(width: 60, height: 3,color: Theme.of(context).primaryColor,)])),
+                              Container(width: 60, height: 3,color: Theme.of(context).colorScheme.tertiary,)])),
 
                       const SizedBox(width: Dimensions.paddingSizeDefault),
 
@@ -103,20 +103,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Container(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault, vertical: Dimensions.paddingSizeSmall),
                               decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
                                   color:  isReview?Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor.withOpacity(.25) :
-                                  Theme.of(context).primaryColor.withOpacity(.05): Colors.transparent
+                                  Theme.of(context).colorScheme.tertiary.withOpacity(.05): Colors.transparent
                               ),
                               child: Text('${getTranslated('reviews', context)}', style: textRegular.copyWith(
-                                  color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).primaryColor),),),
+                                  color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Theme.of(context).colorScheme.tertiary),),),
 
                             if(isReview)
-                              Container(width: 60, height: 3,color: Theme.of(context).primaryColor)]),
+                              Container(width: 60, height: 3,color: Theme.of(context).colorScheme.tertiary)]),
 
                           Positioned(top: -10,right: -10,
                             child: Align(alignment: Alignment.topRight,
                               child: Center(
                                 child: Container( decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(Dimensions.paddingSizeDefault),
-                                    color: Theme.of(context).primaryColor
+                                    color: Theme.of(context).colorScheme.tertiary
                                 ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(vertical : Dimensions.paddingSizeExtraSmall, horizontal: Dimensions.paddingSizeSmall),

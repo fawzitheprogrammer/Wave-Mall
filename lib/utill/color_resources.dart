@@ -84,8 +84,8 @@ class ColorResources {
 
   static Color getHomeBg(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme
-        ? const Color(0xFF3d3d3d)
-        : const Color(0xFFFCFCFC);
+        ? Theme.of(context).scaffoldBackgroundColor
+        : Theme.of(context).scaffoldBackgroundColor;
   }
 
   static Color getImageBg(BuildContext context) {

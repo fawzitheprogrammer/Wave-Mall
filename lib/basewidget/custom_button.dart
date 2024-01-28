@@ -42,7 +42,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
             border: isBorder
                 ? Border.all(
-                    color: borderColor ?? Theme.of(context).primaryColor,
+                    color: borderColor ?? Theme.of(context).colorScheme.tertiary,
                     width: borderWidth ?? 1)
                 : null,
             color: backgroundColor ??
@@ -73,7 +73,7 @@ class CustomButton extends StatelessWidget {
                   style: titilliumSemiBold.copyWith(
                     fontSize: fontSize ?? 16,
                     // color: textColor ?? (Provider.of<ThemeProvider>(context, listen: false).darkTheme ? Colors.white : Theme.of(context).highlightColor),
-                    color: textColor ?? Colors.white,
+                    color: textColor ?? Theme.of(context).colorScheme.tertiary,
                   )),
             ),
           ],

@@ -33,16 +33,24 @@ class AddNewAddressScreen extends StatefulWidget {
   final bool fromCheckout;
   final AddressModel? address;
   final bool? isBilling;
-  const AddNewAddressScreen({super.key, this.isEnableUpdate = false, this.address, this.fromCheckout = false, this.isBilling});
+  const AddNewAddressScreen(
+      {super.key,
+      this.isEnableUpdate = false,
+      this.address,
+      this.fromCheckout = false,
+      this.isBilling});
 
   @override
   State<AddNewAddressScreen> createState() => _AddNewAddressScreenState();
 }
 
 class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
-  final TextEditingController _contactPersonNameController = TextEditingController();
-  final TextEditingController _contactPersonEmailController = TextEditingController();
-  final TextEditingController _contactPersonNumberController = TextEditingController();
+  final TextEditingController _contactPersonNameController =
+      TextEditingController();
+  final TextEditingController _contactPersonEmailController =
+      TextEditingController();
+  final TextEditingController _contactPersonNumberController =
+      TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _countryCodeController = TextEditingController();
@@ -57,47 +65,79 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   bool _updateAddress = true;
   Address? _address;
 
-  String zip = '',  country = 'IN';
+  String zip = '', country = 'IQ';
 
   @override
   void initState() {
     super.initState();
-    if(widget.isBilling!){
+    if (widget.isBilling!) {
       _address = Address.billing;
-    }else{
+    } else {
       _address = Address.shipping;
     }
 
-    Provider.of<AuthController>(context, listen: false).setCountryCode(CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel!.countryCode!).dialCode!, notify: false);
-    _countryCodeController.text = CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel!.countryCode!).dialCode??'IN';
-    Provider.of<AddressController>(context, listen: false).initializeAllAddressType(context: context);
-    Provider.of<AddressController>(context, listen: false).getRestrictedDeliveryCountryList(context);
-    Provider.of<AddressController>(context, listen: false).getRestrictedDeliveryZipList(context);
+    Provider.of<AuthController>(context, listen: false).setCountryCode(
+        CountryCode.fromCountryCode(
+                Provider.of<SplashProvider>(context, listen: false)
+                    .configModel!
+                    .countryCode!)
+            .dialCode!,
+        notify: false);
+    _countryCodeController.text = CountryCode.fromCountryCode(
+                Provider.of<SplashProvider>(context, listen: false)
+                    .configModel!
+                    .countryCode!)
+            .dialCode ??
+        'IN';
+    Provider.of<AddressController>(context, listen: false)
+        .initializeAllAddressType(context: context);
+    Provider.of<AddressController>(context, listen: false)
+        .getRestrictedDeliveryCountryList(context);
+    Provider.of<AddressController>(context, listen: false)
+        .getRestrictedDeliveryZipList(context);
 
-
-    _checkPermission(() => Provider.of<LocationController>(context, listen: false).getCurrentLocation(context, true, mapController: _controller),context);
+    _checkPermission(
+        () => Provider.of<LocationController>(context, listen: false)
+            .getCurrentLocation(context, true, mapController: _controller),
+        context);
     if (widget.isEnableUpdate && widget.address != null) {
       _updateAddress = false;
-      Provider.of<LocationController>(context, listen: false).updatePosition(CameraPosition(target: LatLng(double.parse(widget.address!.latitude!),
-          double.parse(widget.address!.longitude!))), true, widget.address!.address, context);
-      _contactPersonNameController.text = '${widget.address!.contactPersonName}';
+      Provider.of<LocationController>(context, listen: false).updatePosition(
+          CameraPosition(
+              target: LatLng(double.parse(widget.address!.latitude!),
+                  double.parse(widget.address!.longitude!))),
+          true,
+          widget.address!.address,
+          context);
+      _contactPersonNameController.text =
+          '${widget.address!.contactPersonName}';
       _contactPersonNumberController.text = '${widget.address!.phone}';
       if (widget.address!.addressType == 'Home') {
-        Provider.of<AddressController>(context, listen: false).updateAddressIndex(0, false);
+        Provider.of<AddressController>(context, listen: false)
+            .updateAddressIndex(0, false);
       } else if (widget.address!.addressType == 'Workplace') {
-        Provider.of<AddressController>(context, listen: false).updateAddressIndex(1, false);
+        Provider.of<AddressController>(context, listen: false)
+            .updateAddressIndex(1, false);
       } else {
-        Provider.of<AddressController>(context, listen: false).updateAddressIndex(2, false);
+        Provider.of<AddressController>(context, listen: false)
+            .updateAddressIndex(2, false);
       }
-    }else {
-      if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel!=null && Provider.of<AuthController>(context, listen: false).isLoggedIn()){
-        _contactPersonNameController.text = '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.fName ?? ''}'
+    } else {
+      if (Provider.of<ProfileProvider>(context, listen: false).userInfoModel !=
+              null &&
+          Provider.of<AuthController>(context, listen: false).isLoggedIn()) {
+        _contactPersonNameController.text =
+            '${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.fName ?? ''}'
             ' ${Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.lName ?? ''}';
-        _contactPersonNumberController.text = Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.phone ?? '';
+        _contactPersonNumberController.text =
+            Provider.of<ProfileProvider>(context, listen: false)
+                    .userInfoModel!
+                    .phone ??
+                '';
       }
-
     }
   }
+
   @override
   void dispose() {
     _contactPersonNameController.clear();
@@ -106,225 +146,432 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: widget.isEnableUpdate ? getTranslated('update_address', context) : getTranslated('add_new_address', context)),
+      appBar: CustomAppBar(
+          title: widget.isEnableUpdate
+              ? getTranslated('update_address', context)
+              : getTranslated('add_new_address', context)),
       body: SingleChildScrollView(
-        child: Column(children: [
+        child: Column(
+          children: [
             Consumer<AddressController>(
               builder: (context, addressController, child) {
                 return Consumer<LocationController>(
-                  builder: (context, locationController, _) {
-                    return Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
-
-                        Padding(padding: const EdgeInsets.only(top: Dimensions.paddingSizeLarge),
-                          child: CustomTextField(
-                            prefixIcon: Images.user,
-                            labelText: getTranslated('enter_contact_person_name', context),
-                            hintText: getTranslated('enter_contact_person_name', context),
-                            inputType: TextInputType.name,
-                            controller: _contactPersonNameController,
-                            focusNode: _nameNode,
-                            nextFocus: _numberNode,
-                            inputAction: TextInputAction.next,
-                            capitalization: TextCapitalization.words)),
-
-
-                        const SizedBox(height: Dimensions.paddingSizeDefaultAddress),
-                        Consumer<AuthController>(
-                            builder: (context, authProvider,_) {
-                              return CustomTextField(
-                                labelText: getTranslated('phone', context),
-                                hintText: getTranslated('enter_mobile_number', context),
-                                controller: _contactPersonNumberController,
-                                focusNode: _numberNode,
-                                nextFocus: _emailNode,
-                                showCodePicker: authProvider.isLoggedIn()? false : true,
-                                countryDialCode: authProvider.countryDialCode,
-                                onCountryChanged: (CountryCode countryCode) {
-                                  authProvider.countryDialCode = countryCode.dialCode!;
-                                  authProvider.setCountryCode(countryCode.dialCode!);
-                                },
-                                isAmount: true,
-                                validator: (value)=> ValidateCheck.validateEmptyText(value, "phone_must_be_required"),
+                    builder: (context, locationController, _) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Dimensions.paddingSizeDefault),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: Dimensions.paddingSizeLarge),
+                            child: CustomTextField(
+                                prefixIcon: Images.user,
+                                labelText: getTranslated(
+                                    'enter_contact_person_name', context),
+                                hintText: getTranslated(
+                                    'enter_contact_person_name', context),
+                                inputType: TextInputType.name,
+                                controller: _contactPersonNameController,
+                                focusNode: _nameNode,
+                                nextFocus: _numberNode,
                                 inputAction: TextInputAction.next,
-                                inputType: TextInputType.phone,
-                              );
-                            }
-                        ),
-                        const SizedBox(height: Dimensions.paddingSizeDefaultAddress),
-
-                        if(!Provider.of<AuthController>(context, listen: false).isLoggedIn())
-                        CustomTextField(
-                          prefixIcon: Images.email,
-                          labelText: getTranslated('email', context),
-                          hintText: getTranslated('enter_contact_person_email', context),
-                          inputType: TextInputType.name,
-                          controller: _contactPersonEmailController,
-                          focusNode: _emailNode,
-                          nextFocus: _addressNode,
-                          inputAction: TextInputAction.next,
-                          capitalization: TextCapitalization.words,),
-                        const SizedBox(height: Dimensions.paddingSizeDefaultAddress),
-
-
-
-                          SizedBox(height: MediaQuery.of(context).size.width/2, width: MediaQuery.of(context).size.width,
-                            child: ClipRRect(borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall),
-                              child: Stack(clipBehavior: Clip.none, children: [
-                                GoogleMap(mapType: MapType.normal,
-                                  initialCameraPosition: CameraPosition(
-                                    target: widget.isEnableUpdate ?
-                                    LatLng(double.parse(widget.address!.latitude!), double.parse(widget.address!.longitude!)) :
-                                    LatLng(locationController.position.latitude, locationController.position.longitude),
-                                    zoom: 15),
-                                  onTap: (latLng) {
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => SelectLocationScreen(googleMapController: _controller)));
-                                  },
-                                  zoomControlsEnabled: false,
-                                  compassEnabled: false,
-                                  indoorViewEnabled: true,
-                                  mapToolbarEnabled: false,
-                                  onCameraIdle: () {
-                                    if(_updateAddress) {
-                                      locationController.updatePosition(_cameraPosition, true, null, context);
-                                    }else {
-                                      _updateAddress = true;
-                                    }
-                                  },
-                                  onCameraMove: ((position) => _cameraPosition = position),
-                                  onMapCreated: (GoogleMapController controller) {
-                                    _controller = controller;
-                                    if (!widget.isEnableUpdate && _controller != null) {
-                                      locationController.getCurrentLocation(context, true, mapController: _controller);
-                                    }}),
-
-
-                                locationController.loading ? Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme
-                                    .of(context).primaryColor))) : const SizedBox(),
-                                Container(width: MediaQuery.of(context).size.width, alignment: Alignment.center,
-                                    height: MediaQuery.of(context).size.height,
-                                    child: Icon(Icons.location_on, size: 40, color: Theme.of(context).primaryColor,)),
-
-                                Positioned(top: 10, right: 0,
-                                  child: InkWell(onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) => SelectLocationScreen(googleMapController: _controller))),
-                                    child: Container(width: 30, height: 30,
-                                      margin: const EdgeInsets.only(right: Dimensions.paddingSizeLarge),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall),
-                                        color: Colors.white,),
-                                      child: Icon(Icons.fullscreen, color: Theme.of(context).primaryColor, size: 20))))]))),
-
-
-
-                          Padding(padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-                            child: Text(getTranslated('label_us', context)!,
-                              style: Theme.of(context).textTheme.displaySmall!.copyWith(color: ColorResources.getHint(context), fontSize: Dimensions.fontSizeLarge),),),
-
-                          SizedBox(height: 50,
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: addressController.addressTypeList.length,
-                              itemBuilder: (context, index) => InkWell(
-                                onTap: () => addressController.updateAddressIndex(index, true),
-                                child: Container(padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault, horizontal: Dimensions.paddingSizeLarge),
-                                  margin: const EdgeInsets.only(right: 17),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.paddingSizeSmall),
-                                      border: Border.all(color: addressController.selectAddressIndex == index ?
-                                      Theme.of(context).primaryColor : Theme.of(context).primaryColor.withOpacity(.125))),
-                                  child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                    SizedBox(width: 20, child: Image.asset(addressController.addressTypeList[index].icon,
-                                        color: addressController.selectAddressIndex == index ?
-                                    Theme.of(context).primaryColor : Theme.of(context).primaryColor.withOpacity(.35))),
-                                    const SizedBox(width: Dimensions.paddingSizeSmall,),
-                                    Text(getTranslated(addressController.addressTypeList[index].title, context)!,
-                                        style: textRegular.copyWith())]))))),
-
-
-                          Padding(padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-                            child: SizedBox(height: 50,
-                              child: Row(children: <Widget>[
-                                Row(children: [
-                                    Radio<Address>(
-                                      value: Address.shipping,
-                                      groupValue: _address,
-                                      onChanged: (Address? value) {
-                                        setState(() {_address = value;});}),
-                                    Text(getTranslated('shipping_address', context)!),]),
-
-
-                                Row(children: [
-                                  Radio<Address>(
-                                    value: Address.billing,
-                                    groupValue: _address,
-                                    onChanged: (Address? value) {
-                                      setState(() {
-                                        _address = value;});}),
-                                    Text(getTranslated('billing_address', context)!)])]))),
-
-
-                          CustomTextField(labelText: getTranslated('delivery_address', context),
-                            hintText: getTranslated('usa', context),
-                            inputType: TextInputType.streetAddress,
+                                capitalization: TextCapitalization.words)),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeDefaultAddress),
+                        Consumer<AuthController>(
+                            builder: (context, authProvider, _) {
+                          return CustomTextField(
+                            labelText: getTranslated('phone', context),
+                            hintText:
+                                getTranslated('enter_mobile_number', context),
+                            controller: _contactPersonNumberController,
+                            focusNode: _numberNode,
+                            nextFocus: _emailNode,
+                            showCodePicker:
+                                authProvider.isLoggedIn() ? false : true,
+                            countryDialCode: authProvider.countryDialCode,
+                            onCountryChanged: (CountryCode countryCode) {
+                              authProvider.countryDialCode =
+                                  countryCode.dialCode!;
+                              authProvider
+                                  .setCountryCode(countryCode.dialCode!);
+                            },
+                            isAmount: true,
+                            validator: (value) =>
+                                ValidateCheck.validateEmptyText(
+                                    value, "phone_must_be_required"),
                             inputAction: TextInputAction.next,
-                            focusNode: _addressNode,
-                            prefixIcon: Images.address,
-                            nextFocus: _cityNode,
-                            controller: locationController.locationController,),
-                          const SizedBox(height: Dimensions.paddingSizeDefaultAddress),
-
-                        SizedBox(height: 50,
-                          child: Consumer<AddressController>(
-                              builder: (context, addressController, _) {
-                                return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                  Provider.of<SplashProvider>(context, listen: false).configModel!.deliveryCountryRestriction == 1?
-
-                                  DropdownSearch<String>(
-                                    popupProps: const PopupProps.menu(showSelectedItems: true),
-                                    items: addressController.restrictedCountryList,
-                                    dropdownDecoratorProps: DropDownDecoratorProps(
-                                      dropdownSearchDecoration: InputDecoration(
-                                        prefixIconConstraints: const BoxConstraints(minHeight: 40, maxWidth: 40),
-                                        prefixIcon: Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
-                                          child: SizedBox(width: 20,height: 20,child: Image.asset(Images.country, color: Theme.of(context).primaryColor.withOpacity(.6),)),),
-                                        contentPadding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                                        labelText: "country",
-                                        alignLabelWithHint: true,
-                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8),
-                                            borderSide: BorderSide(color: Theme.of(context).hintColor, width: 0.5,)),
-                                        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8),
-                                            borderSide: BorderSide(color: Theme.of(context).hintColor, width: 0.5)),
-                                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8),
-                                            borderSide: BorderSide(color: Theme.of(context).hintColor, width:0.5)))),
-                                    onChanged: (value){
-                                      _countryCodeController.text = value!;
-                                    }):
-
-                                  Container(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall,
-                                      vertical: Dimensions.paddingSizeSmall),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Theme.of(context).hintColor.withOpacity(.25)),
-                                        borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall)),
-                                    child: Row(children: [
-                                        Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
-                                          child: SizedBox(width: 20,height: 20,child: Image.asset(Images.country, color: Theme.of(context).primaryColor.withOpacity(.6),)),),
-                                        Expanded(
-                                          child: CountryPickerDropdown(
-                                            initialValue: country,
-                                            itemBuilder: _buildDropdownItemForCountry,
-                                            onValuePicked: (Country? country) {
-                                              _countryCodeController.text = country!.name??'';}))]))]);})),
-
-
-                        const SizedBox(height: Dimensions.paddingSizeDefaultAddress),
+                            inputType: TextInputType.phone,
+                          );
+                        }),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeDefaultAddress),
+                        if (!Provider.of<AuthController>(context, listen: false)
+                            .isLoggedIn())
                           CustomTextField(
+                            prefixIcon: Images.email,
+                            labelText: getTranslated('email', context),
+                            hintText: getTranslated(
+                                'enter_contact_person_email', context),
+                            inputType: TextInputType.name,
+                            controller: _contactPersonEmailController,
+                            focusNode: _emailNode,
+                            nextFocus: _addressNode,
+                            inputAction: TextInputAction.next,
+                            capitalization: TextCapitalization.words,
+                          ),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeDefaultAddress),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.width / 2,
+                            width: MediaQuery.of(context).size.width,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.paddingSizeSmall),
+                                child:
+                                    Stack(clipBehavior: Clip.none, children: [
+                                  GoogleMap(
+                                      mapType: MapType.normal,
+                                      initialCameraPosition: CameraPosition(
+                                          target: widget.isEnableUpdate
+                                              ? LatLng(
+                                                  double.parse(widget
+                                                      .address!.latitude!),
+                                                  double.parse(widget
+                                                      .address!.longitude!))
+                                              : LatLng(
+                                                  locationController
+                                                      .position.latitude,
+                                                  locationController
+                                                      .position.longitude),
+                                          zoom: 15),
+                                      onTap: (latLng) {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        SelectLocationScreen(
+                                                            googleMapController:
+                                                                _controller)));
+                                      },
+                                      zoomControlsEnabled: false,
+                                      compassEnabled: false,
+                                      indoorViewEnabled: true,
+                                      mapToolbarEnabled: false,
+                                      onCameraIdle: () {
+                                        if (_updateAddress) {
+                                          locationController.updatePosition(
+                                              _cameraPosition,
+                                              true,
+                                              null,
+                                              context);
+                                        } else {
+                                          _updateAddress = true;
+                                        }
+                                      },
+                                      onCameraMove: ((position) =>
+                                          _cameraPosition = position),
+                                      onMapCreated:
+                                          (GoogleMapController controller) {
+                                        _controller = controller;
+                                        if (!widget.isEnableUpdate &&
+                                            _controller != null) {
+                                          locationController.getCurrentLocation(
+                                              context, true,
+                                              mapController: _controller);
+                                        }
+                                      }),
+                                  locationController.loading
+                                      ? Center(
+                                          child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Theme.of(context)
+                                                          .primaryColor)))
+                                      : const SizedBox(),
+                                  Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      alignment: Alignment.center,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      child: Icon(
+                                        Icons.location_on,
+                                        size: 40,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
+                                      )),
+                                  Positioned(
+                                      top: 10,
+                                      right: 0,
+                                      child: InkWell(
+                                          onTap: () => Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                                  builder: (BuildContext
+                                                          context) =>
+                                                      SelectLocationScreen(
+                                                          googleMapController:
+                                                              _controller))),
+                                          child: Container(
+                                              width: 30,
+                                              height: 30,
+                                              margin: const EdgeInsets.only(
+                                                  right: Dimensions
+                                                      .paddingSizeLarge),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        Dimensions
+                                                            .paddingSizeSmall),
+                                                color: Colors.white,
+                                              ),
+                                              child: Icon(Icons.fullscreen,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .tertiary,
+                                                  size: 20))))
+                                ]))),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: Dimensions.paddingSizeSmall),
+                          child: Text(
+                            getTranslated('label_us', context)!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displaySmall!
+                                .copyWith(
+                                    color: ColorResources.getHint(context),
+                                    fontSize: Dimensions.fontSizeLarge),
+                          ),
+                        ),
+                        SizedBox(
+                            height: 50,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount:
+                                    addressController.addressTypeList.length,
+                                itemBuilder: (context, index) => InkWell(
+                                    onTap: () => addressController
+                                        .updateAddressIndex(index, true),
+                                    child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical:
+                                                Dimensions.paddingSizeDefault,
+                                            horizontal:
+                                                Dimensions.paddingSizeLarge),
+                                        margin:
+                                            const EdgeInsets.only(right: 17),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.paddingSizeSmall),
+                                            border: Border.all(
+                                                color: addressController
+                                                            .selectAddressIndex ==
+                                                        index
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .tertiary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .tertiary
+                                                        .withOpacity(.125))),
+                                        child:
+                                            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                                          SizedBox(
+                                              width: 20,
+                                              child: Image.asset(
+                                                  addressController
+                                                      .addressTypeList[index]
+                                                      .icon,
+                                                  color: addressController
+                                                              .selectAddressIndex ==
+                                                          index
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .tertiary
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .tertiary
+                                                          .withOpacity(.35))),
+                                          const SizedBox(
+                                            width: Dimensions.paddingSizeSmall,
+                                          ),
+                                          Text(
+                                              getTranslated(
+                                                  addressController
+                                                      .addressTypeList[index]
+                                                      .title,
+                                                  context)!,
+                                              style: textRegular.copyWith())
+                                        ]))))),
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: Dimensions.paddingSizeSmall),
+                            child: SizedBox(
+                                height: 50,
+                                child: Row(children: <Widget>[
+                                  Row(children: [
+                                    Radio<Address>(
+                                        activeColor: Colors.amber,
+                                        value: Address.shipping,
+                                        groupValue: _address,
+                                        onChanged: (Address? value) {
+                                          setState(() {
+                                            _address = value;
+                                          });
+                                        }),
+                                    Text(getTranslated(
+                                        'shipping_address', context)!),
+                                  ]),
+                                  Row(children: [
+                                    Radio<Address>(
+                                        activeColor: Colors.amber,
+                                        value: Address.billing,
+                                        groupValue: _address,
+                                        onChanged: (Address? value) {
+                                          setState(() {
+                                            _address = value;
+                                          });
+                                        }),
+                                    Text(getTranslated(
+                                        'billing_address', context)!)
+                                  ])
+                                ]))),
+                        CustomTextField(
+                          labelText: getTranslated('delivery_address', context),
+                          hintText: getTranslated('usa', context),
+                          inputType: TextInputType.streetAddress,
+                          inputAction: TextInputAction.next,
+                          focusNode: _addressNode,
+                          prefixIcon: Images.address,
+                          nextFocus: _cityNode,
+                          controller: locationController.locationController,
+                        ),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeDefaultAddress),
+                        SizedBox(
+                            height: 50,
+                            child: Consumer<AddressController>(
+                                builder: (context, addressController, _) {
+                              return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Provider.of<SplashProvider>(context, listen: false)
+                                                .configModel!
+                                                .deliveryCountryRestriction ==
+                                            1
+                                        ? DropdownSearch<String>(
+                                            popupProps: const PopupProps.menu(
+                                                showSelectedItems: true),
+                                            items: addressController
+                                                .restrictedCountryList,
+                                            dropdownDecoratorProps:
+                                                DropDownDecoratorProps(
+                                                    dropdownSearchDecoration:
+                                                        InputDecoration(
+                                                            prefixIconConstraints: const BoxConstraints(
+                                                                minHeight: 40,
+                                                                maxWidth: 40),
+                                                            prefixIcon: Padding(
+                                                              padding: const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      Dimensions
+                                                                          .paddingSizeSmall),
+                                                              child: SizedBox(
+                                                                  width: 20,
+                                                                  height: 20,
+                                                                  child: Image
+                                                                      .asset(
+                                                                    Images
+                                                                        .country,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .tertiary
+                                                                        .withOpacity(
+                                                                            .6),
+                                                                  )),
+                                                            ),
+                                                            contentPadding: const EdgeInsets.symmetric(
+                                                                horizontal: Dimensions
+                                                                    .paddingSizeDefault),
+                                                            labelText:
+                                                                "Choose Country",
+                                                            alignLabelWithHint:
+                                                                true,
+                                                            border:
+                                                                OutlineInputBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8),
+                                                                    borderSide:
+                                                                        BorderSide(
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .colorScheme
+                                                                          .tertiary,
+                                                                      width:
+                                                                          0.5,
+                                                                    )),
+                                                            focusedBorder: OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius.circular(
+                                                                        8),
+                                                                borderSide: BorderSide(
+                                                                    color: Theme.of(context).hintColor,
+                                                                    width: 0.5)),
+                                                            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).hintColor, width: 0.5)))),
+                                            onChanged: (value) {
+                                              _countryCodeController.text =
+                                                  value!;
+                                            })
+                                        : Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeSmall),
+                                            decoration: BoxDecoration(border: Border.all(color: Theme.of(context).hintColor.withOpacity(.25)), borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall)),
+                                            child: Row(children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: Dimensions
+                                                            .paddingSizeSmall),
+                                                child: SizedBox(
+                                                    width: 20,
+                                                    height: 20,
+                                                    child: Image.asset(
+                                                      Images.country,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .tertiary
+                                                          .withOpacity(.6),
+                                                    )),
+                                              ),
+                                              Expanded(
+                                                child: CountryPickerDropdown(
+                                                  initialValue: country,
+                                                  itemBuilder:
+                                                      _buildDropdownItemForCountry,
+                                                  onValuePicked:
+                                                      (Country? country) {
+                                                    _countryCodeController
+                                                            .text =
+                                                        country!.name ?? '';
+                                                  },
+                                                ),
+                                              )
+                                            ]))
+                                  ]);
+                            })),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeDefaultAddress),
+                        CustomTextField(
                             labelText: getTranslated('city', context),
                             hintText: getTranslated('city', context),
                             inputType: TextInputType.streetAddress,
@@ -333,104 +580,196 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             nextFocus: _zipNode,
                             prefixIcon: Images.city,
                             controller: _cityController),
-                        const SizedBox(height: Dimensions.paddingSizeDefaultAddress),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeDefaultAddress),
+                        Provider.of<SplashProvider>(context, listen: false)
+                                    .configModel!
+                                    .deliveryZipCodeAreaRestriction ==
+                                0
+                            ? CustomTextField(
+                                labelText: getTranslated('zip', context),
+                                hintText: getTranslated('zip', context),
+                                inputAction: TextInputAction.done,
+                                focusNode: _zipNode,
+                                prefixIcon: Images.city,
+                                controller: _zipCodeController)
+                            : SizedBox(
+                                height: 50,
+                                child: DropdownSearch<RestrictedZipModel>(
+                                    items: addressController.restrictedZipList,
+                                    itemAsString: (RestrictedZipModel u) =>
+                                        u.zipcode!,
+                                    onChanged: (value) {
+                                      _zipCodeController.text = value!.zipcode!;
+                                    },
+                                    dropdownDecoratorProps:
+                                        DropDownDecoratorProps(
+                                            dropdownSearchDecoration:
+                                                InputDecoration(
+                                                    labelText: "zip",
+                                                    contentPadding: const EdgeInsets.symmetric(
+                                                        horizontal: Dimensions
+                                                            .paddingSizeDefault),
+                                                    prefixIconConstraints:
+                                                        const BoxConstraints(
+                                                            minHeight: 40,
+                                                            maxWidth: 40),
+                                                    prefixIcon: Padding(
+                                                        padding: const EdgeInsets.symmetric(
+                                                            horizontal: Dimensions
+                                                                .paddingSizeSmall),
+                                                        child: SizedBox(
+                                                            width: 20,
+                                                            height: 20,
+                                                            child: Image.asset(
+                                                                Images.city))),
+                                                    alignLabelWithHint: true,
+                                                    border: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .hintColor,
+                                                          width: 0.5,
+                                                        )),
+                                                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).hintColor, width: 0.5)),
+                                                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: Theme.of(context).hintColor, width: 0.5)))))),
+                        const SizedBox(
+                            height: Dimensions.paddingSizeDefaultAddress),
+                        Container(
+                          height: 50.0,
+                          margin:
+                              const EdgeInsets.all(Dimensions.paddingSizeSmall),
+                          child: !addressController.isLoading
+                              ? CustomButton(
+                                  buttonText: widget.isEnableUpdate
+                                      ? getTranslated('update_address', context)
+                                      : getTranslated('save_location', context),
+                                  onTap: locationController.loading
+                                      ? null
+                                      : () {
+                                          AddressModel addressModel = AddressModel(
+                                              addressType: addressController
+                                                  .addressTypeList[addressController
+                                                      .selectAddressIndex]
+                                                  .title,
+                                              contactPersonName:
+                                                  _contactPersonNameController
+                                                      .text,
+                                              phone:
+                                                  '${Provider.of<AuthController>(context, listen: false).countryDialCode}${_contactPersonNumberController.text.trim()}',
+                                              email: _contactPersonEmailController.text
+                                                  .trim(),
+                                              city: _cityController.text,
+                                              zip: _zipCodeController.text,
+                                              country:
+                                                  _countryCodeController.text,
+                                              guestId: Provider.of<AuthController>(context, listen: false)
+                                                  .getGuestToken(),
+                                              isBilling:
+                                                  _address == Address.billing,
+                                              address: locationController
+                                                  .locationController.text,
+                                              latitude: widget.isEnableUpdate
+                                                  ? locationController.position.latitude
+                                                      .toString()
+                                                  : locationController
+                                                      .position.latitude
+                                                      .toString(),
+                                              longitude: widget.isEnableUpdate ? locationController.position.longitude.toString() : locationController.position.longitude.toString());
 
-
-                        Provider.of<SplashProvider>(context, listen: false).configModel!.deliveryZipCodeAreaRestriction == 0?
-                        CustomTextField(labelText: getTranslated('zip', context),
-                            hintText: getTranslated('zip', context),
-                            inputAction: TextInputAction.done,
-                            focusNode: _zipNode,
-                            prefixIcon: Images.city,
-                            controller: _zipCodeController):
-
-                          SizedBox(height: 50,
-                            child: DropdownSearch<RestrictedZipModel>(
-                              items: addressController.restrictedZipList,
-                              itemAsString: (RestrictedZipModel u) => u.zipcode!,
-                              onChanged: (value){
-                                _zipCodeController.text = value!.zipcode!;
-                              },
-                              dropdownDecoratorProps:  DropDownDecoratorProps(
-                                dropdownSearchDecoration: InputDecoration(labelText: "zip",
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-                                  prefixIconConstraints: const BoxConstraints(minHeight: 40, maxWidth: 40),
-                                  prefixIcon: Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
-                                    child: SizedBox(width: 20,height: 20,child: Image.asset(Images.city))),
-                                  alignLabelWithHint: true,
-                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8),
-                                      borderSide: BorderSide(color: Theme.of(context).hintColor, width: 0.5,)),
-                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8),
-                                      borderSide: BorderSide(color: Theme.of(context).hintColor, width: 0.5)),
-
-                                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8),
-                                      borderSide: BorderSide(color: Theme.of(context).hintColor, width:0.5)))))),
-                        const SizedBox(height: Dimensions.paddingSizeDefaultAddress),
-
-
-
-
-                        Container(height: 50.0,
-                            margin: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                            child: !addressController.isLoading ? CustomButton(
-                              buttonText: widget.isEnableUpdate ? getTranslated('update_address', context) : getTranslated('save_location', context),
-                              onTap: locationController.loading ? null : () {
-
-                                AddressModel addressModel = AddressModel(
-                                addressType: addressController.addressTypeList[addressController.selectAddressIndex].title,
-                                contactPersonName: _contactPersonNameController.text,
-                                phone: '${Provider.of<AuthController>(context, listen: false).countryDialCode}${_contactPersonNumberController.text.trim()}',
-                                email: _contactPersonEmailController.text.trim(),
-                                city: _cityController.text,
-                                zip: _zipCodeController.text,
-                                country:  _countryCodeController.text,
-                                guestId: Provider.of<AuthController>(context, listen: false).getGuestToken(),
-                                isBilling: _address == Address.billing,
-                                address: locationController.locationController.text,
-                                latitude: widget.isEnableUpdate ? locationController.position.latitude.toString() : locationController.position.latitude.toString(),
-                                longitude: widget.isEnableUpdate ? locationController.position.longitude.toString() : locationController.position.longitude.toString());
-
-
-                              if (widget.isEnableUpdate) {
-                                addressModel.id = widget.address!.id;
-                                addressController.updateAddress(context, addressModel: addressModel, addressId: addressModel.id).then((value) {});
-                              }else if(_contactPersonNameController.text.trim().isEmpty){
-                                showCustomSnackBar('${getTranslated('contact_person_name_is_required', context)}', context);
-                              }else if(_contactPersonNumberController.text.trim().isEmpty){
-                                showCustomSnackBar('${getTranslated('contact_person_phone_is_required', context)}', context);
-                              }else if(locationController.locationController.text.trim().isEmpty){
-                                showCustomSnackBar('${getTranslated('address_is_required', context)}', context);
-                              }else if(_cityController.text.trim().isEmpty){
-                                showCustomSnackBar('${getTranslated('city_is_required', context)}', context);
-                              }else if(_zipCodeController.text.trim().isEmpty){
-                                showCustomSnackBar('${getTranslated('zip_code_is_required', context)}', context);
-                              }else if(_contactPersonEmailController.text.trim().isEmpty && !Provider.of<AuthController>(context, listen: false).isLoggedIn()){
-                                showCustomSnackBar('${getTranslated('email_is_required', context)}', context);
-                              }
-                              else {
-                                addressController.addAddress(addressModel, context).then((value) {
-                                  if (value.isSuccess) {
-                                    addressController.initAddressList();
-                                    Navigator.pop(context);
-                                    if (widget.fromCheckout) {
-                                      addressController.initAddressList();
-                                      Provider.of<CheckOutProvider>(context, listen: false).setAddressIndex(-1);
-                                    } else {
-                                      showCustomSnackBar(value.message, context, isError: false);
-                                    }
-                                  } else {
-                                    showCustomSnackBar(value.message, context);
-                                  }
-                                });
-                              }
-                              },
-                            ) : Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor))),
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                );
+                                          if (widget.isEnableUpdate) {
+                                            addressModel.id =
+                                                widget.address!.id;
+                                            addressController
+                                                .updateAddress(context,
+                                                    addressModel: addressModel,
+                                                    addressId: addressModel.id)
+                                                .then((value) {});
+                                          } else if (_contactPersonNameController
+                                              .text
+                                              .trim()
+                                              .isEmpty) {
+                                            showCustomSnackBar(
+                                                '${getTranslated('contact_person_name_is_required', context)}',
+                                                context);
+                                          } else if (_contactPersonNumberController
+                                              .text
+                                              .trim()
+                                              .isEmpty) {
+                                            showCustomSnackBar(
+                                                '${getTranslated('contact_person_phone_is_required', context)}',
+                                                context);
+                                          } else if (locationController
+                                              .locationController.text
+                                              .trim()
+                                              .isEmpty) {
+                                            showCustomSnackBar(
+                                                '${getTranslated('address_is_required', context)}',
+                                                context);
+                                          } else if (_cityController.text
+                                              .trim()
+                                              .isEmpty) {
+                                            showCustomSnackBar(
+                                                '${getTranslated('city_is_required', context)}',
+                                                context);
+                                          } else if (_zipCodeController.text
+                                              .trim()
+                                              .isEmpty) {
+                                            showCustomSnackBar(
+                                                '${getTranslated('zip_code_is_required', context)}',
+                                                context);
+                                          } else if (_contactPersonEmailController
+                                                  .text
+                                                  .trim()
+                                                  .isEmpty &&
+                                              !Provider.of<AuthController>(
+                                                      context,
+                                                      listen: false)
+                                                  .isLoggedIn()) {
+                                            showCustomSnackBar(
+                                                '${getTranslated('email_is_required', context)}',
+                                                context);
+                                          } else {
+                                            addressController
+                                                .addAddress(
+                                                    addressModel, context)
+                                                .then((value) {
+                                              if (value.isSuccess) {
+                                                addressController
+                                                    .initAddressList();
+                                                Navigator.pop(context);
+                                                if (widget.fromCheckout) {
+                                                  addressController
+                                                      .initAddressList();
+                                                  Provider.of<CheckOutProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .setAddressIndex(-1);
+                                                } else {
+                                                  showCustomSnackBar(
+                                                      value.message, context,
+                                                      isError: false);
+                                                }
+                                              } else {
+                                                showCustomSnackBar(
+                                                    value.message, context);
+                                              }
+                                            });
+                                          }
+                                        },
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Theme.of(context)
+                                              .colorScheme
+                                              .tertiary))),
+                        )
+                      ],
+                    ),
+                  );
+                });
               },
             ),
           ],
@@ -438,33 +777,47 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
       ),
     );
   }
+
   void _checkPermission(Function callback, BuildContext context) async {
     LocationPermission permission = await Geolocator.requestPermission();
-    if(permission == LocationPermission.denied || permission == LocationPermission.whileInUse) {
-      InkWell(onTap: () async{
-        Navigator.pop(context);
-        await Geolocator.requestPermission();
-        _checkPermission(callback,  Get.context!);
-        },
-          child: AlertDialog(content: SuccessDialog(icon: Icons.location_on_outlined, title: '',
-              description: getTranslated('you_denied', Get.context!))));
-    }else if(permission == LocationPermission.deniedForever) {
-      InkWell(onTap: () async{
-        if(context.mounted){}
-        Navigator.pop(context);
-        await Geolocator.openAppSettings();
-        _checkPermission(callback, Get.context!);
-        },
-          child: AlertDialog(content: SuccessDialog(icon: Icons.location_on_outlined, title: '',
-              description: getTranslated('you_denied', Get.context!))));
-    }else {
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.whileInUse) {
+      InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+            await Geolocator.requestPermission();
+            _checkPermission(callback, Get.context!);
+          },
+          child: AlertDialog(
+              content: SuccessDialog(
+                  icon: Icons.location_on_outlined,
+                  title: '',
+                  description: getTranslated('you_denied', Get.context!))));
+    } else if (permission == LocationPermission.deniedForever) {
+      InkWell(
+          onTap: () async {
+            if (context.mounted) {}
+            Navigator.pop(context);
+            await Geolocator.openAppSettings();
+            _checkPermission(callback, Get.context!);
+          },
+          child: AlertDialog(
+              content: SuccessDialog(
+                  icon: Icons.location_on_outlined,
+                  title: '',
+                  description: getTranslated('you_denied', Get.context!))));
+    } else {
       callback();
     }
   }
 }
 
-enum Address {shipping, billing }
+enum Address { shipping, billing }
 
 Widget _buildDropdownItemForCountry(Country country) => SizedBox(
-    width: MediaQuery.of(Get.context!).size.width-116,
-    child: Text("${country.name}"));
+      width: MediaQuery.of(Get.context!).size.width - 116,
+      child: Text(
+        "${country.name}",
+        style: const TextStyle(color: Colors.amber),
+      ),
+    );

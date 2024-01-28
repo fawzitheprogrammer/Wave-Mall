@@ -191,6 +191,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
         builder: (context, authProvider,_) {
           return Consumer<CheckOutProvider>(
             builder: (context, orderProvider,_) {
+              orderProvider.setOfflineChecked('cod');
               return Column(children: [
 
 

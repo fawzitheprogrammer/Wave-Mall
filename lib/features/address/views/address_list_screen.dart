@@ -21,7 +21,6 @@ class AddressListScreen extends StatefulWidget {
 }
 
 class _AddressListScreenState extends State<AddressListScreen> {
-
   @override
   void initState() {
     Provider.of<AddressController>(context, listen: false).initAddressList();
@@ -33,59 +32,131 @@ class _AddressListScreenState extends State<AddressListScreen> {
     return Scaffold(
       appBar: CustomAppBar(title: getTranslated('addresses', context)),
       floatingActionButton: FloatingActionButton(
-        shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const AddNewAddressScreen(isBilling: false))),
-        backgroundColor: ColorResources.getPrimary(context),
-        child: Icon(Icons.add, color: Theme.of(context).highlightColor)),
-
-
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => const AddNewAddressScreen(isBilling: false))),
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        child: Icon(
+          Icons.add,
+          color: Theme.of(context).colorScheme.tertiary,
+        ),
+      ),
       body: Consumer<AddressController>(
         builder: (context, locationProvider, child) {
-          return  !locationProvider.isLoading? locationProvider.shippingAddressList.isNotEmpty ?
-          RefreshIndicator(
-            onRefresh: () async {
-              await locationProvider.initAddressList();
-            },
-            backgroundColor: Theme.of(context).primaryColor,
-            child: ListView.builder(padding: const EdgeInsets.all(0),
-              itemCount: locationProvider.shippingAddressList.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Card(child: Stack(children: [
-                      Padding(padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: ListTile(
-                          title: Text('${getTranslated('address', context)} : ${locationProvider.shippingAddressList[index].address}'),
-                          subtitle: Row(children: [
-                              Expanded(child: Text('${getTranslated('city', context)} : ${locationProvider.shippingAddressList[index].city ?? ""}')),
-                              const SizedBox(width: Dimensions.paddingSizeDefault),
-                              Expanded(child: Text('${getTranslated('zip', context)} : ${locationProvider.shippingAddressList[index].zip ?? ""}')),]),
-                          trailing: InkWell(onTap: (){
-                            showModalBottomSheet(backgroundColor: Colors.transparent, context: context, builder: (_)=>  RemoveFromAddressBottomSheet(
-                              addressId: locationProvider.shippingAddressList[index].id!, index: index,));
-                            },
-                              child: const Padding(padding: EdgeInsets.only(top: Dimensions.paddingSizeDefault),
-                                child: Icon(Icons.delete_forever, color: Colors.red))),
+          return !locationProvider.isLoading
+              ? locationProvider.shippingAddressList.isNotEmpty
+                  ? RefreshIndicator(
+                      onRefresh: () async {
+                        await locationProvider.initAddressList();
+                      },
+                      backgroundColor: Theme.of(context).colorScheme.tertiary,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(0),
+                        itemCount: locationProvider.shippingAddressList.length,
+                        itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Card(
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: ListTile(
+                                    title: Text(
+                                        '${getTranslated('address', context)} : ${locationProvider.shippingAddressList[index].address}'),
+                                    subtitle: Row(children: [
+                                      Expanded(
+                                          child: Text(
+                                              '${getTranslated('city', context)} : ${locationProvider.shippingAddressList[index].city ?? ""}')),
+                                      const SizedBox(
+                                          width: Dimensions.paddingSizeDefault),
+                                      Expanded(
+                                          child: Text(
+                                              '${getTranslated('zip', context)} : ${locationProvider.shippingAddressList[index].zip ?? ""}')),
+                                    ]),
+                                    trailing: InkWell(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (_) =>
+                                                  RemoveFromAddressBottomSheet(
+                                                    addressId: locationProvider
+                                                        .shippingAddressList[
+                                                            index]
+                                                        .id!,
+                                                    index: index,
+                                                  ));
+                                        },
+                                        child: const Padding(
+                                            padding: EdgeInsets.only(
+                                                top: Dimensions
+                                                    .paddingSizeDefault),
+                                            child: Icon(Icons.delete_forever,
+                                                color: Colors.red))),
+                                  ),
+                                ),
+                                Positioned(
+                                  child: Align(
+                                    alignment:
+                                        Provider.of<LocalizationProvider>(
+                                                    context)
+                                                .isLtr
+                                            ? Alignment.topRight
+                                            : Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: Provider.of<
+                                                          LocalizationProvider>(
+                                                      context)
+                                                  .isLtr
+                                              ? const BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(5),
+                                                  topLeft: Radius.circular(5))
+                                              : const BorderRadius.only(
+                                                  bottomRight:
+                                                      Radius.circular(5),
+                                                  topRight: Radius.circular(5)),
+                                          color:
+                                              Theme.of(context).colorScheme.tertiary),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(7.0),
+                                        child: Text(
+                                          !locationProvider
+                                                  .shippingAddressList[index]
+                                                  .isBilling!
+                                              ? getTranslated(
+                                                  'shipping', context)!
+                                              : getTranslated(
+                                                  'billing', context)!,
+                                          style: textRegular.copyWith(
+                                              fontSize:
+                                                  Dimensions.fontSizeSmall,
+                                              color: Provider.of<ThemeProvider>(
+                                                          context)
+                                                      .darkTheme
+                                                  ? Colors.white
+                                                  : Theme.of(context)
+                                                      .cardColor),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                      Positioned(child: Align(alignment: Provider.of<LocalizationProvider>(context).isLtr? Alignment.topRight: Alignment.topLeft,
-                          child: Container(decoration: BoxDecoration(borderRadius: Provider.of<LocalizationProvider>(context).isLtr?
-                          const BorderRadius.only(bottomLeft: Radius.circular(5),topLeft: Radius.circular(5)):
-                          const BorderRadius.only(bottomRight: Radius.circular(5),topRight: Radius.circular(5)),
-                            color: Theme.of(context).primaryColor),
-                            child: Padding(padding: const EdgeInsets.all(7.0),
-                              child: Text(!locationProvider.shippingAddressList[index].isBilling!?
-                          getTranslated('shipping', context)!:getTranslated('billing', context)!,
-                                style: textRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Provider.of<ThemeProvider>(context).darkTheme?Colors.white : Theme.of(context).cardColor),),),),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ) : const NoInternetOrDataScreen(isNoInternet: false,
-            message: 'no_address_found',
-            icon: Images.noAddress,): const InboxShimmer();
+                    )
+                  : const NoInternetOrDataScreen(
+                      isNoInternet: false,
+                      message: 'no_address_found',
+                      icon: Images.noAddress,
+                    )
+              : const InboxShimmer();
         },
       ),
     );

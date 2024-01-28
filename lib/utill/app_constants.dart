@@ -5,7 +5,7 @@ class AppConstants {
   static const String appName = 'Wave Mall';
   static const String slogan = 'Online shopping made easier than ever';
   static const String appVersion = '14.3';
-  static const String baseUrl = 'https://wavemall-swifttech.com/';
+  static const String baseUrl = 'https://wavemall-swifttech.com';
   static const String userId = 'userId';
   static const String name = 'name';
   static const String categoriesUri = '/api/v1/categories?guest_id=1';

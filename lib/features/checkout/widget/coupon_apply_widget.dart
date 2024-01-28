@@ -53,7 +53,7 @@ class CouponApplyWidget extends StatelessWidget {
               child: Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                   Text('${getTranslated('add_coupon', context)}', style: textRegular,),
-                  Text('${getTranslated('add_more', context)}', style: textMedium.copyWith(color: Theme.of(context).primaryColor),),
+                  Text('${getTranslated('add_more', context)}', style: textMedium.copyWith(color:  Theme.of(context).colorScheme.tertiary),),
 
                 ],),
               ),

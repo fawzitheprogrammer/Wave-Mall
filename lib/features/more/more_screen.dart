@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sixvalley_ecommerce/features/cart/views/cart_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/features/loyaltyPoint/provider/loyalty_point_provider.dart';
+import 'package:flutter_sixvalley_ecommerce/features/offer/offers_screen.dart';
+import 'package:flutter_sixvalley_ecommerce/features/order/view/order_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
 import 'package:flutter_sixvalley_ecommerce/features/cart/controllers/cart_controller.dart';
 import 'package:flutter_sixvalley_ecommerce/features/notification/provider/notification_provider.dart';
@@ -93,10 +96,12 @@ class _MoreScreenState extends State<MoreScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: Dimensions.paddingSizeSmall),
-                        child: Center(child: MoreHorizontalSection())),
-
+                      padding: EdgeInsets.symmetric(
+                          vertical: Dimensions.paddingSizeSmall),
+                      child: Center(
+                        child: MoreHorizontalSection(),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(
                           Dimensions.paddingSizeDefault,
@@ -110,7 +115,6 @@ class _MoreScreenState extends State<MoreScreen> {
                             color: Theme.of(context).colorScheme.onPrimary),
                       ),
                     ),
-
                     Padding(
                       padding:
                           const EdgeInsets.all(Dimensions.paddingSizeDefault),
@@ -134,10 +138,26 @@ class _MoreScreenState extends State<MoreScreen> {
                                 : Theme.of(context).cardColor),
                         child: Column(
                           children: [
+                            // TitleButton(
+                            //   image: Images.offerIcon,
+                            //   title: getTranslated('offers', context),
+                            //   navigateTo: const OffersScreen(),
+                            // ),
+                            // TitleButton(
+                            //   image: Images.myOrder,
+                            //   title: getTranslated('orders', context),
+                            //   navigateTo: const OrderScreen(),
+                            // ),
+                            // TitleButton(
+                            //   image: Images.cartImage,
+                            //   title: getTranslated('cart', context),
+                            //   navigateTo: const CartScreen(),
+                            // ),
                             TitleButton(
-                                image: Images.trackOrderIcon,
-                                title: getTranslated('TRACK_ORDER', context),
-                                navigateTo: const GuestTrackOrderScreen()),
+                              image: Images.trackOrderIcon,
+                              title: getTranslated('TRACK_ORDER', context),
+                              navigateTo: const GuestTrackOrderScreen(),
+                            ),
                             if (Provider.of<AuthController>(context,
                                     listen: false)
                                 .isLoggedIn())
@@ -190,15 +210,21 @@ class _MoreScreenState extends State<MoreScreen> {
                                 title: getTranslated('settings', context),
                                 navigateTo: const SettingsScreen()),
                           ],
-                        ), 
+                        ),
                       ),
                     ),
-
-                    Padding(padding: const EdgeInsets.fromLTRB( Dimensions.paddingSizeDefault,  Dimensions.paddingSizeDefault,  Dimensions.paddingSizeDefault,0),
-                      child: Text(getTranslated('help_and_support', context)??'',style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraLarge,
-                          color: Theme.of(context).colorScheme.onPrimary)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                          Dimensions.paddingSizeDefault,
+                          Dimensions.paddingSizeDefault,
+                          Dimensions.paddingSizeDefault,
+                          0),
+                      child: Text(
+                          getTranslated('help_and_support', context) ?? '',
+                          style: textRegular.copyWith(
+                              fontSize: Dimensions.fontSizeExtraLarge,
+                              color: Theme.of(context).colorScheme.onPrimary)),
                     ),
-
                     Padding(
                       padding:
                           const EdgeInsets.all(Dimensions.paddingSizeDefault),
@@ -340,13 +366,12 @@ class _MoreScreenState extends State<MoreScreen> {
                         ),
                       ),
                     ),
-
                     ListTile(
                       leading: SizedBox(
                           width: 30,
                           child: Image.asset(
                             Images.logOut,
-                            color: Theme.of(context).errorColor,
+                            color: Theme.of(context).colorScheme.error,
                           )),
                       title: Text(
                           isGuestMode
@@ -368,7 +393,6 @@ class _MoreScreenState extends State<MoreScreen> {
                         }
                       },
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(
                           bottom: Dimensions.paddingSizeDefault),
@@ -540,7 +564,7 @@ class TitleButton extends StatelessWidget {
               builder: (context, notificationProvider, _) {
               return CircleAvatar(
                 radius: 12,
-                backgroundColor:  Theme.of(context).colorScheme.tertiary,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
                 child: Text(
                     notificationProvider.notificationModel?.newNotificationItem
                             .toString() ??
@@ -572,7 +596,7 @@ class TitleButton extends StatelessWidget {
         width: 25,
         height: 25,
         fit: BoxFit.fill,
-        color:  Theme.of(context).colorScheme.tertiary,
+        color: Theme.of(context).colorScheme.tertiary,
       ),
       title: Text(title!,
           style: titilliumRegular.copyWith(fontSize: Dimensions.fontSizeLarge)),

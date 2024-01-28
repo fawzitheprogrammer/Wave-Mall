@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
 
 import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
@@ -137,6 +138,7 @@ class ProductWidget extends StatelessWidget {
                           discountType: productModel.discountType,
                           discount: productModel.discount),
                       style: titilliumSemiBold.copyWith(
+                        fontSize: Dimensions.fontSizeExtraLarge,
                         color:  Theme.of(context).colorScheme.tertiary,
                       ),
                     ),

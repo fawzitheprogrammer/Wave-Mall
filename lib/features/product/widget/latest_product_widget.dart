@@ -88,7 +88,7 @@ class LatestProductWidget extends StatelessWidget {
 
                         Text(PriceConverter.convertPrice(context, productModel.unitPrice, discountType: productModel.discountType,
                             discount: productModel.discount),
-                          style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context), fontSize: Dimensions.fontSizeDefault, fontWeight: FontWeight.w700),),
+                          style: titilliumSemiBold.copyWith(color: Theme.of(context).colorScheme.tertiary, fontSize: Dimensions.fontSizeDefault, fontWeight: FontWeight.w700),),
                           ],
                         ),
                       ],

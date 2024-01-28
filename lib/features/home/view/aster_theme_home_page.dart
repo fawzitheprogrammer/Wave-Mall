@@ -715,13 +715,17 @@ class _AsterThemeHomePageState extends State<AsterThemeHomePage> {
                                       borderRadius: BorderRadius.circular(
                                           Dimensions.paddingSizeSmall)),
                                   child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal:
-                                              Dimensions.paddingSizeSmall,
-                                          vertical:
-                                              Dimensions.paddingSizeSmall),
-                                      child: Image.asset(Images.dropdown,
-                                          scale: 3)),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: Dimensions.paddingSizeSmall,
+                                        vertical: Dimensions.paddingSizeSmall),
+                                    child: Image.asset(
+                                      Images.dropdown,
+                                      scale: 3,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                    ),
+                                  ),
                                   onSelected: (dynamic value) {
                                     if (value == ProductType.newArrival) {
                                       Provider.of<ProductProvider>(context,

@@ -6,7 +6,11 @@ import 'package:provider/provider.dart';
 
 class IconWithTextRow extends StatelessWidget {
   const IconWithTextRow({
-    super.key, required this.text, required this.icon, this.iconColor, this.textColor,
+    super.key,
+    required this.text,
+    required this.icon,
+    this.iconColor,
+    this.textColor,
   });
 
   final String text;
@@ -16,13 +20,22 @@ class IconWithTextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Icon(icon, color:  Provider.of<ThemeProvider>(context, listen: false).darkTheme? Colors.white : Theme.of(context).primaryColor.withOpacity(.30)),
-        const SizedBox(width: Dimensions.marginSizeSmall,),
-
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: Theme.of(context).colorScheme.tertiary),
+        const SizedBox(
+          width: Dimensions.marginSizeSmall,
+        ),
         Expanded(
-          child: Text(maxLines: 2, overflow : TextOverflow.ellipsis,
-              text, style: titilliumRegular.copyWith(fontSize: 15, color: textColor ?? Theme.of(context).textTheme.bodyLarge?.color)),
+          child: Text(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              text,
+              style: titilliumRegular.copyWith(
+                  fontSize: 15,
+                  color: textColor ??
+                      Theme.of(context).textTheme.bodyLarge?.color)),
         ),
       ],
     );

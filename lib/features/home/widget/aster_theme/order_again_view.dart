@@ -159,7 +159,9 @@ class OrderAgainCard extends StatelessWidget {
                         height: 36,
                         width: 100,
                         child: CustomButton(
-                            backgroundColor: ColorResources.getGreen(context),
+                            backgroundColor: ColorResources.getGreen(context)
+                                .withOpacity(0.2),
+                            textColor: ColorResources.getGreen(context),
                             buttonText: getTranslated('order_again', context)!,
                             onTap: () {
                               Provider.of<OrderProvider>(context, listen: false)
