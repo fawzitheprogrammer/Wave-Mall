@@ -9,12 +9,17 @@ import 'package:flutter_sixvalley_ecommerce/features/shop/widget/top_seller_view
 class AllTopSellerScreen extends StatelessWidget {
   final TopSellerModel? topSeller;
   final String title;
-  const AllTopSellerScreen({super.key, required this.topSeller, required this.title});
+  const AllTopSellerScreen(
+      {super.key, required this.topSeller, required this.title});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: ColorResources.getIconBg(context),
-      appBar: CustomAppBar(title: '${getTranslated(title, context)}',),
-      body: const Padding(padding: EdgeInsets.all(Dimensions.paddingSizeSmall),
+    return Scaffold(
+      backgroundColor: ColorResources.getHomeBg(context).withOpacity(0.8),
+      appBar: CustomAppBar(
+        title: '${getTranslated(title, context)}',
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(Dimensions.paddingSizeSmall),
         child: TopSellerView(isHomePage: false),
       ),
     );

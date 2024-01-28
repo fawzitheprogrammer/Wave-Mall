@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sixvalley_ecommerce/features/cart/views/cart_screen.dart';
+import 'package:flutter_sixvalley_ecommerce/features/wishlist/view/wishlist_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/helper/network_info.dart';
 import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
@@ -40,7 +41,7 @@ class DashBoardScreenState extends State<DashBoardScreen> {
     _screens = [
       NavigationModel(
           name: 'home',
-          icon:  'assets/home.png',
+          icon: 'assets/home.png',
           screen: (Provider.of<SplashProvider>(context, listen: false)
                       .configModel!
                       .activeTheme ==
@@ -58,11 +59,14 @@ class DashBoardScreenState extends State<DashBoardScreen> {
             icon: 'assets/conversation.png',
             screen: const InboxScreen(isBackButtonExist: false)),
       NavigationModel(
-          name: 'cart', icon: Images.cartImage, screen: const CartScreen()),
+        name: 'cart',
+        icon: Images.cartImage,
+        screen: const CartScreen(),
+      ),
       NavigationModel(
-          name: 'orders',
-          icon: Images.shoppingImage,
-          screen: const OrderScreen(isBacButtonExist: false)),
+          name: 'wishlist',
+          icon: Images.wishlist,
+          screen: const WishListScreen()),
       NavigationModel(
           name: 'more',
           icon: 'assets/more-information.png',

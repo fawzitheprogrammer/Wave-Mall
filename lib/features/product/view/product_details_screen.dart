@@ -150,9 +150,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     (details.productDetailsModel != null &&  details.productDetailsModel!.addedBy == 'seller') ?
                     SellerView(sellerId: details.productDetailsModel!.userId.toString()) : const SizedBox.shrink(),
 
-                    Container(padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault),
-                        decoration: BoxDecoration(color: Theme.of(context).cardColor),
-                        child: const PromiseScreen()),
+                    // Container(padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault),
+                    //     decoration: BoxDecoration(color: Theme.of(context).cardColor),
+                    //     child: const PromiseScreen()),
 
 
 

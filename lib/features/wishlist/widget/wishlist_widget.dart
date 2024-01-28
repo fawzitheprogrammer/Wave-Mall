@@ -39,7 +39,7 @@ class WishListWidget extends StatelessWidget {
                     children: [
                       Container(decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
-                        border: Border.all(width: .5, color: Theme.of(context).primaryColor.withOpacity(.25)),),
+                        border: Border.all(width: .5, color: Theme.of(context).colorScheme.tertiary.withOpacity(.25)),),
 
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
@@ -60,7 +60,7 @@ class WishListWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               borderRadius: const BorderRadius.only(bottomRight: Radius.circular(Dimensions.paddingSizeExtraSmall), topRight: Radius.circular(Dimensions.paddingSizeExtraSmall)),
-                              color: Theme.of(context).primaryColor),
+                              color: Theme.of(context).colorScheme.tertiary),
                           child: Text(wishlistModel?.productFullInfo!.unitPrice!=null && wishlistModel?.productFullInfo!.discount != null && wishlistModel?.productFullInfo!.discountType != null?
                           PriceConverter.percentageCalculation(context, wishlistModel?.productFullInfo!.unitPrice, wishlistModel!.productFullInfo!.discount, wishlistModel?.productFullInfo!.discountType) : '',
                             style: textRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Colors.white),
@@ -105,7 +105,7 @@ class WishListWidget extends StatelessWidget {
                           Text(PriceConverter.convertPrice(context, wishlistModel!.productFullInfo!.unitPrice,
                               discount: wishlistModel!.productFullInfo!.discount,discountType: wishlistModel!.productFullInfo!.discountType),
                             maxLines: 1,overflow: TextOverflow.ellipsis,
-                            style: titilliumRegular.copyWith(color: ColorResources.getPrimary(context),
+                            style: titilliumRegular.copyWith(color: Theme.of(context).colorScheme.tertiary,
                                 fontSize: Dimensions.fontSizeLarge, fontWeight: FontWeight.w700),)
                         ],),
 
@@ -124,12 +124,12 @@ class WishListWidget extends StatelessWidget {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   color: Theme.of(context).highlightColor,
-                                  border: Border.all(width: .5, color: Theme.of(context).primaryColor.withOpacity(.35)),
+                                  border: Border.all(width: .5, color: Theme.of(context).colorScheme.tertiary.withOpacity(.35)),
                                   boxShadow: Provider.of<ThemeProvider>(context, listen: false).darkTheme? null : [BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 75, offset: const Offset(0, 1),),],
                                   borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall)),
 
 
-                              child: Icon(Icons.shopping_cart_outlined, color: Theme.of(context).primaryColor, size: 25),
+                              child: Icon(Icons.shopping_cart_outlined, color: Theme.of(context).colorScheme.tertiary, size: 25),
                             ),
                           ),
                         ],

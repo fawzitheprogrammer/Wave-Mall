@@ -24,41 +24,58 @@ class _WishListScreenState extends State<WishListScreen> {
   @override
   void initState() {
     super.initState();
-    if(Provider.of<AuthController>(context, listen: false).isLoggedIn()){
+    if (Provider.of<AuthController>(context, listen: false).isLoggedIn()) {
       Provider.of<WishListProvider>(context, listen: false).getWishList();
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: CustomAppBar(title: getTranslated('wishList', context)),
+      appBar: CustomAppBar(
+        title: getTranslated(
+          'wishList',
+          context,
+        ),
+        isBackButtonExist: false,
+      ),
       resizeToAvoidBottomInset: true,
-      body: Column(children: [
-
-          Expanded(child: !Provider.of<AuthController>(context, listen: false).isLoggedIn() ? const NotLoggedInWidget() :
-          Consumer<WishListProvider>(
-              builder: (context, wishListProvider, child) {
-                return wishListProvider.wishList != null ? wishListProvider.wishList!.isNotEmpty ?
-                RefreshIndicator(
-                  onRefresh: () async => await  Provider.of<WishListProvider>(context, listen: false).getWishList(),
-
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(0),
-                    itemCount: wishListProvider.wishList!.length,
-                    itemBuilder: (context, index) {
-                      return WishListWidget(
-                        wishlistModel: wishListProvider.wishList![index],
-                        index: index,
-                      );
-                    }
+      body: Column(
+        children: [
+          Expanded(
+            child: !Provider.of<AuthController>(context, listen: false)
+                    .isLoggedIn()
+                ? const NotLoggedInWidget()
+                : Consumer<WishListProvider>(
+                    builder: (context, wishListProvider, child) {
+                      return wishListProvider.wishList != null
+                          ? wishListProvider.wishList!.isNotEmpty
+                              ? RefreshIndicator(
+                                  onRefresh: () async =>
+                                      await Provider.of<WishListProvider>(
+                                              context,
+                                              listen: false)
+                                          .getWishList(),
+                                  child: ListView.builder(
+                                      padding: const EdgeInsets.all(0),
+                                      itemCount:
+                                          wishListProvider.wishList!.length,
+                                      itemBuilder: (context, index) {
+                                        return WishListWidget(
+                                          wishlistModel:
+                                              wishListProvider.wishList![index],
+                                          index: index,
+                                        );
+                                      }),
+                                )
+                              : const NoInternetOrDataScreen(
+                                  isNoInternet: false,
+                                  message: 'no_wishlist_product',
+                                  icon: Images.noWishlist,
+                                )
+                          : const WishListShimmer();
+                    },
                   ),
-                ) : const NoInternetOrDataScreen(isNoInternet: false,message: 'no_wishlist_product',
-                  icon: Images.noWishlist,): const WishListShimmer();
-              },
-            ),
           ),
         ],
       ),
@@ -78,20 +95,30 @@ class WishListShimmer extends StatelessWidget {
         return Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
-          enabled: Provider.of<WishListProvider>(context).wishList==null,
+          enabled: Provider.of<WishListProvider>(context).wishList == null,
           child: ListTile(
-            leading: Container(height: 50, width: 50, color: ColorResources.white),
+            leading:
+                Container(height: 50, width: 50, color: ColorResources.white),
             title: Container(height: 20, color: ColorResources.white),
-            subtitle: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Container(height: 10, width: 70, color: ColorResources.white),
-              Container(height: 10, width: 20, color: ColorResources.white),
-              Container(height: 10, width: 50, color: ColorResources.white),
-            ]),
-            trailing: Column(crossAxisAlignment: CrossAxisAlignment.end, mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(height: 15, width: 15, decoration: const BoxDecoration(shape: BoxShape.circle, color: ColorResources.white)),
-              const SizedBox(height: 10),
-              Container(height: 10, width: 50, color: ColorResources.white),
-            ]),
+            subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(height: 10, width: 70, color: ColorResources.white),
+                  Container(height: 10, width: 20, color: ColorResources.white),
+                  Container(height: 10, width: 50, color: ColorResources.white),
+                ]),
+            trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                      height: 15,
+                      width: 15,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle, color: ColorResources.white)),
+                  const SizedBox(height: 10),
+                  Container(height: 10, width: 50, color: ColorResources.white),
+                ]),
           ),
         );
       },
