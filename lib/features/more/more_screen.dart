@@ -138,21 +138,21 @@ class _MoreScreenState extends State<MoreScreen> {
                                 : Theme.of(context).cardColor),
                         child: Column(
                           children: [
-                            // TitleButton(
-                            //   image: Images.offerIcon,
-                            //   title: getTranslated('offers', context),
-                            //   navigateTo: const OffersScreen(),
-                            // ),
-                            // TitleButton(
-                            //   image: Images.myOrder,
-                            //   title: getTranslated('orders', context),
-                            //   navigateTo: const OrderScreen(),
-                            // ),
-                            // TitleButton(
-                            //   image: Images.cartImage,
-                            //   title: getTranslated('cart', context),
-                            //   navigateTo: const CartScreen(),
-                            // ),
+                            TitleButton(
+                              image: Images.user,
+                              title: getTranslated('profile', context),
+                              navigateTo: const ProfileScreen(),
+                            ),
+                            TitleButton(
+                              image: Images.offerIcon,
+                              title: getTranslated('offers', context),
+                              navigateTo: const OffersScreen(),
+                            ),
+                            TitleButton(
+                              image: Images.myOrder,
+                              title: getTranslated('orders', context),
+                              navigateTo: const OrderScreen(),
+                            ),
                             TitleButton(
                               image: Images.trackOrderIcon,
                               title: getTranslated('TRACK_ORDER', context),
@@ -162,13 +162,9 @@ class _MoreScreenState extends State<MoreScreen> {
                                     listen: false)
                                 .isLoggedIn())
                               TitleButton(
-                                  image: Images.user,
-                                  title: getTranslated('profile', context),
-                                  navigateTo: const ProfileScreen()),
-                            TitleButton(
-                                image: Images.address,
-                                title: getTranslated('addresses', context),
-                                navigateTo: const AddressListScreen()),
+                                  image: Images.address,
+                                  title: getTranslated('addresses', context),
+                                  navigateTo: const AddressListScreen()),
                             TitleButton(
                                 image: Images.coupon,
                                 title: getTranslated('coupons', context),
@@ -192,19 +188,19 @@ class _MoreScreenState extends State<MoreScreen> {
                                 Provider.of<AuthController>(context,
                                         listen: false)
                                     .isLoggedIn())
+                              // TitleButton(
+                              //     image: Images.compare,
+                              //     title: getTranslated(
+                              //         'compare_products', context),
+                              //     navigateTo: const CompareProductScreen()),
                               TitleButton(
-                                  image: Images.compare,
+                                  image: Images.notification,
                                   title: getTranslated(
-                                      'compare_products', context),
-                                  navigateTo: const CompareProductScreen()),
-                            TitleButton(
-                                image: Images.notification,
-                                title: getTranslated(
-                                  'notification',
-                                  context,
-                                ),
-                                isNotification: true,
-                                navigateTo: const NotificationScreen()),
+                                    'notification',
+                                    context,
+                                  ),
+                                  isNotification: true,
+                                  navigateTo: const NotificationScreen()),
                             TitleButton(
                                 image: Images.settings,
                                 title: getTranslated('settings', context),
