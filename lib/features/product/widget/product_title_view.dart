@@ -271,26 +271,29 @@ class ProductTitleView extends StatelessWidget {
                                                         right: Dimensions
                                                             .paddingSizeDefault),
                                                     child: Text(
-                                                        productModel!
-                                                            .choiceOptions![
-                                                                index]
-                                                            .options![i]
-                                                            .trim(),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: textRegular.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeLarge,
-                                                            color: Provider.of<ThemeProvider>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .darkTheme
-                                                                ? Colors.white
-                                                                : Theme.of(
-                                                                        context)
-                                                                    .primaryColor)),
+                                                      productModel!
+                                                          .choiceOptions![index]
+                                                          .options![i]
+                                                          .trim(),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style:
+                                                          textRegular.copyWith(
+                                                        fontSize: Dimensions
+                                                            .fontSizeLarge,
+                                                        color: Provider.of<
+                                                                        ThemeProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .darkTheme
+                                                            ? Colors.white
+                                                            : Theme.of(context)
+                                                                .colorScheme
+                                                                .tertiary,
+                                                      ),
+                                                    ),
                                                   ),
                                                 );
                                               },

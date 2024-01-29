@@ -3,6 +3,7 @@ import 'package:flutter_sixvalley_ecommerce/features/cart/views/cart_screen.dart
 import 'package:flutter_sixvalley_ecommerce/features/loyaltyPoint/provider/loyalty_point_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/features/offer/offers_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/features/order/view/order_screen.dart';
+import 'package:flutter_sixvalley_ecommerce/features/wishlist/view/wishlist_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
 import 'package:flutter_sixvalley_ecommerce/features/cart/controllers/cart_controller.dart';
 import 'package:flutter_sixvalley_ecommerce/features/notification/provider/notification_provider.dart';
@@ -152,6 +153,11 @@ class _MoreScreenState extends State<MoreScreen> {
                               image: Images.myOrder,
                               title: getTranslated('orders', context),
                               navigateTo: const OrderScreen(),
+                            ),
+                            TitleButton(
+                              image: Images.wishlist,
+                              title: getTranslated('wishlist', context),
+                              navigateTo: const WishListScreen(),
                             ),
                             TitleButton(
                               image: Images.trackOrderIcon,

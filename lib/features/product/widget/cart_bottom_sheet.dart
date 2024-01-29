@@ -269,7 +269,7 @@ class CartBottomSheetState extends State<CartBottomSheet> {
                                                   overflow: TextOverflow.ellipsis, style: titilliumRegular.copyWith(
                                                 fontSize: Dimensions.fontSizeDefault,
                                                 color: (details.variationIndex![index] != i && !Provider.of<ThemeProvider>(context, listen: false).darkTheme) ?
-                                                Theme.of(context).primaryColor :  Colors.white,
+                                                Theme.of(context).disabledColor :  Theme.of(context).colorScheme.tertiary,
                                               )),
                                             ),
                                           ),

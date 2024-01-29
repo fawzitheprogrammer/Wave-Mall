@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sixvalley_ecommerce/basewidget/not_loggedin_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/features/profile/domain/model/user_info_model.dart';
 import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
 import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
 import 'package:flutter_sixvalley_ecommerce/features/profile/provider/profile_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
+import 'package:flutter_sixvalley_ecommerce/main.dart';
 import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
@@ -33,6 +35,8 @@ class ProfileScreenState extends State<ProfileScreen> {
   final FocusNode _addressFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
   final FocusNode _confirmPasswordFocus = FocusNode();
+  bool isGuestMode =
+      !Provider.of<AuthController>(Get.context!, listen: false).isLoggedIn();
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -140,259 +144,289 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: Consumer<ProfileProvider>(
-        builder: (context, profile, child) {
-          _firstNameController.text = profile.userInfoModel!.fName ?? '';
-          _lastNameController.text = profile.userInfoModel!.lName ?? '';
-          _emailController.text = profile.userInfoModel!.email ?? '';
-          _phoneController.text = profile.userInfoModel!.phone ?? '';
+    return isGuestMode
+        ? const Scaffold(body: NotLoggedInWidget())
+        : Scaffold(
+            key: _scaffoldKey,
+            body: Consumer<ProfileProvider>(
+              builder: (context, profile, child) {
+                _firstNameController.text = profile.userInfoModel!.fName ?? '';
+                _lastNameController.text = profile.userInfoModel!.lName ?? '';
+                _emailController.text = profile.userInfoModel!.email ?? '';
+                _phoneController.text = profile.userInfoModel!.phone ?? '';
 
-          return Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width,
-                  color: Provider.of<ThemeProvider>(context, listen: false)
-                          .darkTheme
-                      ? Theme.of(context).cardColor
-                      : Theme.of(context).primaryColor),
-              Container(
-                transform: Matrix4.translationValues(-10, 0, 0),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                  child: SizedBox(
-                      width: 110,
-                      child: Image.asset(Images.shadow,
-                          opacity: const AlwaysStoppedAnimation(0.75))),
-                ),
-              ),
-              Positioned(
-                right: -70,
-                top: 150,
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(
-                          color: Theme.of(context).cardColor.withOpacity(.05),
-                          width: 25)),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 35, left: 15),
-                child: Row(children: [
-                  CupertinoNavigationBarBackButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(getTranslated('profile', context)!,
-                      style: titilliumRegular.copyWith(
-                          fontSize: 20, color: Colors.white),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis),
-                ]),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 55),
-                child: Column(
+                return Stack(
+                  clipBehavior: Clip.none,
                   children: [
-                    Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(
-                              top: Dimensions.marginSizeExtraLarge),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor,
-                            border: Border.all(color: Colors.white, width: 3),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: file == null
-                                    ? FadeInImage.assetNetwork(
-                                        placeholder: Images.placeholder,
-                                        width: Dimensions.profileImageSize,
-                                        height: Dimensions.profileImageSize,
-                                        fit: BoxFit.cover,
-                                        image:
-                                            '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${profile.userInfoModel!.image}',
-                                        imageErrorBuilder: (c, o, s) =>
-                                            Image.asset(Images.placeholder,
-                                                width:
-                                                    Dimensions.profileImageSize,
-                                                height:
-                                                    Dimensions.profileImageSize,
-                                                fit: BoxFit.cover),
-                                      )
-                                    : Image.file(file!,
-                                        width: Dimensions.profileImageSize,
-                                        height: Dimensions.profileImageSize,
-                                        fit: BoxFit.fill),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: -10,
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                  radius: 14,
-                                  child: IconButton(
-                                    onPressed: _choose,
-                                    padding: const EdgeInsets.all(0),
-                                    icon: const Icon(Icons.camera_alt_sharp,
-                                        color: ColorResources.white, size: 18),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          '${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName ?? ''}',
-                          style: titilliumSemiBold.copyWith(
-                              color: ColorResources.white, fontSize: 20.0),
-                        )
-                      ],
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width,
+                        color:
+                            Provider.of<ThemeProvider>(context, listen: false)
+                                    .darkTheme
+                                ? Theme.of(context).cardColor
+                                : Theme.of(context).primaryColor),
+                    Container(
+                      transform: Matrix4.translationValues(-10, 0, 0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: SizedBox(
+                            width: 110,
+                            child: Image.asset(Images.shadow,
+                                opacity: const AlwaysStoppedAnimation(0.75))),
+                      ),
                     ),
-                    const SizedBox(height: Dimensions.marginSizeDefault),
-                    Expanded(
+                    Positioned(
+                      right: -70,
+                      top: 150,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: Dimensions.paddingSizeDefault),
-                        decoration: const BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.only(
-                              topLeft:
-                                  Radius.circular(Dimensions.marginSizeDefault),
-                              topRight:
-                                  Radius.circular(Dimensions.marginSizeDefault),
-                            )),
-                        child: ListView(
-                          physics: const BouncingScrollPhysics(),
-                          children: [
-                            CustomTextField(
-                                labelText: getTranslated('first_name', context),
-                                inputType: TextInputType.name,
-                                focusNode: _fNameFocus,
-                                nextFocus: _lNameFocus,
-                                hintText: profile.userInfoModel!.fName ?? '',
-                                controller: _firstNameController),
-                            const SizedBox(
-                                height: Dimensions.paddingSizeDefault),
-                            CustomTextField(
-                                labelText: getTranslated('last_name', context),
-                                inputType: TextInputType.name,
-                                focusNode: _lNameFocus,
-                                nextFocus: _emailFocus,
-                                hintText: profile.userInfoModel!.lName,
-                                controller: _lastNameController),
-                            const SizedBox(
-                                height: Dimensions.paddingSizeDefault),
-                            CustomTextField(
-                                isEnabled: false,
-                                labelText: getTranslated('email', context),
-                                inputType: TextInputType.emailAddress,
-                                focusNode: _emailFocus,
-                                readOnly: true,
-                                nextFocus: _phoneFocus,
-                                hintText: profile.userInfoModel!.email ?? '',
-                                controller: _emailController),
-                            const SizedBox(
-                                height: Dimensions.paddingSizeDefault),
-                            CustomTextField(
-                                isEnabled: false,
-                                labelText: getTranslated('phone', context),
-                                inputType: TextInputType.phone,
-                                focusNode: _phoneFocus,
-                                hintText: profile.userInfoModel!.phone ?? "",
-                                nextFocus: _addressFocus,
-                                controller: _phoneController,
-                                isAmount: true),
-                            const SizedBox(
-                                height: Dimensions.paddingSizeDefault),
-                            CustomTextField(
-                                isPassword: true,
-                                labelText: getTranslated('password', context),
-                                hintText: getTranslated(
-                                    'enter_7_plus_character', context),
-                                controller: _passwordController,
-                                focusNode: _passwordFocus,
-                                nextFocus: _confirmPasswordFocus,
-                                inputAction: TextInputAction.next),
-                            const SizedBox(
-                                height: Dimensions.paddingSizeDefault),
-                            CustomTextField(
-                                labelText:
-                                    getTranslated('confirm_password', context),
-                                hintText: getTranslated(
-                                    'enter_7_plus_character', context),
-                                isPassword: true,
-                                controller: _confirmPasswordController,
-                                focusNode: _confirmPasswordFocus,
-                                inputAction: TextInputAction.done),
-                            const SizedBox(
-                                height: Dimensions.paddingSizeDefault),
-                            InkWell(
-                              onTap: () => showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (_) => DeleteAccountBottomSheet(
-                                      customerId: Provider.of<ProfileProvider>(
-                                              context,
-                                              listen: false)
-                                          .userID)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      alignment: Alignment.center,
-                                      height: Dimensions.iconSizeSmall,
-                                      child: Image.asset(Images.delete)),
-                                  const SizedBox(
-                                    width: Dimensions.paddingSizeDefault,
-                                  ),
-                                  Text(
-                                    getTranslated('delete_account', context)!,
-                                    style: textRegular.copyWith(),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(.05),
+                                width: 25)),
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: Dimensions.marginSizeLarge,
-                          vertical: Dimensions.marginSizeSmall),
-                      child: !Provider.of<ProfileProvider>(context).isLoading
-                          ? CustomButton(
-                              onTap: _updateUserAccount,
-                              buttonText:
-                                  getTranslated('update_profile', context))
-                          : Center(
-                              child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Theme.of(context).primaryColor))),
+                      padding: const EdgeInsets.only(top: 35, left: 15),
+                      child: Row(children: [
+                        CupertinoNavigationBarBackButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(getTranslated('profile', context)!,
+                            style: titilliumRegular.copyWith(
+                                fontSize: 20, color: Colors.white),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis),
+                      ]),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 55),
+                      child: Column(
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    top: Dimensions.marginSizeExtraLarge),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).cardColor,
+                                  border:
+                                      Border.all(color: Colors.white, width: 3),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: file == null
+                                          ? FadeInImage.assetNetwork(
+                                              placeholder: Images.placeholder,
+                                              width:
+                                                  Dimensions.profileImageSize,
+                                              height:
+                                                  Dimensions.profileImageSize,
+                                              fit: BoxFit.cover,
+                                              image:
+                                                  '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${profile.userInfoModel!.image}',
+                                              imageErrorBuilder: (c, o, s) =>
+                                                  Image.asset(
+                                                      Images.placeholder,
+                                                      width: Dimensions
+                                                          .profileImageSize,
+                                                      height: Dimensions
+                                                          .profileImageSize,
+                                                      fit: BoxFit.cover),
+                                            )
+                                          : Image.file(file!,
+                                              width:
+                                                  Dimensions.profileImageSize,
+                                              height:
+                                                  Dimensions.profileImageSize,
+                                              fit: BoxFit.fill),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: -10,
+                                      child: CircleAvatar(
+                                        backgroundColor:
+                                            Theme.of(context).primaryColor,
+                                        radius: 14,
+                                        child: IconButton(
+                                          onPressed: _choose,
+                                          padding: const EdgeInsets.all(0),
+                                          icon: const Icon(
+                                              Icons.camera_alt_sharp,
+                                              color: ColorResources.white,
+                                              size: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                '${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName ?? ''}',
+                                style: titilliumSemiBold.copyWith(
+                                    color: ColorResources.white,
+                                    fontSize: 20.0),
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: Dimensions.marginSizeDefault),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: Dimensions.paddingSizeDefault),
+                              decoration: const BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(
+                                        Dimensions.marginSizeDefault),
+                                    topRight: Radius.circular(
+                                        Dimensions.marginSizeDefault),
+                                  )),
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                children: [
+                                  CustomTextField(
+                                      labelText:
+                                          getTranslated('first_name', context),
+                                      inputType: TextInputType.name,
+                                      focusNode: _fNameFocus,
+                                      nextFocus: _lNameFocus,
+                                      hintText:
+                                          profile.userInfoModel!.fName ?? '',
+                                      controller: _firstNameController),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeDefault),
+                                  CustomTextField(
+                                      labelText:
+                                          getTranslated('last_name', context),
+                                      inputType: TextInputType.name,
+                                      focusNode: _lNameFocus,
+                                      nextFocus: _emailFocus,
+                                      hintText: profile.userInfoModel!.lName,
+                                      controller: _lastNameController),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeDefault),
+                                  CustomTextField(
+                                      isEnabled: false,
+                                      labelText:
+                                          getTranslated('email', context),
+                                      inputType: TextInputType.emailAddress,
+                                      focusNode: _emailFocus,
+                                      readOnly: true,
+                                      nextFocus: _phoneFocus,
+                                      hintText:
+                                          profile.userInfoModel!.email ?? '',
+                                      controller: _emailController),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeDefault),
+                                  CustomTextField(
+                                      isEnabled: false,
+                                      labelText:
+                                          getTranslated('phone', context),
+                                      inputType: TextInputType.phone,
+                                      focusNode: _phoneFocus,
+                                      hintText:
+                                          profile.userInfoModel!.phone ?? "",
+                                      nextFocus: _addressFocus,
+                                      controller: _phoneController,
+                                      isAmount: true),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeDefault),
+                                  CustomTextField(
+                                      isPassword: true,
+                                      labelText:
+                                          getTranslated('password', context),
+                                      hintText: getTranslated(
+                                          'enter_7_plus_character', context),
+                                      controller: _passwordController,
+                                      focusNode: _passwordFocus,
+                                      nextFocus: _confirmPasswordFocus,
+                                      inputAction: TextInputAction.next),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeDefault),
+                                  CustomTextField(
+                                      labelText: getTranslated(
+                                          'confirm_password', context),
+                                      hintText: getTranslated(
+                                          'enter_7_plus_character', context),
+                                      isPassword: true,
+                                      controller: _confirmPasswordController,
+                                      focusNode: _confirmPasswordFocus,
+                                      inputAction: TextInputAction.done),
+                                  const SizedBox(
+                                      height: Dimensions.paddingSizeDefault),
+                                  InkWell(
+                                    onTap: () => showModalBottomSheet(
+                                        backgroundColor: Colors.transparent,
+                                        context: context,
+                                        builder: (_) =>
+                                            DeleteAccountBottomSheet(
+                                                customerId: Provider.of<
+                                                            ProfileProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .userID)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            alignment: Alignment.center,
+                                            height: Dimensions.iconSizeSmall,
+                                            child: Image.asset(Images.delete)),
+                                        const SizedBox(
+                                          width: Dimensions.paddingSizeDefault,
+                                        ),
+                                        Text(
+                                          getTranslated(
+                                              'delete_account', context)!,
+                                          style: textRegular.copyWith(),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: Dimensions.marginSizeLarge,
+                                vertical: Dimensions.marginSizeSmall),
+                            child:
+                                !Provider.of<ProfileProvider>(context).isLoading
+                                    ? CustomButton(
+                                        onTap: _updateUserAccount,
+                                        buttonText: getTranslated(
+                                            'update_profile', context))
+                                    : Center(
+                                        child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Theme.of(context)
+                                                        .primaryColor))),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
-                ),
-              ),
-            ],
+                );
+              },
+            ),
           );
-        },
-      ),
-    );
   }
 }

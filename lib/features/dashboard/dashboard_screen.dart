@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sixvalley_ecommerce/features/cart/views/cart_screen.dart';
+import 'package:flutter_sixvalley_ecommerce/features/category/view/all_category_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/features/wishlist/view/wishlist_screen.dart';
 import 'package:flutter_sixvalley_ecommerce/helper/network_info.dart';
 import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
@@ -55,18 +57,20 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                   : const FashionThemeHomePage()),
       if (!singleVendor)
         NavigationModel(
-            name: 'inbox',
-            icon: 'assets/conversation.png',
-            screen: const InboxScreen(isBackButtonExist: false)),
+          name: 'CATEGORY',
+          icon: Images.category,
+          screen: const AllCategoryScreen(),
+        ),
       NavigationModel(
         name: 'cart',
         icon: Images.cartImage,
         screen: const CartScreen(),
       ),
       NavigationModel(
-          name: 'wishlist',
-          icon: Images.wishlist,
-          screen: const WishListScreen()),
+        name: 'inbox',
+        icon: 'assets/conversation.png',
+        screen: const InboxScreen(isBackButtonExist: false),
+      ),
       NavigationModel(
           name: 'more',
           icon: 'assets/more-information.png',
