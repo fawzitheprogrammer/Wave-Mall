@@ -31,10 +31,10 @@ class MoreHorizontalSection extends StatelessWidget {
               horizontal: Dimensions.paddingSizeExtraSmall + 10),
           child: Center(
             child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/banner.jpeg'),
-                ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: const DecorationImage(
+                    image: AssetImage('assets/banner.jpeg'), fit: BoxFit.cover),
               ),
               width: double.infinity,
               //height: 600,
