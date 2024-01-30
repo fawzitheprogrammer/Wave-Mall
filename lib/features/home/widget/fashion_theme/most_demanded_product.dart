@@ -38,7 +38,7 @@ class MostDemandedProductView extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: '${getTranslated("most_demanded", context)} ',
-                      style: textRegular.copyWith(fontSize: Dimensions.fontSizeDefault, color: Theme.of(context).primaryColor),
+                      style: textRegular.copyWith(fontSize: Dimensions.fontSizeDefault, color: Theme.of(context).colorScheme.onPrimary),
                       children: <TextSpan>[
                         TextSpan(text: getTranslated("product_of_this_year", context), style: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault, color: ColorResources.lightSkyBlue)),
                       ],

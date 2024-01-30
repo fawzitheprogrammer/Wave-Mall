@@ -16,7 +16,8 @@ class FeaturedProductView extends StatelessWidget {
   final ScrollController? scrollController;
   final bool isHome;
 
-  const FeaturedProductView({super.key,  this.scrollController, required this.isHome});
+  const FeaturedProductView(
+      {super.key, this.scrollController, required this.isHome});
 
   @override
   Widget build(BuildContext context) {
@@ -27,59 +28,82 @@ class FeaturedProductView extends StatelessWidget {
         return Stack(
           children: [
             Column(children: [
-
-              productList != null? productList.isNotEmpty ?
-              isHome? Padding(padding: const EdgeInsets.only(left: Dimensions.paddingSizeDefault),
-                child: CarouselSlider.builder(
-                  options: CarouselOptions(
-                    viewportFraction: .5,
-                    autoPlay: false,
-                    aspectRatio: MediaQuery.of(context).size.width/325,
-                    enlargeFactor: 0.3,
-                    padEnds: false,
-                    enlargeCenterPage: true,
-
-                    disableCenter: true,
-                    onPageChanged: (index, reason) {
-                      prodProvider.setFeaturedIndex(index);
-                    },
-                  ),
-                  itemCount: productList.length,
-                  itemBuilder: (context, index, _) {
-
-                    return ProductWidget(productModel: productList![index], );
-                  },
-                ),
-              ) :
-
-              MasonryGridView.count(
-                itemCount: productList.length,
-                crossAxisCount: 2,
-                padding: const EdgeInsets.all(0),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return ProductWidget(productModel: productList![index]);
-                },
-              ): const SizedBox.shrink() : ProductShimmer(isHomePage: true ,isEnabled: prodProvider.firstFeaturedLoading),
-
-              prodProvider.isFeaturedLoading ? Center(child: Padding(
-                padding: const EdgeInsets.all(Dimensions.iconSizeExtraSmall),
-                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
-              )) : const SizedBox.shrink(),
-
+              productList != null
+                  ? productList.isNotEmpty
+                      ? isHome
+                          ? Padding(
+                              padding: const EdgeInsets.only(
+                                  left: Dimensions.paddingSizeDefault),
+                              child: CarouselSlider.builder(
+                                options: CarouselOptions(
+                                  viewportFraction: .5,
+                                  autoPlay: false,
+                                  aspectRatio:
+                                      MediaQuery.of(context).size.width / 325,
+                                  enlargeFactor: 0.3,
+                                  padEnds: false,
+                                  enlargeCenterPage: true,
+                                  disableCenter: true,
+                                  onPageChanged: (index, reason) {
+                                    prodProvider.setFeaturedIndex(index);
+                                  },
+                                ),
+                                itemCount: productList.length,
+                                itemBuilder: (context, index, _) {
+                                  return ProductWidget(
+                                    productModel: productList![index],
+                                  );
+                                },
+                              ),
+                            )
+                          : MasonryGridView.count(
+                              itemCount: productList.length,
+                              crossAxisCount: 2,
+                              padding: const EdgeInsets.all(0),
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ProductWidget(
+                                    productModel: productList![index]);
+                              },
+                            )
+                      : const SizedBox.shrink()
+                  : ProductShimmer(
+                      isHomePage: true,
+                      isEnabled: prodProvider.firstFeaturedLoading),
+              prodProvider.isFeaturedLoading
+                  ? Center(
+                      child: Padding(
+                      padding:
+                          const EdgeInsets.all(Dimensions.iconSizeExtraSmall),
+                      child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).primaryColor)),
+                    ))
+                  : const SizedBox.shrink(),
             ]),
-
-            Positioned(bottom: 0,right: 20,
-              child: Align(alignment: Alignment.bottomRight,
+            Positioned(
+              bottom: 0,
+              right: 20,
+              child: Align(
+                alignment: Alignment.bottomRight,
                 child: LinearPercentIndicator(
                   padding: EdgeInsets.zero,
-                  barRadius: const Radius.circular(Dimensions.paddingSizeDefault),
+                  barRadius:
+                      const Radius.circular(Dimensions.paddingSizeDefault),
                   width: 80,
                   lineHeight: 4.0,
-                  percent: prodProvider.featuredIndex/productList!.length,
-                  backgroundColor: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).primaryColor.withOpacity(.5):Theme.of(context).primaryColor.withOpacity(.2),
-                  progressColor: (Provider.of<ThemeProvider>(context, listen: false).darkTheme)? Theme.of(context).colorScheme.onSecondary :  Theme.of(context).primaryColor,
+                  percent: prodProvider.featuredIndex / productList!.length,
+                  backgroundColor: Provider.of<ThemeProvider>(context,
+                              listen: false)
+                          .darkTheme
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).colorScheme.tertiary.withOpacity(.2),
+                  progressColor:
+                      (Provider.of<ThemeProvider>(context, listen: false)
+                              .darkTheme)
+                          ? Theme.of(context).colorScheme.tertiary
+                          : Theme.of(context).primaryColor,
                 ),
               ),
             ),
@@ -89,4 +113,3 @@ class FeaturedProductView extends StatelessWidget {
     );
   }
 }
-

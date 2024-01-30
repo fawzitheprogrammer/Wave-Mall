@@ -122,7 +122,7 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
               centerTitle: false,
               automaticallyImplyLeading: false,
               backgroundColor: Theme.of(context).highlightColor,
-              title: Image.asset(Images.logoWithNameImage, height: 35), actions: const [
+              title: Image.asset(Images.logoWithNameImageWhite, height: 35), actions: const [
               CartWidgetHomePage(),
             ],
             ),
@@ -160,7 +160,7 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                             },isFlash: true)),
                       const SizedBox(height: Dimensions.paddingSizeSmall),
 
-                      Text(getTranslated('flash_sale_fore_any_item', context)??'', style: textRegular.copyWith(color: Theme.of(context).primaryColor)),
+                      Text(getTranslated('flash_sale_fore_any_item', context)??'', style: textRegular.copyWith(color: Theme.of(context).colorScheme.tertiary)),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
 
                       SizedBox(height: MediaQuery.of(context).size.width*.94, child: const Padding(
@@ -193,7 +193,7 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                     return  featuredDealProvider.featuredDealProductList != null? featuredDealProvider.featuredDealProductList!.isNotEmpty ?
                     Stack(children: [
                       Container(width: MediaQuery.of(context).size.width,height: 150,
-                          color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).primaryColor.withOpacity(.20):Theme.of(context).primaryColor.withOpacity(.125)),
+                          color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).colorScheme.tertiary.withOpacity(.20):Theme.of(context).colorScheme.tertiary.withOpacity(.125)),
                        Padding(padding: const EdgeInsets.only(bottom: Dimensions.homePagePadding),
                           child: Column(children: [
                            Padding(padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeDefault),
@@ -374,7 +374,7 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
 
 
 
-                Container(decoration: BoxDecoration(color: Theme.of(context).primaryColor.withOpacity(.125)),
+                Container(decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Padding(padding: const EdgeInsets.only(top: Dimensions.homePagePadding, bottom: Dimensions.paddingSizeSmall),
                       child: TitleRow(title : getTranslated('all_products', context)!)),
@@ -396,10 +396,10 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraSmall),
                                               color: Theme.of(context).cardColor,
                                               border: Border.all(width: 1, color: index == productProvider.selectedProductTypeIndex?
-                                              Theme.of(context).primaryColor.withOpacity(.5) : Theme.of(context).cardColor)),
+                                              Theme.of(context).colorScheme.tertiary.withOpacity(.5) : Theme.of(context).cardColor)),
                                           child: Center(child: Text('${getTranslated(productProvider.productTypeList[index].title!, context)}',
                                               style: textMedium.copyWith(color: index == productProvider.selectedProductTypeIndex?
-                                              Theme.of(context).primaryColor : Theme.of(context).hintColor)))),
+                                              Theme.of(context).colorScheme.tertiary : Theme.of(context).hintColor)))),
                                     ),
                                   );
                                 }),
