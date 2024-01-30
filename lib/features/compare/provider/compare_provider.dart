@@ -1,24 +1,24 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_sixvalley_ecommerce/features/compare/domain/model/attribute_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/compare/domain/model/compare_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/compare/domain/repo/compare_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
-
+import 'package:wave_mall_user/features/compare/domain/model/attribute_model.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/compare/domain/model/compare_model.dart';
+import 'package:wave_mall_user/features/compare/domain/repo/compare_repo.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
 
 class CompareProvider extends ChangeNotifier {
   final CompareRepo? compareRepo;
   CompareProvider({this.compareRepo});
 
-
-
   void addCompareList(int productID) async {
-    ApiResponse apiResponse = await compareRepo!.addCompareProductList(productID);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await compareRepo!.addCompareProductList(productID);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       getCompareList();
-      showCustomSnackBar(apiResponse.response!.data['message'], Get.context!, isError: false);
+      showCustomSnackBar(apiResponse.response!.data['message'], Get.context!,
+          isError: false);
     } else {
       showCustomSnackBar(apiResponse.error.toString(), Get.context!);
     }
@@ -28,13 +28,13 @@ class CompareProvider extends ChangeNotifier {
   List<int> compIds = [];
   CompareModel? compareModel;
   void getCompareList() async {
-
     ApiResponse apiResponse = await compareRepo!.getCompareProductList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       compIds = [];
       compareModel = null;
       compareModel = CompareModel.fromJson(apiResponse.response?.data);
-      for(int i = 0; i< compareModel!.compareLists!.length; i++){
+      for (int i = 0; i < compareModel!.compareLists!.length; i++) {
         compIds.add(compareModel!.compareLists![i].productId!);
       }
     } else {
@@ -45,8 +45,10 @@ class CompareProvider extends ChangeNotifier {
 
   void removeAllCompareList() async {
     ApiResponse apiResponse = await compareRepo!.removeAllCompareProductList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      showCustomSnackBar(apiResponse.response!.data['message'], Get.context!, isError: false);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      showCustomSnackBar(apiResponse.response!.data['message'], Get.context!,
+          isError: false);
       getCompareList();
     } else {
       showCustomSnackBar(apiResponse.error.toString(), Get.context!);
@@ -55,16 +57,18 @@ class CompareProvider extends ChangeNotifier {
   }
 
   void replaceCompareList(int compareId, int productId) async {
-    ApiResponse apiResponse = await compareRepo!.replaceCompareProductList(compareId, productId);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await compareRepo!.replaceCompareProductList(compareId, productId);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       getCompareList();
-      showCustomSnackBar(apiResponse.response!.data['message'], Get.context!, isError: false);
+      showCustomSnackBar(apiResponse.response!.data['message'], Get.context!,
+          isError: false);
     } else {
       showCustomSnackBar(apiResponse.error.toString(), Get.context!);
     }
     notifyListeners();
   }
-
 
   List<AttributeModel>? attributeList = [];
   void getAttributeList() async {
@@ -75,14 +79,8 @@ class CompareProvider extends ChangeNotifier {
         attributeList!.add(AttributeModel.fromJson(attribute));
       });
     } else {
-      ApiChecker.checkApi( response);
+      ApiChecker.checkApi(response);
     }
     notifyListeners();
-
   }
-
-
-
-
-
 }

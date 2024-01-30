@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/error_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
+import 'package:wave_mall_user/data/model/error_response.dart';
+import 'package:wave_mall_user/features/auth/controllers/auth_controller.dart';
+import 'package:wave_mall_user/main.dart';
 import 'package:provider/provider.dart';
 
 class ApiErrorHandler {
@@ -27,39 +27,47 @@ class ApiErrorHandler {
               errorDescription = "Request to API call limit excited ";
               break;
             case DioExceptionType.receiveTimeout:
-              errorDescription = "Receive timeout in connection with API server";
+              errorDescription =
+                  "Receive timeout in connection with API server";
               break;
             case DioExceptionType.badResponse:
               switch (error.response?.statusCode) {
                 case 403:
-                  if(error.response!.data['errors'] != null){
-                    ErrorResponse errorResponse = ErrorResponse.fromJson(error.response?.data);
-                   errorDescription = errorResponse.errors?[0].message;
-                  }else{
+                  if (error.response!.data['errors'] != null) {
+                    ErrorResponse errorResponse =
+                        ErrorResponse.fromJson(error.response?.data);
+                    errorDescription = errorResponse.errors?[0].message;
+                  } else {
                     errorDescription = error.response!.data['message'];
                   }
                   break;
                 case 401:
-                  if(error.response!.data['errors'] != null){
-                    ErrorResponse errorResponse = ErrorResponse.fromJson(error.response?.data);
+                  if (error.response!.data['errors'] != null) {
+                    ErrorResponse errorResponse =
+                        ErrorResponse.fromJson(error.response?.data);
                     errorDescription = errorResponse.errors?[0].message;
-                  }else{
+                  } else {
                     errorDescription = error.response!.data['message'];
                   }
-                  Provider.of<AuthController>(Get.context!,listen: false).clearSharedData();
+                  Provider.of<AuthController>(Get.context!, listen: false)
+                      .clearSharedData();
                   break;
                 case 404:
                 case 500:
-                errorDescription = error.response?.statusMessage;
+                  errorDescription = error.response?.statusMessage;
                 case 503:
                 case 429:
                   errorDescription = error.response?.statusMessage;
                   break;
                 default:
-                  ErrorResponse errorResponse = ErrorResponse.fromJson(error.response!.data);
-                  if (errorResponse.errors != null && errorResponse.errors!.isNotEmpty) {
+                  ErrorResponse errorResponse =
+                      ErrorResponse.fromJson(error.response!.data);
+                  if (errorResponse.errors != null &&
+                      errorResponse.errors!.isNotEmpty) {
                     errorDescription = errorResponse;
-                  } else {errorDescription = "Failed to load data - status code: ${error.response!.statusCode}";
+                  } else {
+                    errorDescription =
+                        "Failed to load data - status code: ${error.response!.statusCode}";
                   }
               }
               break;
@@ -69,7 +77,7 @@ class ApiErrorHandler {
             case DioExceptionType.connectionError:
               // TODO: Handle this case.
               break;
-            }
+          }
         } else {
           errorDescription = "Unexpected error occured";
         }

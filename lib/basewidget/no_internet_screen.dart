@@ -1,13 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_button.dart';
-import 'package:flutter_sixvalley_ecommerce/features/dashboard/dashboard_screen.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/basewidget/custom_button.dart';
+import 'package:wave_mall_user/features/dashboard/dashboard_screen.dart';
 
 class NoInternetOrDataScreen extends StatelessWidget {
   final bool isNoInternet;

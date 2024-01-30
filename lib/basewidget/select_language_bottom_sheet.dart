@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/category/controllers/category_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/provider/localization_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_button.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/category/controllers/category_controller.dart';
+import 'package:wave_mall_user/localization/provider/localization_provider.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/basewidget/custom_button.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/brand/controllers/brand_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/features/deal/provider/featured_deal_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/home_category_product_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/product_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/shop/provider/top_seller_provider.dart';
+import 'package:wave_mall_user/features/brand/controllers/brand_controller.dart';
+import 'package:wave_mall_user/features/deal/provider/featured_deal_provider.dart';
+import 'package:wave_mall_user/features/product/provider/home_category_product_provider.dart';
+import 'package:wave_mall_user/features/product/provider/product_provider.dart';
+import 'package:wave_mall_user/features/shop/provider/top_seller_provider.dart';
 
 class SelectLanguageBottomSheet extends StatefulWidget {
   const SelectLanguageBottomSheet({super.key});
@@ -26,7 +26,8 @@ class _SelectLanguageBottomSheetState extends State<SelectLanguageBottomSheet> {
   @override
   void initState() {
     selectedIndex = Provider.of<LocalizationProvider>(context, listen: false)
-        .languageIndex??0;
+            .languageIndex ??
+        0;
     super.initState();
   }
 
@@ -99,13 +100,15 @@ class _SelectLanguageBottomSheetState extends State<SelectLanguageBottomSheet> {
                                 SizedBox(
                                     width: 25,
                                     child: Image.asset(AppConstants
-                                        .languages[index].imageUrl??AppConstants.cancelled)),
+                                            .languages[index].imageUrl ??
+                                        AppConstants.cancelled)),
                                 Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal:
                                             Dimensions.paddingSizeSmall),
                                     child: Text(AppConstants
-                                        .languages[index].languageName??''))
+                                            .languages[index].languageName ??
+                                        ''))
                               ],
                             ),
                           ),

@@ -1,5 +1,4 @@
-
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
+import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
 import '../../../shop/domain/model/seller_model.dart';
 
 class OrderDetailsModel {
@@ -26,36 +25,35 @@ class OrderDetailsModel {
   Order? order;
   Product? product;
 
-
-  OrderDetailsModel(
-      {int? id,
-        int? orderId,
-        int? productId,
-        int? sellerId,
-        String? digitalFileAfterSell,
-        Product? productDetails,
-        int? qty,
-        double? price,
-        double? tax,
-        String? taxModel,
-        double? discount,
-        String? deliveryStatus,
-        String? paymentStatus,
-        String? createdAt,
-        String? updatedAt,
-        int? shippingMethodId,
-        String? variant,
-        int? refundReq,
-        Seller? seller,
-        List<VerificationImages>? verificationImages,
-        Order? order,
-        Product? product,
-      }) {
+  OrderDetailsModel({
+    int? id,
+    int? orderId,
+    int? productId,
+    int? sellerId,
+    String? digitalFileAfterSell,
+    Product? productDetails,
+    int? qty,
+    double? price,
+    double? tax,
+    String? taxModel,
+    double? discount,
+    String? deliveryStatus,
+    String? paymentStatus,
+    String? createdAt,
+    String? updatedAt,
+    int? shippingMethodId,
+    String? variant,
+    int? refundReq,
+    Seller? seller,
+    List<VerificationImages>? verificationImages,
+    Order? order,
+    Product? product,
+  }) {
     _id = id;
     _orderId = orderId;
     _productId = productId;
     _sellerId = sellerId;
-    if(digitalFileAfterSell != null){
+    if (digitalFileAfterSell != null) {
       _digitalFileAfterSell = digitalFileAfterSell;
     }
     _productDetails = productDetails;
@@ -77,7 +75,6 @@ class OrderDetailsModel {
     this.verificationImages;
     this.order;
     this.product;
-
   }
 
   int? get id => _id;
@@ -105,10 +102,10 @@ class OrderDetailsModel {
     _orderId = json['order_id'];
     _productId = json['product_id'];
     _sellerId = json['seller_id'];
-    if(json['digital_file_after_sell'] != null) {
+    if (json['digital_file_after_sell'] != null) {
       _digitalFileAfterSell = json['digital_file_after_sell'];
     }
-    if(json['product_details'] != null) {
+    if (json['product_details'] != null) {
       _productDetails = Product.fromJson(json['product_details']);
     }
     _qty = json['qty'];
@@ -131,12 +128,11 @@ class OrderDetailsModel {
       });
     }
     order = json['order'] != null ? Order.fromJson(json['order']) : null;
-    if(json['product'] != null) {
+    if (json['product'] != null) {
       product = Product.fromJson(json['product']);
     }
   }
 }
-
 
 class VerificationImages {
   int? id;
@@ -144,7 +140,8 @@ class VerificationImages {
   String? image;
   String? createdAt;
   String? updatedAt;
-  VerificationImages({this.id, this.orderId, this.image, this.createdAt, this.updatedAt});
+  VerificationImages(
+      {this.id, this.orderId, this.image, this.createdAt, this.updatedAt});
   VerificationImages.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     orderId = json['order_id'];
@@ -152,13 +149,12 @@ class VerificationImages {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
-
 }
 
 class Order {
   int? isShippingFree;
   Order({this.isShippingFree});
   Order.fromJson(Map<String, dynamic> json) {
-    isShippingFree = json['is_shipping_free']?1:0;
+    isShippingFree = json['is_shipping_free'] ? 1 : 0;
   }
 }

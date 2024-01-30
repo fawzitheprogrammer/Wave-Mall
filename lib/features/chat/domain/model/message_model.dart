@@ -1,4 +1,4 @@
-import 'package:flutter_sixvalley_ecommerce/features/chat/domain/model/chat_model.dart';
+import 'package:wave_mall_user/features/chat/domain/model/chat_model.dart';
 
 class MessageModel {
   int? totalSize;
@@ -19,7 +19,6 @@ class MessageModel {
       });
     }
   }
-
 }
 
 class Message {
@@ -34,18 +33,18 @@ class Message {
   SellerInfo? sellerInfo;
   List<String>? attachment;
 
-  Message(
-      {this.id,
-        this.message,
-        this.sentByCustomer,
-        this.sentBySeller,
-        this.sentByAdmin,
-        this.seenByDeliveryMan,
-        this.createdAt,
-        this.deliveryMan,
-        this.sellerInfo,
-        this.attachment,
-      });
+  Message({
+    this.id,
+    this.message,
+    this.sentByCustomer,
+    this.sentBySeller,
+    this.sentByAdmin,
+    this.seenByDeliveryMan,
+    this.createdAt,
+    this.deliveryMan,
+    this.sellerInfo,
+    this.attachment,
+  });
 
   Message.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -53,23 +52,21 @@ class Message {
     sentByCustomer = json['sent_by_customer'];
     sentBySeller = json['sent_by_seller'];
     sentByAdmin = json['sent_by_admin'];
-    if(json['seen_by_delivery_man'] != null){
-      seenByDeliveryMan = json['seen_by_delivery_man']??false;
+    if (json['seen_by_delivery_man'] != null) {
+      seenByDeliveryMan = json['seen_by_delivery_man'] ?? false;
     }
 
     createdAt = json['created_at'];
-    deliveryMan = json['delivery_man'] != null ? DeliveryMan.fromJson(json['delivery_man']) : null;
-    sellerInfo = json['seller_info'] != null ? SellerInfo.fromJson(json['seller_info']) : null;
-    if(json['attachment'] != null && json['attachment'] != "[]"){
+    deliveryMan = json['delivery_man'] != null
+        ? DeliveryMan.fromJson(json['delivery_man'])
+        : null;
+    sellerInfo = json['seller_info'] != null
+        ? SellerInfo.fromJson(json['seller_info'])
+        : null;
+    if (json['attachment'] != null && json['attachment'] != "[]") {
       attachment = json['attachment'].cast<String>();
-    }else{
+    } else {
       attachment = [];
     }
-
   }
-
 }
-
-
-
-

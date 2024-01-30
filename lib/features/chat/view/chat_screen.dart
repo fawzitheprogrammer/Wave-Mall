@@ -3,19 +3,19 @@ import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/domain/model/message_body.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/provider/chat_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_image.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_textfield.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/no_internet_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/paginated_list_view.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/widget/chat_shimmer.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/widget/message_bubble.dart';
+import 'package:wave_mall_user/features/chat/domain/model/message_body.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/chat/provider/chat_provider.dart';
+import 'package:wave_mall_user/theme/provider/theme_provider.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/basewidget/custom_image.dart';
+import 'package:wave_mall_user/basewidget/custom_textfield.dart';
+import 'package:wave_mall_user/basewidget/no_internet_screen.dart';
+import 'package:wave_mall_user/basewidget/paginated_list_view.dart';
+import 'package:wave_mall_user/features/chat/widget/chat_shimmer.dart';
+import 'package:wave_mall_user/features/chat/widget/message_bubble.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart' as foundation;
@@ -287,7 +287,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               } else {
                                 MessageBody messageBody = MessageBody(
                                     id: widget.id, message: _controller.text);
-                                    
+
                                 chatProvider
                                     .sendMessage(messageBody)
                                     .then((value) {

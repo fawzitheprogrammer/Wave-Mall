@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/support/domain/model/support_ticket_model.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/features/support/provider/support_ticket_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_app_bar.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_button.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/no_internet_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/not_loggedin_widget.dart';
-import 'package:flutter_sixvalley_ecommerce/features/support/widget/support_ticket_item.dart';
-import 'package:flutter_sixvalley_ecommerce/features/support/widget/support_ticket_shimmer.dart';
-import 'package:flutter_sixvalley_ecommerce/features/support/widget/support_ticket_type_widget.dart';
+import 'package:wave_mall_user/features/support/domain/model/support_ticket_model.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/auth/controllers/auth_controller.dart';
+import 'package:wave_mall_user/features/support/provider/support_ticket_provider.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/basewidget/custom_app_bar.dart';
+import 'package:wave_mall_user/basewidget/custom_button.dart';
+import 'package:wave_mall_user/basewidget/no_internet_screen.dart';
+import 'package:wave_mall_user/basewidget/not_loggedin_widget.dart';
+import 'package:wave_mall_user/features/support/widget/support_ticket_item.dart';
+import 'package:wave_mall_user/features/support/widget/support_ticket_shimmer.dart';
+import 'package:wave_mall_user/features/support/widget/support_ticket_type_widget.dart';
 import 'package:provider/provider.dart';
-
 
 class SupportTicketScreen extends StatefulWidget {
   const SupportTicketScreen({super.key});
@@ -25,7 +24,8 @@ class _SupportTicketScreenState extends State<SupportTicketScreen> {
   @override
   void initState() {
     if (Provider.of<AuthController>(context, listen: false).isLoggedIn()) {
-      Provider.of<SupportTicketProvider>(context, listen: false).getSupportTicketList();
+      Provider.of<SupportTicketProvider>(context, listen: false)
+          .getSupportTicketList();
     }
     super.initState();
   }
@@ -33,35 +33,59 @@ class _SupportTicketScreenState extends State<SupportTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: getTranslated('support_ticket', context)),
-        bottomNavigationBar: Provider.of<AuthController>(context, listen: false).isLoggedIn()?
-        SizedBox(height: 70,
-          child: InkWell(onTap: () {showModalBottomSheet(context: context,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              builder: (con) => const SupportTicketTypeWidget());
-            }, child: Padding(padding: const EdgeInsets.all(8.0),
-            child: CustomButton(radius: Dimensions.paddingSizeExtraSmall, buttonText: getTranslated('add_new_ticket', context)),)),):const SizedBox(),
-      body: Provider.of<AuthController>(context, listen: false).isLoggedIn()? Provider.of<SupportTicketProvider>(context).supportTicketList != null ?
-      Provider.of<SupportTicketProvider>(context).supportTicketList!.isNotEmpty ?
-      Consumer<SupportTicketProvider>(
-        builder: (context, support, child) {
-            List<SupportTicketModel> supportTicketList = support.supportTicketList!.reversed.toList();
-            return RefreshIndicator(onRefresh: () async => await support.getSupportTicketList(),
-              child: ListView.builder(
-                padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                itemCount: supportTicketList.length,
-                itemBuilder: (context, index) {
-                  return SupportTicketWidget(supportTicketModel: supportTicketList[index]);
-                },
-              ),
-            );
-          },
-        ) : const NoInternetOrDataScreen(isNoInternet: false, icon: Images.noTicket,
-      message: 'no_ticket_created',) : const SupportTicketShimmer():const NotLoggedInWidget(),
-      );
+      appBar: CustomAppBar(title: getTranslated('support_ticket', context)),
+      bottomNavigationBar: Provider.of<AuthController>(context, listen: false)
+              .isLoggedIn()
+          ? SizedBox(
+              height: 70,
+              child: InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (con) => const SupportTicketTypeWidget());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CustomButton(
+                        radius: Dimensions.paddingSizeExtraSmall,
+                        buttonText: getTranslated('add_new_ticket', context)),
+                  )),
+            )
+          : const SizedBox(),
+      body: Provider.of<AuthController>(context, listen: false).isLoggedIn()
+          ? Provider.of<SupportTicketProvider>(context).supportTicketList !=
+                  null
+              ? Provider.of<SupportTicketProvider>(context)
+                      .supportTicketList!
+                      .isNotEmpty
+                  ? Consumer<SupportTicketProvider>(
+                      builder: (context, support, child) {
+                        List<SupportTicketModel> supportTicketList =
+                            support.supportTicketList!.reversed.toList();
+                        return RefreshIndicator(
+                          onRefresh: () async =>
+                              await support.getSupportTicketList(),
+                          child: ListView.builder(
+                            padding: const EdgeInsets.all(
+                                Dimensions.paddingSizeSmall),
+                            itemCount: supportTicketList.length,
+                            itemBuilder: (context, index) {
+                              return SupportTicketWidget(
+                                  supportTicketModel: supportTicketList[index]);
+                            },
+                          ),
+                        );
+                      },
+                    )
+                  : const NoInternetOrDataScreen(
+                      isNoInternet: false,
+                      icon: Images.noTicket,
+                      message: 'no_ticket_created',
+                    )
+              : const SupportTicketShimmer()
+          : const NotLoggedInWidget(),
+    );
   }
 }
-
-
-

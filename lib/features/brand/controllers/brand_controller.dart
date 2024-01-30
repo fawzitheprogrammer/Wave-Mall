@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/brand/domain/models/brand_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/brand/domain/repositories/brand_repository.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/brand/domain/models/brand_model.dart';
+import 'package:wave_mall_user/features/brand/domain/repositories/brand_repository.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
 
 class BrandController extends ChangeNotifier {
   final BrandRepository? brandRepo;
@@ -18,35 +18,38 @@ class BrandController extends ChangeNotifier {
   Future<void> getBrandList(bool reload) async {
     if (_brandList == null || reload) {
       ApiResponse apiResponse = await brandRepo!.getBrandList();
-      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      if (apiResponse.response != null &&
+          apiResponse.response!.statusCode == 200) {
         _originalBrandList.clear();
-        apiResponse.response!.data.forEach((brand) => _originalBrandList.add(BrandModel.fromJson(brand)));
+        apiResponse.response!.data.forEach(
+            (brand) => _originalBrandList.add(BrandModel.fromJson(brand)));
         _brandList = [];
-        apiResponse.response!.data.forEach((brand) => _brandList?.add(BrandModel.fromJson(brand)));
+        apiResponse.response!.data
+            .forEach((brand) => _brandList?.add(BrandModel.fromJson(brand)));
       } else {
-        ApiChecker.checkApi( apiResponse);
+        ApiChecker.checkApi(apiResponse);
       }
       notifyListeners();
     }
   }
 
   Future<void> getSellerWiseBrandList(int sellerId) async {
-
-      ApiResponse apiResponse = await brandRepo!.getSellerWiseBrandList(sellerId);
-      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-        _originalBrandList.clear();
-        apiResponse.response!.data.forEach((brand) => _originalBrandList.add(BrandModel.fromJson(brand)));
-        _brandList = [];
-        apiResponse.response!.data.forEach((brand) => _brandList?.add(BrandModel.fromJson(brand)));
-      } else {
-        ApiChecker.checkApi( apiResponse);
-      }
-      notifyListeners();
-
+    ApiResponse apiResponse = await brandRepo!.getSellerWiseBrandList(sellerId);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      _originalBrandList.clear();
+      apiResponse.response!.data.forEach(
+          (brand) => _originalBrandList.add(BrandModel.fromJson(brand)));
+      _brandList = [];
+      apiResponse.response!.data
+          .forEach((brand) => _brandList?.add(BrandModel.fromJson(brand)));
+    } else {
+      ApiChecker.checkApi(apiResponse);
+    }
+    notifyListeners();
   }
 
-
-  void checkedToggleBrand(int index){
+  void checkedToggleBrand(int index) {
     _brandList![index].checked = !_brandList![index].checked!;
     notifyListeners();
   }
@@ -65,14 +68,16 @@ class BrandController extends ChangeNotifier {
     } else if (value == 1) {
       _brandList = [];
       _brandList?.addAll(_originalBrandList);
-      _brandList?.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+      _brandList?.sort(
+          (a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
       isTopBrand = false;
       isAZ = true;
       isZA = false;
     } else if (value == 2) {
       _brandList = [];
       _brandList?.addAll(_originalBrandList);
-      _brandList?.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+      _brandList?.sort(
+          (a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
       Iterable iterable = _brandList!.reversed;
       _brandList = iterable.toList() as List<BrandModel>;
       isTopBrand = false;

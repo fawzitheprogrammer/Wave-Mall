@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
+import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
 
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/product_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_slider/carousel_options.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_slider/custom_slider.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/product_shimmer.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/product_widget.dart';
+import 'package:wave_mall_user/features/product/provider/product_provider.dart';
+import 'package:wave_mall_user/theme/provider/theme_provider.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/basewidget/custom_slider/carousel_options.dart';
+import 'package:wave_mall_user/basewidget/custom_slider/custom_slider.dart';
+import 'package:wave_mall_user/basewidget/product_shimmer.dart';
+import 'package:wave_mall_user/basewidget/product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';

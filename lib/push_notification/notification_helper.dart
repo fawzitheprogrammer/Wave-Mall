@@ -4,12 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/push_notification/model/notification_body.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/view/inbox_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/notification/view/notification_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/view/order_details_screen.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/push_notification/model/notification_body.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
+import 'package:wave_mall_user/features/chat/view/inbox_screen.dart';
+import 'package:wave_mall_user/features/notification/view/notification_screen.dart';
+import 'package:wave_mall_user/features/order/view/order_details_screen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 

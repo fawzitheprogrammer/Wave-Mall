@@ -1,5 +1,4 @@
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
-
+import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
 
 class CompareModel {
   List<CompareLists>? compareLists;
@@ -26,11 +25,11 @@ class CompareLists {
 
   CompareLists(
       {this.id,
-        this.userId,
-        this.productId,
-        this.createdAt,
-        this.updatedAt,
-        this.product});
+      this.userId,
+      this.productId,
+      this.createdAt,
+      this.updatedAt,
+      this.product});
 
   CompareLists.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -39,9 +38,6 @@ class CompareLists {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     product =
-    json['product'] != null ? Product.fromJson(json['product']) : null;
+        json['product'] != null ? Product.fromJson(json['product']) : null;
   }
-
-
 }
-

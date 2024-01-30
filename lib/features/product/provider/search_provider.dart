@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/compare/provider/compare_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/repo/search_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/search/model/suggestion_product_model.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
+import 'package:wave_mall_user/features/compare/provider/compare_provider.dart';
+import 'package:wave_mall_user/features/product/domain/repo/search_repo.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
+import 'package:wave_mall_user/features/search/model/suggestion_product_model.dart';
 import 'package:provider/provider.dart';
 
 class SearchProvider with ChangeNotifier {
@@ -22,7 +22,7 @@ class SearchProvider with ChangeNotifier {
   double minPriceForFilter = AppConstants.minFilter;
   double maxPriceForFilter = AppConstants.maxFilter;
 
-  void setMinMaxPriceForFilter(RangeValues currentRangeValues){
+  void setMinMaxPriceForFilter(RangeValues currentRangeValues) {
     minPriceForFilter = currentRangeValues.start;
     maxPriceForFilter = currentRangeValues.end;
     notifyListeners();
@@ -31,69 +31,63 @@ class SearchProvider with ChangeNotifier {
   String sortText = 'low-high';
   void setFilterIndex(int index) {
     _filterIndex = index;
-    if(index == 0){
+    if (index == 0) {
       sortText = 'latest';
-    }else if(index == 1){
+    } else if (index == 1) {
       sortText = 'a-z';
-    }else if(index == 2){
+    } else if (index == 2) {
       sortText = 'z-a';
-    }
-    else if(index == 3){
+    } else if (index == 3) {
       sortText = 'low-high';
-    }else if(index ==4){
+    } else if (index == 4) {
       sortText = 'high-low';
     }
-
 
     notifyListeners();
   }
 
-
-
   bool _isClear = true;
 
-
   bool get isClear => _isClear;
-
-
-
 
   void cleanSearchProduct() {
     searchedProduct = null;
     _isClear = true;
-
-
   }
-
-
 
   ProductModel? searchedProduct;
   Future searchProduct(
       {required String query,
       String? categoryIds,
-        String? brandIds,
+      String? brandIds,
       String? sort,
       String? priceMin,
       String? priceMax,
       required int offset}) async {
-
     searchController.text = query;
-    ApiResponse apiResponse = await searchRepo!.getSearchProductList(query, categoryIds, brandIds, sort, priceMin, priceMax, offset);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      if(offset == 1){
+    ApiResponse apiResponse = await searchRepo!.getSearchProductList(
+        query, categoryIds, brandIds, sort, priceMin, priceMax, offset);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      if (offset == 1) {
         searchedProduct = null;
-        if(ProductModel.fromJson(apiResponse.response!.data).products != null){
+        if (ProductModel.fromJson(apiResponse.response!.data).products !=
+            null) {
           searchedProduct = ProductModel.fromJson(apiResponse.response!.data);
         }
-      }else{
-        if(ProductModel.fromJson(apiResponse.response!.data).products != null){
-          searchedProduct?.products?.addAll(ProductModel.fromJson(apiResponse.response!.data).products!) ;
-          searchedProduct?.offset = (ProductModel.fromJson(apiResponse.response!.data).offset) ;
-          searchedProduct?.totalSize = (ProductModel.fromJson(apiResponse.response!.data).totalSize) ;
+      } else {
+        if (ProductModel.fromJson(apiResponse.response!.data).products !=
+            null) {
+          searchedProduct?.products?.addAll(
+              ProductModel.fromJson(apiResponse.response!.data).products!);
+          searchedProduct?.offset =
+              (ProductModel.fromJson(apiResponse.response!.data).offset);
+          searchedProduct?.totalSize =
+              (ProductModel.fromJson(apiResponse.response!.data).totalSize);
         }
       }
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
@@ -104,13 +98,13 @@ class SearchProvider with ChangeNotifier {
   List<String> nameList = [];
   List<int> idList = [];
   Future<void> getSuggestionProductName(String name) async {
-
     ApiResponse apiResponse = await searchRepo!.getSearchProductName(name);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       nameList = [];
       idList = [];
       suggestionModel = SuggestionModel.fromJson(apiResponse.response?.data);
-      for(int i=0; i< suggestionModel!.products!.length; i++){
+      for (int i = 0; i < suggestionModel!.products!.length; i++) {
         nameList.add(suggestionModel!.products![i].name!);
         idList.add(suggestionModel!.products![i].id!);
       }
@@ -121,20 +115,20 @@ class SearchProvider with ChangeNotifier {
   void initHistoryList() {
     _historyList = [];
     _historyList.addAll(searchRepo!.getSearchAddress());
-
   }
 
   int selectedSearchedProductId = 0;
-  void setSelectedProductId(int index, int? compareId){
-
-    if(suggestionModel!.products!.isNotEmpty){
+  void setSelectedProductId(int index, int? compareId) {
+    if (suggestionModel!.products!.isNotEmpty) {
       selectedSearchedProductId = suggestionModel!.products![index].id!;
     }
 
-    if(compareId != null){
-      Provider.of<CompareProvider>(Get.context!, listen: false).replaceCompareList(compareId ,selectedSearchedProductId);
-    }else{
-      Provider.of<CompareProvider>(Get.context!, listen: false).addCompareList(selectedSearchedProductId);
+    if (compareId != null) {
+      Provider.of<CompareProvider>(Get.context!, listen: false)
+          .replaceCompareList(compareId, selectedSearchedProductId);
+    } else {
+      Provider.of<CompareProvider>(Get.context!, listen: false)
+          .addCompareList(selectedSearchedProductId);
     }
 
     notifyListeners();
@@ -159,6 +153,4 @@ class SearchProvider with ChangeNotifier {
     _historyList = [];
     notifyListeners();
   }
-
-
 }

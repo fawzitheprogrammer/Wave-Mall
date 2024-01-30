@@ -1,23 +1,23 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/push_notification/model/notification_body.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/no_internet_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/views/auth_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/view/inbox_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/dashboard/dashboard_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/maintenance/maintenance_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/notification/view/notification_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/onboarding/view/onboarding_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/view/order_details_screen.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/push_notification/model/notification_body.dart';
+import 'package:wave_mall_user/features/auth/controllers/auth_controller.dart';
+import 'package:wave_mall_user/features/splash/provider/splash_provider.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/basewidget/no_internet_screen.dart';
+import 'package:wave_mall_user/features/auth/views/auth_screen.dart';
+import 'package:wave_mall_user/features/chat/view/inbox_screen.dart';
+import 'package:wave_mall_user/features/dashboard/dashboard_screen.dart';
+import 'package:wave_mall_user/features/maintenance/maintenance_screen.dart';
+import 'package:wave_mall_user/features/notification/view/notification_screen.dart';
+import 'package:wave_mall_user/features/onboarding/view/onboarding_screen.dart';
+import 'package:wave_mall_user/features/order/view/order_details_screen.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -37,16 +37,24 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
 
     bool firstTime = true;
-    _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if(!firstTime) {
-        bool isNotConnected = result != ConnectivityResult.wifi && result != ConnectivityResult.mobile;
-        isNotConnected ? const SizedBox() : ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    _onConnectivityChanged = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (!firstTime) {
+        bool isNotConnected = result != ConnectivityResult.wifi &&
+            result != ConnectivityResult.mobile;
+        isNotConnected
+            ? const SizedBox()
+            : ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: isNotConnected ? Colors.red : Colors.green,
-          duration: Duration(seconds: isNotConnected ? 6000 : 3),
-          content: Text(isNotConnected ? getTranslated('no_connection', context)! : getTranslated('connected', context)!,
-            textAlign: TextAlign.center)));
-        if(!isNotConnected) {
+            backgroundColor: isNotConnected ? Colors.red : Colors.green,
+            duration: Duration(seconds: isNotConnected ? 6000 : 3),
+            content: Text(
+                isNotConnected
+                    ? getTranslated('no_connection', context)!
+                    : getTranslated('connected', context)!,
+                textAlign: TextAlign.center)));
+        if (!isNotConnected) {
           _route();
         }
       }
@@ -63,37 +71,59 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   void _route() {
-    Provider.of<SplashProvider>(context, listen: false).initConfig(context).then((bool isSuccess) {
-      if(isSuccess) {
-        Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
+    Provider.of<SplashProvider>(context, listen: false)
+        .initConfig(context)
+        .then((bool isSuccess) {
+      if (isSuccess) {
+        Provider.of<SplashProvider>(context, listen: false)
+            .initSharedPrefData();
         Timer(const Duration(seconds: 1), () {
-          if(Provider.of<SplashProvider>(context, listen: false).configModel!.maintenanceMode!) {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const MaintenanceScreen()));
-          }
-          else if(Provider.of<AuthController>(context, listen: false).isLoggedIn()){
-            Provider.of<AuthController>(context, listen: false).updateToken(context);
-            if(widget.body != null){
+          if (Provider.of<SplashProvider>(context, listen: false)
+              .configModel!
+              .maintenanceMode!) {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => const MaintenanceScreen()));
+          } else if (Provider.of<AuthController>(context, listen: false)
+              .isLoggedIn()) {
+            Provider.of<AuthController>(context, listen: false)
+                .updateToken(context);
+            if (widget.body != null) {
               if (widget.body!.type == 'order') {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>  OrderDetailsScreen(orderId: widget.body!.orderId)));
-              }else if(widget.body!.type == 'notification'){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>  const NotificationScreen()));
-              }else {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>  const InboxScreen(isBackButtonExist: true,)));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        OrderDetailsScreen(orderId: widget.body!.orderId)));
+              } else if (widget.body!.type == 'notification') {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        const NotificationScreen()));
+              } else {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => const InboxScreen(
+                          isBackButtonExist: true,
+                        )));
               }
-            }else{
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const DashBoardScreen()));
+            } else {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => const DashBoardScreen()));
             }
-          }
-
-          else if(Provider.of<SplashProvider>(context, listen: false).showIntro()!){
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => OnBoardingScreen(
-              indicatorColor: ColorResources.grey, selectedIndicatorColor: Theme.of(context).primaryColor)));
-          }
-          else{
-            if(Provider.of<AuthController>(context, listen: false).getGuestToken() != null && Provider.of<AuthController>(context, listen: false).getGuestToken() != '1'){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const DashBoardScreen()));
-            }else{
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const AuthScreen()));
+          } else if (Provider.of<SplashProvider>(context, listen: false)
+              .showIntro()!) {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => OnBoardingScreen(
+                    indicatorColor: ColorResources.grey,
+                    selectedIndicatorColor: Theme.of(context).primaryColor)));
+          } else {
+            if (Provider.of<AuthController>(context, listen: false)
+                        .getGuestToken() !=
+                    null &&
+                Provider.of<AuthController>(context, listen: false)
+                        .getGuestToken() !=
+                    '1') {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => const DashBoardScreen()));
+            } else {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => const AuthScreen()));
             }
           }
         });
@@ -103,18 +133,29 @@ class SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       key: _globalKey,
-      body: Provider.of<SplashProvider>(context).hasConnection ?
-      Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-        SizedBox(width: 100, child: Image.asset(Images.icon, width: 100.0)),
-        Text(AppConstants.appName,style: textRegular.copyWith(fontSize: Dimensions.fontSizeOverLarge, color: Colors.white)),
-        Padding(padding: const EdgeInsets.only(top: Dimensions.paddingSizeSmall),
-            child: Text(AppConstants.slogan,style: textRegular.copyWith(fontSize: Dimensions.fontSizeDefault, color: Colors.white)))]),
-      ) : const NoInternetOrDataScreen(isNoInternet: true, child: SplashScreen()),
+      body: Provider.of<SplashProvider>(context).hasConnection
+          ? Center(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                SizedBox(
+                    width: 100, child: Image.asset(Images.icon, width: 100.0)),
+                Text(AppConstants.appName,
+                    style: textRegular.copyWith(
+                        fontSize: Dimensions.fontSizeOverLarge,
+                        color: Colors.white)),
+                Padding(
+                    padding:
+                        const EdgeInsets.only(top: Dimensions.paddingSizeSmall),
+                    child: Text(AppConstants.slogan,
+                        style: textRegular.copyWith(
+                            fontSize: Dimensions.fontSizeDefault,
+                            color: Colors.white)))
+              ]),
+            )
+          : const NoInternetOrDataScreen(
+              isNoInternet: true, child: SplashScreen()),
     );
   }
-
 }

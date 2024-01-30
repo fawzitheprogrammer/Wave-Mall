@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/deal/provider/featured_deal_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_slider/carousel_options.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_slider/custom_slider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/home/widget/aster_theme/find_what_you_need_shimmer.dart';
-import 'package:flutter_sixvalley_ecommerce/features/deal/widget/featured_deal_card.dart';
+import 'package:wave_mall_user/features/deal/provider/featured_deal_provider.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/basewidget/custom_slider/carousel_options.dart';
+import 'package:wave_mall_user/basewidget/custom_slider/custom_slider.dart';
+import 'package:wave_mall_user/features/home/widget/aster_theme/find_what_you_need_shimmer.dart';
+import 'package:wave_mall_user/features/deal/widget/featured_deal_card.dart';
 import 'package:provider/provider.dart';
-
 
 class FeaturedDealsView extends StatelessWidget {
   final bool isHomePage;
@@ -14,49 +13,59 @@ class FeaturedDealsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return isHomePage?
-    Consumer<FeaturedDealProvider>(
-      builder: (context, featuredDealProvider, child) {
-        return featuredDealProvider.featuredDealProductList != null? featuredDealProvider.featuredDealProductList!.isNotEmpty ?
-        CarouselSlider.builder(
-          options: CarouselOptions(
-            aspectRatio: 2.5,
-            viewportFraction: 0.83,
-            autoPlay: true,
-            enlargeFactor: 0.2,
-            enlargeCenterPage: true,
-            enableInfiniteScroll: true,
-            disableCenter: true,
-            onPageChanged: (index, reason) {
-              Provider.of<FeaturedDealProvider>(context, listen: false).changeSelectedIndex(index);
+    return isHomePage
+        ? Consumer<FeaturedDealProvider>(
+            builder: (context, featuredDealProvider, child) {
+              return featuredDealProvider.featuredDealProductList != null
+                  ? featuredDealProvider.featuredDealProductList!.isNotEmpty
+                      ? CarouselSlider.builder(
+                          options: CarouselOptions(
+                            aspectRatio: 2.5,
+                            viewportFraction: 0.83,
+                            autoPlay: true,
+                            enlargeFactor: 0.2,
+                            enlargeCenterPage: true,
+                            enableInfiniteScroll: true,
+                            disableCenter: true,
+                            onPageChanged: (index, reason) {
+                              Provider.of<FeaturedDealProvider>(context,
+                                      listen: false)
+                                  .changeSelectedIndex(index);
+                            },
+                          ),
+                          itemCount: featuredDealProvider
+                              .featuredDealProductList?.length,
+                          itemBuilder: (context, index, _) {
+                            return featuredDealProvider
+                                        .featuredDealProductList !=
+                                    null
+                                ? FeaturedDealCard(
+                                    isHomePage: isHomePage,
+                                    product: featuredDealProvider
+                                        .featuredDealProductList![index])
+                                : const SizedBox();
+                          },
+                        )
+                      : const SizedBox()
+                  : const FindWhatYouNeedShimmer();
             },
-          ),
-          itemCount: featuredDealProvider.featuredDealProductList?.length,
-
-
-          itemBuilder: (context, index, _) {
-            return featuredDealProvider.featuredDealProductList != null ?
-            FeaturedDealCard(isHomePage: isHomePage,product: featuredDealProvider.featuredDealProductList![index]) : const SizedBox();
-          },
-        ) : const SizedBox() :const FindWhatYouNeedShimmer();
-      },
-    ):
-    Consumer<FeaturedDealProvider>(
-      builder: (context, featuredDealProvider, _) {
-        return ListView.builder(
-            padding: const EdgeInsets.all(0),
-            scrollDirection: Axis.vertical,
-            itemCount: featuredDealProvider.featuredDealProductList?.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
-                child: FeaturedDealCard(isHomePage: isHomePage,product: featuredDealProvider.featuredDealProductList![index]),
-              );
-            });
-      }
-    );
+          )
+        : Consumer<FeaturedDealProvider>(
+            builder: (context, featuredDealProvider, _) {
+            return ListView.builder(
+                padding: const EdgeInsets.all(0),
+                scrollDirection: Axis.vertical,
+                itemCount: featuredDealProvider.featuredDealProductList?.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Dimensions.paddingSizeSmall),
+                    child: FeaturedDealCard(
+                        isHomePage: isHomePage,
+                        product: featuredDealProvider
+                            .featuredDealProductList![index]),
+                  );
+                });
+          });
   }
 }
-
-

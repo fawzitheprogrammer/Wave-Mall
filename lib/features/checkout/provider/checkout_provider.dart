@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/error_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/checkout/domain/repo/checkout_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/features/offline_payment/domain/model/offline_payment_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/cart/domain/models/shipping_method_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/data/model/error_response.dart';
+import 'package:wave_mall_user/features/checkout/domain/repo/checkout_repo.dart';
+import 'package:wave_mall_user/features/offline_payment/domain/model/offline_payment_model.dart';
+import 'package:wave_mall_user/features/cart/domain/models/shipping_method_model.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/main.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
-import 'package:flutter_sixvalley_ecommerce/features/checkout/view/digital_payment_order_place.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/features/checkout/view/digital_payment_order_place.dart';
 
 class CheckOutProvider with ChangeNotifier {
   final CheckOutRepo checkOutRepo;

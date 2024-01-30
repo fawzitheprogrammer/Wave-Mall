@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/location/domain/models/place_details_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/location/domain/models/prediction_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/location/domain/repos/location_repository.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/location/domain/models/place_details_model.dart';
+import 'package:wave_mall_user/features/location/domain/models/prediction_model.dart';
+import 'package:wave_mall_user/features/location/domain/repos/location_repository.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/main.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,8 +14,29 @@ class LocationController with ChangeNotifier {
   final LocationRepository? locationRepo;
   LocationController({this.locationRepo});
 
-  Position _position = Position(longitude: 0, latitude: 0, timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1, altitudeAccuracy: 1, headingAccuracy: 1, );
-  Position _pickPosition = Position(longitude: 0, latitude: 0, timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1, altitudeAccuracy: 1, headingAccuracy: 1);
+  Position _position = Position(
+    longitude: 0,
+    latitude: 0,
+    timestamp: DateTime.now(),
+    accuracy: 1,
+    altitude: 1,
+    heading: 1,
+    speed: 1,
+    speedAccuracy: 1,
+    altitudeAccuracy: 1,
+    headingAccuracy: 1,
+  );
+  Position _pickPosition = Position(
+      longitude: 0,
+      latitude: 0,
+      timestamp: DateTime.now(),
+      accuracy: 1,
+      altitude: 1,
+      heading: 1,
+      speed: 1,
+      speedAccuracy: 1,
+      altitudeAccuracy: 1,
+      headingAccuracy: 1);
   bool _loading = false;
   bool get loading => _loading;
   final TextEditingController _locationController = TextEditingController();
@@ -30,7 +51,6 @@ class LocationController with ChangeNotifier {
 
   TextEditingController get locationController => _locationController;
 
-
   bool _buttonDisabled = true;
   bool _changeAddress = true;
   GoogleMapController? _mapController;
@@ -44,78 +64,107 @@ class LocationController with ChangeNotifier {
     _locationController.text = text;
   }
 
-
-
-  void getCurrentLocation(BuildContext context, bool fromAddress, {GoogleMapController? mapController}) async {
+  void getCurrentLocation(BuildContext context, bool fromAddress,
+      {GoogleMapController? mapController}) async {
     _loading = true;
     notifyListeners();
     Position myPosition;
     try {
-      Position newLocalData = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      Position newLocalData = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
       myPosition = newLocalData;
-    }catch(e) {
+    } catch (e) {
       myPosition = Position(
         latitude: double.parse('0'),
         longitude: double.parse('0'),
-        timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1, altitudeAccuracy: 1, headingAccuracy: 1,
+        timestamp: DateTime.now(),
+        accuracy: 1,
+        altitude: 1,
+        heading: 1,
+        speed: 1,
+        speedAccuracy: 1,
+        altitudeAccuracy: 1,
+        headingAccuracy: 1,
       );
     }
-    if(fromAddress) {
+    if (fromAddress) {
       _position = myPosition;
-    }else {
+    } else {
       _pickPosition = myPosition;
     }
     if (mapController != null) {
       mapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(myPosition.latitude, myPosition.longitude), zoom: 17),
+        CameraPosition(
+            target: LatLng(myPosition.latitude, myPosition.longitude),
+            zoom: 17),
       ));
     }
     Placemark myPlaceMark;
     try {
-      if(context.mounted){
-
-      }
-        String address = await getAddressFromGeocode(LatLng(myPosition.latitude, myPosition.longitude), Get.context!);
-        myPlaceMark = Placemark(name: address, locality: '', postalCode: '', country: '');
-
-    }catch (e) {
-      if(context.mounted){
-
-      }
-      String address = await getAddressFromGeocode(LatLng(myPosition.latitude, myPosition.longitude),  Get.context!);
-      myPlaceMark = Placemark(name: address, locality: '', postalCode: '', country: '');
+      if (context.mounted) {}
+      String address = await getAddressFromGeocode(
+          LatLng(myPosition.latitude, myPosition.longitude), Get.context!);
+      myPlaceMark =
+          Placemark(name: address, locality: '', postalCode: '', country: '');
+    } catch (e) {
+      if (context.mounted) {}
+      String address = await getAddressFromGeocode(
+          LatLng(myPosition.latitude, myPosition.longitude), Get.context!);
+      myPlaceMark =
+          Placemark(name: address, locality: '', postalCode: '', country: '');
     }
     fromAddress ? _address = myPlaceMark : _pickAddress = myPlaceMark;
-    if(fromAddress) {
+    if (fromAddress) {
       _locationController.text = placeMarkToAddress(_address);
     }
     _loading = false;
     notifyListeners();
   }
 
-  void updatePosition(CameraPosition? position, bool fromAddress, String? address, BuildContext context) async {
-    if(_updateAddAddressData) {
+  void updatePosition(CameraPosition? position, bool fromAddress,
+      String? address, BuildContext context) async {
+    if (_updateAddAddressData) {
       _loading = true;
       notifyListeners();
       try {
         if (fromAddress) {
           _position = Position(
-            latitude: position!.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
-            heading: 1, accuracy: 1, altitude: 1, speedAccuracy: 1, speed: 1,altitudeAccuracy: 1, headingAccuracy: 1,
+            latitude: position!.target.latitude,
+            longitude: position.target.longitude,
+            timestamp: DateTime.now(),
+            heading: 1,
+            accuracy: 1,
+            altitude: 1,
+            speedAccuracy: 1,
+            speed: 1,
+            altitudeAccuracy: 1,
+            headingAccuracy: 1,
           );
         } else {
           _pickPosition = Position(
-            latitude: position!.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
-            heading: 1, accuracy: 1, altitude: 1, speedAccuracy: 1, speed: 1,altitudeAccuracy: 1, headingAccuracy: 1,
+            latitude: position!.target.latitude,
+            longitude: position.target.longitude,
+            timestamp: DateTime.now(),
+            heading: 1,
+            accuracy: 1,
+            altitude: 1,
+            speedAccuracy: 1,
+            speed: 1,
+            altitudeAccuracy: 1,
+            headingAccuracy: 1,
           );
         }
         if (_changeAddress) {
-            String? addresss = await getAddressFromGeocode(LatLng(position.target.latitude, position.target.longitude), context);
-            fromAddress ? _address = Placemark(name: addresss) : _pickAddress = Placemark(name: addresss);
+          String? addresss = await getAddressFromGeocode(
+              LatLng(position.target.latitude, position.target.longitude),
+              context);
+          fromAddress
+              ? _address = Placemark(name: addresss)
+              : _pickAddress = Placemark(name: addresss);
 
-          if(address != null) {
+          if (address != null) {
             _locationController.text = address;
-          }else if(fromAddress) {
+          } else if (fromAddress) {
             _locationController.text = placeMarkToAddress(_address);
           }
         } else {
@@ -128,13 +177,13 @@ class LocationController with ChangeNotifier {
       }
       _loading = false;
       notifyListeners();
-    }else {
+    } else {
       _updateAddAddressData = true;
     }
   }
 
-
-  void setLocation(String? placeID, String? address, GoogleMapController? mapController) async {
+  void setLocation(String? placeID, String? address,
+      GoogleMapController? mapController) async {
     _loading = true;
     notifyListeners();
     PlaceDetailsModel detail;
@@ -142,15 +191,25 @@ class LocationController with ChangeNotifier {
     detail = PlaceDetailsModel.fromJson(response.response!.data);
 
     _pickPosition = Position(
-      longitude: detail.result?.geometry?.location?.lat??0, latitude: detail.result?.geometry?.location?.lng??0,
-      timestamp: DateTime.now(), accuracy: 1, altitude: 1, heading: 1, speed: 1, speedAccuracy: 1,altitudeAccuracy: 1, headingAccuracy: 1);
+        longitude: detail.result?.geometry?.location?.lat ?? 0,
+        latitude: detail.result?.geometry?.location?.lng ?? 0,
+        timestamp: DateTime.now(),
+        accuracy: 1,
+        altitude: 1,
+        heading: 1,
+        speed: 1,
+        speedAccuracy: 1,
+        altitudeAccuracy: 1,
+        headingAccuracy: 1);
 
     _pickAddress = Placemark(name: address);
     _changeAddress = false;
 
-    if(mapController != null) {
-      mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(
-        detail.result?.geometry?.location?.lat??0, detail.result?.geometry?.location?.lng??0), zoom: 16)));
+    if (mapController != null) {
+      mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(detail.result?.geometry?.location?.lat ?? 0,
+              detail.result?.geometry?.location?.lng ?? 0),
+          zoom: 16)));
     }
     _loading = false;
     notifyListeners();
@@ -179,23 +238,29 @@ class LocationController with ChangeNotifier {
     _mapController = mapController;
   }
 
-  Future<String> getAddressFromGeocode(LatLng latLng, BuildContext context) async {
+  Future<String> getAddressFromGeocode(
+      LatLng latLng, BuildContext context) async {
     ApiResponse response = await locationRepo!.getAddressFromGeocode(latLng);
     String address = '';
-    if(response.response!.statusCode == 200 && response.response!.data['status'] == 'OK') {
-      address = response.response!.data['results'][0]['formatted_address'].toString();
+    if (response.response!.statusCode == 200 &&
+        response.response!.data['status'] == 'OK') {
+      address =
+          response.response!.data['results'][0]['formatted_address'].toString();
     }
     return address;
   }
 
-  Future<List<PredictionModel>> searchLocation(BuildContext context, String text) async {
-    if(text.isNotEmpty) {
+  Future<List<PredictionModel>> searchLocation(
+      BuildContext context, String text) async {
+    if (text.isNotEmpty) {
       ApiResponse response = await locationRepo!.searchLocation(text);
-      if (response.response!.statusCode == 200 && response.response!.data['status'] == 'OK') {
+      if (response.response!.statusCode == 200 &&
+          response.response!.data['status'] == 'OK') {
         _predictionList = [];
-        response.response!.data['predictions'].forEach((prediction) => _predictionList.add(PredictionModel.fromJson(prediction)));
+        response.response!.data['predictions'].forEach((prediction) =>
+            _predictionList.add(PredictionModel.fromJson(prediction)));
       } else {
-        ApiChecker.checkApi( response);
+        ApiChecker.checkApi(response);
       }
     }
     return _predictionList;
@@ -204,5 +269,4 @@ class LocationController with ChangeNotifier {
   String placeMarkToAddress(Placemark placeMark) {
     return '${placeMark.name ?? ''} ${placeMark.subAdministrativeArea ?? ''} ${placeMark.isoCountryCode ?? ''}';
   }
-
 }

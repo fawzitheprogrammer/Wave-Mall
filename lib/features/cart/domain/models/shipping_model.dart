@@ -1,6 +1,6 @@
-import 'package:flutter_sixvalley_ecommerce/features/cart/domain/models/shipping_method_model.dart';
+import 'package:wave_mall_user/features/cart/domain/models/shipping_method_model.dart';
 
-class ShippingModel{
+class ShippingModel {
   int? shippingIndex;
   String? groupId;
   List<ShippingMethodModel>? shippingMethodList;

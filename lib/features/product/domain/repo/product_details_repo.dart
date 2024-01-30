@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/dio/dio_client.dart';
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/model/review_body.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
+import 'package:wave_mall_user/data/datasource/remote/dio/dio_client.dart';
+import 'package:wave_mall_user/data/datasource/remote/exception/api_error_handler.dart';
+import 'package:wave_mall_user/features/order/domain/model/review_body.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsRepo {
@@ -12,17 +12,18 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getProduct(String productID) async {
     try {
-      final response = await dioClient!.get('${AppConstants.productDetailsUri}$productID?guest_id=1');
+      final response = await dioClient!
+          .get('${AppConstants.productDetailsUri}$productID?guest_id=1');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
-
   Future<ApiResponse> getReviews(String productID) async {
     try {
-      final response = await dioClient!.get(AppConstants.productReviewUri+productID);
+      final response =
+          await dioClient!.get(AppConstants.productReviewUri + productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -31,7 +32,8 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getCount(String productID) async {
     try {
-      final response = await dioClient!.get(AppConstants.counterUri+productID);
+      final response =
+          await dioClient!.get(AppConstants.counterUri + productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -40,18 +42,21 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getSharableLink(String productID) async {
     try {
-      final response = await dioClient!.get(AppConstants.socialLinkUri+productID);
+      final response =
+          await dioClient!.get(AppConstants.socialLinkUri + productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
-  Future<http.StreamedResponse> submitReview(ReviewBody reviewBody, List<File> files, String token) async {
-    http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse('${AppConstants.baseUrl}${AppConstants.submitReviewUri}'));
-    request.headers.addAll(<String,String>{'Authorization': 'Bearer $token'});
-    for(int index=0; index <files.length ; index++) {
-      if(files[index].path.isNotEmpty) {
+  Future<http.StreamedResponse> submitReview(
+      ReviewBody reviewBody, List<File> files, String token) async {
+    http.MultipartRequest request = http.MultipartRequest('POST',
+        Uri.parse('${AppConstants.baseUrl}${AppConstants.submitReviewUri}'));
+    request.headers.addAll(<String, String>{'Authorization': 'Bearer $token'});
+    for (int index = 0; index < files.length; index++) {
+      if (files[index].path.isNotEmpty) {
         request.files.add(http.MultipartFile(
           'fileUpload[$index]',
           files[index].readAsBytes().asStream(),
@@ -60,7 +65,11 @@ class ProductDetailsRepo {
         ));
       }
     }
-    request.fields.addAll(<String, String>{'product_id': reviewBody.productId!, 'comment': reviewBody.comment!, 'rating': reviewBody.rating!});
+    request.fields.addAll(<String, String>{
+      'product_id': reviewBody.productId!,
+      'comment': reviewBody.comment!,
+      'rating': reviewBody.rating!
+    });
     http.StreamedResponse response = await request.send();
     return response;
   }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/address/controllers/address_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/provider/localization_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_app_bar.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/no_internet_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/remove_address_bottom_sheet.dart';
-import 'package:flutter_sixvalley_ecommerce/features/address/views/add_new_address_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/widget/inbox_shimmer.dart';
+import 'package:wave_mall_user/features/address/controllers/address_controller.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/localization/provider/localization_provider.dart';
+import 'package:wave_mall_user/theme/provider/theme_provider.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/basewidget/custom_app_bar.dart';
+import 'package:wave_mall_user/basewidget/no_internet_screen.dart';
+import 'package:wave_mall_user/basewidget/remove_address_bottom_sheet.dart';
+import 'package:wave_mall_user/features/address/views/add_new_address_screen.dart';
+import 'package:wave_mall_user/features/chat/widget/inbox_shimmer.dart';
 import 'package:provider/provider.dart';
 
 class AddressListScreen extends StatefulWidget {
@@ -119,8 +119,9 @@ class _AddressListScreenState extends State<AddressListScreen> {
                                                   bottomRight:
                                                       Radius.circular(5),
                                                   topRight: Radius.circular(5)),
-                                          color:
-                                              Theme.of(context).colorScheme.tertiary),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .tertiary),
                                       child: Padding(
                                         padding: const EdgeInsets.all(7.0),
                                         child: Text(

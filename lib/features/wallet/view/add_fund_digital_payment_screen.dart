@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/animated_custom_dialog.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/order_place_success_dialog.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
+import 'package:wave_mall_user/basewidget/animated_custom_dialog.dart';
+import 'package:wave_mall_user/basewidget/order_place_success_dialog.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class AddFundToWalletDigitalPayment extends StatefulWidget {
@@ -40,12 +40,17 @@ class PaymentScreenState extends State<AddFundToWalletDigitalPayment> {
     if (Platform.isAndroid) {
       await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
 
-      bool swAvailable = await AndroidWebViewFeature.isFeatureSupported(AndroidWebViewFeature.SERVICE_WORKER_BASIC_USAGE);
-      bool swInterceptAvailable = await AndroidWebViewFeature.isFeatureSupported(AndroidWebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
+      bool swAvailable = await AndroidWebViewFeature.isFeatureSupported(
+          AndroidWebViewFeature.SERVICE_WORKER_BASIC_USAGE);
+      bool swInterceptAvailable =
+          await AndroidWebViewFeature.isFeatureSupported(
+              AndroidWebViewFeature.SERVICE_WORKER_SHOULD_INTERCEPT_REQUEST);
 
       if (swAvailable && swInterceptAvailable) {
-        AndroidServiceWorkerController serviceWorkerController = AndroidServiceWorkerController.instance();
-        await serviceWorkerController.setServiceWorkerClient(AndroidServiceWorkerClient(
+        AndroidServiceWorkerController serviceWorkerController =
+            AndroidServiceWorkerController.instance();
+        await serviceWorkerController
+            .setServiceWorkerClient(AndroidServiceWorkerClient(
           shouldInterceptRequest: (request) async {
             if (kDebugMode) {
               print(request);
@@ -64,7 +69,9 @@ class PaymentScreenState extends State<AddFundToWalletDigitalPayment> {
         if (Platform.isAndroid) {
           browser.webViewController.reload();
         } else if (Platform.isIOS) {
-          browser.webViewController.loadUrl(urlRequest: URLRequest(url: await browser.webViewController.getUrl()));
+          browser.webViewController.loadUrl(
+              urlRequest:
+                  URLRequest(url: await browser.webViewController.getUrl()));
         }
       },
     );
@@ -74,27 +81,34 @@ class PaymentScreenState extends State<AddFundToWalletDigitalPayment> {
       urlRequest: URLRequest(url: Uri.parse(selectedUrl!)),
       options: InAppBrowserClassOptions(
         inAppWebViewGroupOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(useShouldOverrideUrlLoading: true, useOnLoadResource: true),
+          crossPlatform: InAppWebViewOptions(
+              useShouldOverrideUrlLoading: true, useOnLoadResource: true),
         ),
       ),
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    return PopScope(canPop: false,
+    return PopScope(
+      canPop: false,
       onPopInvoked: (val) => _exitApp(context),
       child: Scaffold(
-        appBar: AppBar(title: const Text(''),backgroundColor: Theme.of(context).cardColor),
+        appBar: AppBar(
+            title: const Text(''),
+            backgroundColor: Theme.of(context).cardColor),
         body: Center(
-          child: Column(children: [
-
-              Stack(children: [
-                  _isLoading ? Center(
-                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
-                  ) : const SizedBox.shrink(),
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Theme.of(context).primaryColor)),
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             ],
@@ -110,24 +124,26 @@ class PaymentScreenState extends State<AddFundToWalletDigitalPayment> {
       return Future.value(false);
     } else {
       Navigator.of(Get.context!).pop();
-      showAnimatedDialog(Get.context!, OrderPlaceSuccessDialog(
-        icon: Icons.clear,
-        title: getTranslated('payment_cancelled', Get.context!),
-        description: getTranslated('your_payment_cancelled', Get.context!),
-        isFailed: true,
-      ), dismissible: false, isFlip: true);
+      showAnimatedDialog(
+          Get.context!,
+          OrderPlaceSuccessDialog(
+            icon: Icons.clear,
+            title: getTranslated('payment_cancelled', Get.context!),
+            description: getTranslated('your_payment_cancelled', Get.context!),
+            isFailed: true,
+          ),
+          dismissible: false,
+          isFlip: true);
       return Future.value(true);
     }
   }
 }
 
-
-
 class MyInAppBrowser extends InAppBrowser {
-
   final BuildContext context;
 
-  MyInAppBrowser(this.context, {
+  MyInAppBrowser(
+    this.context, {
     super.windowId,
     super.initialUserScripts,
   });
@@ -178,14 +194,18 @@ class MyInAppBrowser extends InAppBrowser {
 
   @override
   void onExit() {
-    if(_canRedirect) {
+    if (_canRedirect) {
       Navigator.of(context).pop();
-      showAnimatedDialog(context, OrderPlaceSuccessDialog(
-        icon: Icons.clear,
-        title: getTranslated('payment_failed', context),
-        description: getTranslated('your_payment_failed', context),
-        isFailed: true,
-      ), dismissible: false, isFlip: true);
+      showAnimatedDialog(
+          context,
+          OrderPlaceSuccessDialog(
+            icon: Icons.clear,
+            title: getTranslated('payment_failed', context),
+            description: getTranslated('your_payment_failed', context),
+            isFailed: true,
+          ),
+          dismissible: false,
+          isFlip: true);
     }
 
     if (kDebugMode) {
@@ -194,7 +214,8 @@ class MyInAppBrowser extends InAppBrowser {
   }
 
   @override
-  Future<NavigationActionPolicy> shouldOverrideUrlLoading(navigationAction) async {
+  Future<NavigationActionPolicy> shouldOverrideUrlLoading(
+      navigationAction) async {
     if (kDebugMode) {
       print("\n\nOverride ${navigationAction.request.url}\n\n");
     }
@@ -218,52 +239,57 @@ class MyInAppBrowser extends InAppBrowser {
   }
 
   void _pageRedirect(String url) {
-    if(_canRedirect) {
-      bool isSuccess = url.contains('success') && url.contains(AppConstants.baseUrl);
-      bool isFailed = url.contains('fail') && url.contains(AppConstants.baseUrl);
-      bool isCancel = url.contains('cancel') && url.contains(AppConstants.baseUrl);
-      if(isSuccess || isFailed || isCancel) {
+    if (_canRedirect) {
+      bool isSuccess =
+          url.contains('success') && url.contains(AppConstants.baseUrl);
+      bool isFailed =
+          url.contains('fail') && url.contains(AppConstants.baseUrl);
+      bool isCancel =
+          url.contains('cancel') && url.contains(AppConstants.baseUrl);
+      if (isSuccess || isFailed || isCancel) {
         _canRedirect = false;
         close();
       }
-      if(isSuccess){
-
-
+      if (isSuccess) {
         Navigator.of(context).pop();
 
-        showAnimatedDialog(context, OrderPlaceSuccessDialog(
-          icon: Icons.done,
-          title: getTranslated('payment_done', context),
-          description: getTranslated('your_payment_successfully_done', context),
-        ), dismissible: false, isFlip: true);
-
-
-      }else if(isFailed) {
+        showAnimatedDialog(
+            context,
+            OrderPlaceSuccessDialog(
+              icon: Icons.done,
+              title: getTranslated('payment_done', context),
+              description:
+                  getTranslated('your_payment_successfully_done', context),
+            ),
+            dismissible: false,
+            isFlip: true);
+      } else if (isFailed) {
         Navigator.of(context).pop();
 
-        showAnimatedDialog(context, OrderPlaceSuccessDialog(
-          icon: Icons.clear,
-          title: getTranslated('payment_failed', context),
-          description: getTranslated('your_payment_failed', context),
-          isFailed: true,
-        ), dismissible: false, isFlip: true);
-
-
-      }else if(isCancel) {
+        showAnimatedDialog(
+            context,
+            OrderPlaceSuccessDialog(
+              icon: Icons.clear,
+              title: getTranslated('payment_failed', context),
+              description: getTranslated('your_payment_failed', context),
+              isFailed: true,
+            ),
+            dismissible: false,
+            isFlip: true);
+      } else if (isCancel) {
         Navigator.of(context).pop();
 
-        showAnimatedDialog(context, OrderPlaceSuccessDialog(
-          icon: Icons.clear,
-          title: getTranslated('payment_cancelled', context),
-          description: getTranslated('your_payment_cancelled', context),
-          isFailed: true,
-        ), dismissible: false, isFlip: true);
-
+        showAnimatedDialog(
+            context,
+            OrderPlaceSuccessDialog(
+              icon: Icons.clear,
+              title: getTranslated('payment_cancelled', context),
+              description: getTranslated('your_payment_cancelled', context),
+              isFailed: true,
+            ),
+            dismissible: false,
+            isFlip: true);
       }
     }
-
   }
-
-
-
 }

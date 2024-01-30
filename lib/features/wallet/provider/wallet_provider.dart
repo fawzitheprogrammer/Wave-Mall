@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/error_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/wallet/domain/model/transaction_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/wallet/domain/repo/wallet_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
-import 'package:flutter_sixvalley_ecommerce/features/wallet/view/add_fund_digital_payment_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/wallet/domain/model/wallet_bonus_model.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/data/model/error_response.dart';
+import 'package:wave_mall_user/features/wallet/domain/model/transaction_model.dart';
+import 'package:wave_mall_user/features/wallet/domain/repo/wallet_repo.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/helper/price_converter.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/features/wallet/view/add_fund_digital_payment_screen.dart';
+import 'package:wave_mall_user/features/wallet/domain/model/wallet_bonus_model.dart';
 
 class WalletTransactionProvider extends ChangeNotifier {
   final WalletTransactionRepo? transactionRepo;
@@ -20,32 +20,36 @@ class WalletTransactionProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   bool get firstLoading => _firstLoading;
   int? _transactionPageSize;
-  int? get transactionPageSize=> _transactionPageSize;
+  int? get transactionPageSize => _transactionPageSize;
   TransactionModel? _walletBalance;
   TransactionModel? get walletBalance => _walletBalance;
   List<WalletTransactioList> _transactionList = [];
   List<WalletTransactioList> get transactionList => _transactionList;
 
-
-
-  Future<void> getTransactionList(BuildContext context, int offset, String type, {bool reload = true}) async {
-    if(reload || offset == 1){
+  Future<void> getTransactionList(BuildContext context, int offset, String type,
+      {bool reload = true}) async {
+    if (reload || offset == 1) {
       _transactionList = [];
     }
     _isLoading = true;
-    ApiResponse apiResponse = await transactionRepo!.getWalletTransactionList(offset, type);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await transactionRepo!.getWalletTransactionList(offset, type);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _walletBalance = TransactionModel.fromJson(apiResponse.response!.data);
-      _transactionList.addAll(TransactionModel.fromJson(apiResponse.response!.data).walletTransactioList!);
-      _transactionPageSize = TransactionModel.fromJson(apiResponse.response!.data).totalWalletTransactio;
+      _transactionList.addAll(
+          TransactionModel.fromJson(apiResponse.response!.data)
+              .walletTransactioList!);
+      _transactionPageSize =
+          TransactionModel.fromJson(apiResponse.response!.data)
+              .totalWalletTransactio;
       _isLoading = false;
     } else {
       _isLoading = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
-
 
   void showBottomLoader() {
     _isLoading = true;
@@ -56,18 +60,26 @@ class WalletTransactionProvider extends ChangeNotifier {
     _firstLoading = true;
     notifyListeners();
   }
-  Future <void> addFundToWallet(String amount, String paymentMethod) async {
+
+  Future<void> addFundToWallet(String amount, String paymentMethod) async {
     _isConvert = true;
     notifyListeners();
-    ApiResponse apiResponse = await transactionRepo!.addFundToWallet(amount, paymentMethod);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await transactionRepo!.addFundToWallet(amount, paymentMethod);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isConvert = false;
 
-      Navigator.pushReplacement(Get.context!, MaterialPageRoute(builder: (_) => AddFundToWalletDigitalPayment(url: apiResponse.response!.data['redirect_link'])));
-
-    }else if (apiResponse.response?.statusCode == 202){
-      showCustomSnackBar("Minimum= ${PriceConverter.convertPrice(Get.context!, apiResponse.response?.data['minimum_amount'].toDouble())} and Maximum=${PriceConverter.convertPrice(Get.context!, apiResponse.response?.data['maximum_amount'].toDouble())}" , Get.context!);
-    }else{
+      Navigator.pushReplacement(
+          Get.context!,
+          MaterialPageRoute(
+              builder: (_) => AddFundToWalletDigitalPayment(
+                  url: apiResponse.response!.data['redirect_link'])));
+    } else if (apiResponse.response?.statusCode == 202) {
+      showCustomSnackBar(
+          "Minimum= ${PriceConverter.convertPrice(Get.context!, apiResponse.response?.data['minimum_amount'].toDouble())} and Maximum=${PriceConverter.convertPrice(Get.context!, apiResponse.response?.data['maximum_amount'].toDouble())}",
+          Get.context!);
+    } else {
       _isConvert = false;
       String? errorMessage;
       if (apiResponse.error is String) {
@@ -85,10 +97,11 @@ class WalletTransactionProvider extends ChangeNotifier {
   WalletBonusModel? walletBonusModel;
   Future<void> getWalletBonusBannerList() async {
     ApiResponse apiResponse = await transactionRepo!.getWalletBonusBannerList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       walletBonusModel = WalletBonusModel.fromJson(apiResponse.response?.data);
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
@@ -99,35 +112,44 @@ class WalletTransactionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  List<String> types = ['all','order_place','loyalty_point', 'add_fund', 'add_fund_by_admin', 'order_refund'];
-  List<String> filterTypes = ["All Transaction", "Order Transactions", "Converted from Loyalty Point", 'Added via Payment Method', 'Add Fund by Admin', 'Order refund'];
+  List<String> types = [
+    'all',
+    'order_place',
+    'loyalty_point',
+    'add_fund',
+    'add_fund_by_admin',
+    'order_refund'
+  ];
+  List<String> filterTypes = [
+    "All Transaction",
+    "Order Transactions",
+    "Converted from Loyalty Point",
+    'Added via Payment Method',
+    'Add Fund by Admin',
+    'Order refund'
+  ];
 
   String selectedFilterType = 'all_transaction';
   int selectedIndexForFilter = 0;
-  void setSelectedFilterType(String type, int index, {bool reload = true}){
+  void setSelectedFilterType(String type, int index, {bool reload = true}) {
     selectedIndexForFilter = index;
-    if(type == filterTypes[0]){
+    if (type == filterTypes[0]) {
       selectedFilterType = types[0];
-    }else if(type == filterTypes[1]){
+    } else if (type == filterTypes[1]) {
       selectedFilterType = types[1];
-    }else if(type == filterTypes[2]){
+    } else if (type == filterTypes[2]) {
       selectedFilterType = types[2];
-    }else if(type == filterTypes[3]){
+    } else if (type == filterTypes[3]) {
       selectedFilterType = types[3];
-    }else if(type == filterTypes[4]){
+    } else if (type == filterTypes[4]) {
       selectedFilterType = types[4];
-    }else if(type == filterTypes[5]){
+    } else if (type == filterTypes[5]) {
       selectedFilterType = types[5];
     }
     getTransactionList(Get.context!, 1, selectedFilterType);
 
-    if(reload){
+    if (reload) {
       notifyListeners();
     }
-
   }
-
-
-
 }

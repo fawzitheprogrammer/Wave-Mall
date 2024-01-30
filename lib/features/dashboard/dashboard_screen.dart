@@ -1,21 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/cart/views/cart_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/category/view/all_category_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/wishlist/view/wishlist_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/network_info.dart';
-import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_exit_card.dart';
-import 'package:flutter_sixvalley_ecommerce/features/chat/view/inbox_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/features/home/view/aster_theme_home_page.dart';
-import 'package:flutter_sixvalley_ecommerce/features/home/view/fashion_theme_home_page.dart';
-import 'package:flutter_sixvalley_ecommerce/features/home/view/home_screens.dart';
-import 'package:flutter_sixvalley_ecommerce/features/more/more_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/view/order_screen.dart';
+import 'package:wave_mall_user/features/cart/views/cart_screen.dart';
+import 'package:wave_mall_user/features/category/view/all_category_screen.dart';
+import 'package:wave_mall_user/features/wishlist/view/wishlist_screen.dart';
+import 'package:wave_mall_user/helper/network_info.dart';
+import 'package:wave_mall_user/features/splash/provider/splash_provider.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/basewidget/custom_exit_card.dart';
+import 'package:wave_mall_user/features/chat/view/inbox_screen.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/features/home/view/aster_theme_home_page.dart';
+import 'package:wave_mall_user/features/home/view/fashion_theme_home_page.dart';
+import 'package:wave_mall_user/features/home/view/home_screens.dart';
+import 'package:wave_mall_user/features/more/more_screen.dart';
+import 'package:wave_mall_user/features/order/view/order_screen.dart';
 import 'package:provider/provider.dart';
 
 class DashBoardScreen extends StatefulWidget {

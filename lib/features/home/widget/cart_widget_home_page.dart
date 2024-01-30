@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/cart/controllers/cart_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/features/notification/provider/notification_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/features/cart/views/cart_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/notification/view/notification_screen.dart';
+import 'package:wave_mall_user/features/cart/controllers/cart_controller.dart';
+import 'package:wave_mall_user/features/notification/provider/notification_provider.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/features/cart/views/cart_screen.dart';
+import 'package:wave_mall_user/features/notification/view/notification_screen.dart';
 import 'package:provider/provider.dart';
 
 class CartWidgetHomePage extends StatelessWidget {

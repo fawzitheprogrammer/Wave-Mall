@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/cart/domain/models/cart_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/cart/controllers/cart_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_image.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/view/product_details_screen.dart';
+import 'package:wave_mall_user/features/cart/domain/models/cart_model.dart';
+import 'package:wave_mall_user/helper/price_converter.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/cart/controllers/cart_controller.dart';
+import 'package:wave_mall_user/features/splash/provider/splash_provider.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/basewidget/custom_image.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/features/product/view/product_details_screen.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
@@ -128,7 +128,9 @@ class CartWidget extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: titilliumSemiBold.copyWith(
-                                        color:  Theme.of(context).colorScheme.tertiary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                         decoration: TextDecoration.lineThrough))
                                 : const SizedBox(),
                             const SizedBox(

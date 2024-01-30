@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class OrderShimmer extends StatelessWidget {
@@ -17,10 +17,14 @@ class OrderShimmer extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Theme.of(context).cardColor),
               color: ColorResources.iconBg(),
-              boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 1, blurRadius: 5)]),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 5)
+              ]),
           margin: const EdgeInsets.only(bottom: Dimensions.marginSizeDefault),
           padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-
           child: Shimmer.fromColors(
             baseColor: Theme.of(context).cardColor,
             highlightColor: Colors.grey[300]!,
@@ -34,9 +38,13 @@ class OrderShimmer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(child: Container(height: 85,  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,borderRadius: BorderRadius.circular(5)
-                    ),)),
+                    Expanded(
+                        child: Container(
+                      height: 85,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          borderRadius: BorderRadius.circular(5)),
+                    )),
                     const SizedBox(width: 10),
                     Expanded(
                       flex: 3,
@@ -46,9 +54,11 @@ class OrderShimmer extends StatelessWidget {
                           const SizedBox(height: 10),
                           Row(
                             children: [
-                              Container(height: 10, width: 70, color: Colors.white),
+                              Container(
+                                  height: 10, width: 70, color: Colors.white),
                               const SizedBox(width: 10),
-                              Container(height: 10, width: 20, color: Colors.white),
+                              Container(
+                                  height: 10, width: 20, color: Colors.white),
                             ],
                           ),
                         ],

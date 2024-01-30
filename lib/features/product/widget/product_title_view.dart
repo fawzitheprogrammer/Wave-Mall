@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_details_model.dart'
+import 'package:wave_mall_user/features/product/domain/model/product_details_model.dart'
     as pd;
-import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/product_details_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/rating_bar.dart';
+import 'package:wave_mall_user/helper/price_converter.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/product/provider/product_details_provider.dart';
+import 'package:wave_mall_user/theme/provider/theme_provider.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/basewidget/rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class ProductTitleView extends StatelessWidget {

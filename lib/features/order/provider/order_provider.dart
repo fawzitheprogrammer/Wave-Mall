@@ -1,19 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/model/order_details_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/model/refund_info_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/model/refund_result_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/model/order_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/repo/order_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/order/domain/model/order_details_model.dart';
+import 'package:wave_mall_user/features/order/domain/model/refund_info_model.dart';
+import 'package:wave_mall_user/features/order/domain/model/refund_result_model.dart';
+import 'package:wave_mall_user/features/order/domain/model/order_model.dart';
+import 'package:wave_mall_user/features/order/domain/repo/order_repo.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/main.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
-import 'package:flutter_sixvalley_ecommerce/features/cart/views/cart_screen.dart';
+import 'package:wave_mall_user/features/auth/controllers/auth_controller.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/features/cart/views/cart_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class OrderProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   XFile? _imageFile;
   XFile? get imageFile => _imageFile;
-  List <XFile?>_refundImage = [];
+  List<XFile?> _refundImage = [];
   List<XFile?> get refundImage => _refundImage;
   List<File> reviewImages = [];
   RefundInfoModel? _refundInfoModel;
@@ -38,40 +38,41 @@ class OrderProvider with ChangeNotifier {
   RefundResultModel? _refundResultModel;
   RefundResultModel? get refundResultModel => _refundResultModel;
 
-
-
   bool _onlyDigital = true;
   bool get onlyDigital => _onlyDigital;
 
-  void digitalOnly(bool value, {bool isUpdate = false}){
+  void digitalOnly(bool value, {bool isUpdate = false}) {
     _onlyDigital = value;
-    if(isUpdate){
+    if (isUpdate) {
       notifyListeners();
     }
-
   }
 
   OrderModel? orderModel;
   OrderModel? deliveredOrderModel;
   Future<void> getOrderList(int offset, String status, {String? type}) async {
-    if(offset == 1){
+    if (offset == 1) {
       orderModel = null;
     }
-    ApiResponse apiResponse = await orderRepo!.getOrderList(offset, status, type: type);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      if(offset == 1){
+    ApiResponse apiResponse =
+        await orderRepo!.getOrderList(offset, status, type: type);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      if (offset == 1) {
         orderModel = OrderModel.fromJson(apiResponse.response?.data);
-        if(type == 'reorder'){
+        if (type == 'reorder') {
           deliveredOrderModel = OrderModel.fromJson(apiResponse.response?.data);
         }
-      }else {
-        orderModel!.orders!.addAll(OrderModel.fromJson(apiResponse.response?.data).orders!);
-        orderModel!.offset = OrderModel.fromJson(apiResponse.response?.data).offset;
-        orderModel!.totalSize = OrderModel.fromJson(apiResponse.response?.data).totalSize;
+      } else {
+        orderModel!.orders!
+            .addAll(OrderModel.fromJson(apiResponse.response?.data).orders!);
+        orderModel!.offset =
+            OrderModel.fromJson(apiResponse.response?.data).offset;
+        orderModel!.totalSize =
+            OrderModel.fromJson(apiResponse.response?.data).totalSize;
       }
-
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
@@ -82,91 +83,84 @@ class OrderProvider with ChangeNotifier {
   String selectedType = 'ongoing';
   void setIndex(int index, {bool notify = true}) {
     _orderTypeIndex = index;
-    if(_orderTypeIndex == 0){
+    if (_orderTypeIndex == 0) {
       selectedType = 'ongoing';
       getOrderList(1, 'ongoing');
-    }else if(_orderTypeIndex == 1){
+    } else if (_orderTypeIndex == 1) {
       selectedType = 'delivered';
       getOrderList(1, 'delivered');
-    }else if(_orderTypeIndex == 2){
+    } else if (_orderTypeIndex == 2) {
       selectedType = 'canceled';
       getOrderList(1, 'canceled');
     }
-    if(notify) {
+    if (notify) {
       notifyListeners();
     }
   }
 
-
-
   List<OrderDetailsModel>? _orderDetails;
   List<OrderDetailsModel>? get orderDetails => _orderDetails;
 
-  Future <ApiResponse> getOrderDetails(String orderID) async {
+  Future<ApiResponse> getOrderDetails(String orderID) async {
     _orderDetails = null;
     ApiResponse apiResponse = await orderRepo!.getOrderDetails(orderID);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _orderDetails = null;
       _orderDetails = [];
-      apiResponse.response!.data.forEach((order) => _orderDetails!.add(OrderDetailsModel.fromJson(order)));
+      apiResponse.response!.data.forEach(
+          (order) => _orderDetails!.add(OrderDetailsModel.fromJson(order)));
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
 
-
-
-
   Orders? orders;
-  Future <void> getOrderFromOrderId(String orderID) async {
+  Future<void> getOrderFromOrderId(String orderID) async {
     ApiResponse apiResponse = await orderRepo!.getOrderFromOrderId(orderID);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       orders = Orders.fromJson(apiResponse.response!.data);
       log("===Delivery MAN==> ${orders?.deliveryMan?.fName}");
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
 
-
-
   void stopLoader({bool notify = true}) {
     _isLoading = false;
-    if(notify){
+    if (notify) {
       notifyListeners();
     }
-
   }
-
-
 
   Orders? trackingModel;
   Future<void> initTrackingInfo(String orderID) async {
-      ApiResponse apiResponse = await orderRepo!.getTrackingInfo(orderID);
-      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-        trackingModel = Orders.fromJson(apiResponse.response!.data);
-      } else {
-        ApiChecker.checkApi( apiResponse);
-      }
-      notifyListeners();
+    ApiResponse apiResponse = await orderRepo!.getTrackingInfo(orderID);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      trackingModel = Orders.fromJson(apiResponse.response!.data);
+    } else {
+      ApiChecker.checkApi(apiResponse);
+    }
+    notifyListeners();
   }
 
-
-
   void pickImage(bool isRemove, {bool fromReview = false}) async {
-    if(isRemove) {
+    if (isRemove) {
       _imageFile = null;
       _refundImage = [];
       reviewImages = [];
-    }else {
-      _imageFile = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 20);
+    } else {
+      _imageFile = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, imageQuality: 20);
       if (_imageFile != null) {
-        if(fromReview){
+        if (fromReview) {
           reviewImages.add(File(_imageFile!.path));
-        }else{
+        } else {
           _refundImage.add(_imageFile);
         }
       }
@@ -174,30 +168,33 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
-  void removeImage(int index, {bool fromReview = false}){
-    if(fromReview){
+  void removeImage(int index, {bool fromReview = false}) {
+    if (fromReview) {
       reviewImages.removeAt(index);
-    }else{
+    } else {
       _refundImage.removeAt(index);
     }
 
     notifyListeners();
   }
 
-  Future<http.StreamedResponse> refundRequest(BuildContext context, int? orderDetailsId, double? amount, String refundReason, String token) async {
+  Future<http.StreamedResponse> refundRequest(
+      BuildContext context,
+      int? orderDetailsId,
+      double? amount,
+      String refundReason,
+      String token) async {
     _isLoading = true;
     notifyListeners();
-    http.StreamedResponse response = await orderRepo!.refundRequest(orderDetailsId, amount, refundReason,refundImage, token);
+    http.StreamedResponse response = await orderRepo!.refundRequest(
+        orderDetailsId, amount, refundReason, refundImage, token);
     if (response.statusCode == 200) {
       getRefundReqInfo(orderDetailsId);
       _imageFile = null;
       _refundImage = [];
       _isLoading = false;
-
     } else {
       _isLoading = false;
-
     }
     _imageFile = null;
     _refundImage = [];
@@ -206,36 +203,38 @@ class OrderProvider with ChangeNotifier {
     return response;
   }
 
-
-
   Future<ApiResponse> getRefundReqInfo(int? orderDetailId) async {
     _isRefund = true;
     ApiResponse apiResponse = await orderRepo!.getRefundInfo(orderDetailId);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _refundInfoModel = RefundInfoModel.fromJson(apiResponse.response!.data);
       _isRefund = false;
-    } else if(apiResponse.response!.statusCode == 202){
+    } else if (apiResponse.response!.statusCode == 202) {
       _isRefund = false;
-      showCustomSnackBar('${apiResponse.response!.data['message']}', Get.context!);
-    }
-    else {
+      showCustomSnackBar(
+          '${apiResponse.response!.data['message']}', Get.context!);
+    } else {
       _isRefund = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
 
-  Future<ApiResponse> getRefundResult(BuildContext context, int? orderDetailId) async {
-    _isLoading =true;
+  Future<ApiResponse> getRefundResult(
+      BuildContext context, int? orderDetailId) async {
+    _isLoading = true;
 
     ApiResponse apiResponse = await orderRepo!.getRefundResult(orderDetailId);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-      _refundResultModel = RefundResultModel.fromJson(apiResponse.response!.data);
+      _refundResultModel =
+          RefundResultModel.fromJson(apiResponse.response!.data);
     } else {
       _isLoading = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
@@ -244,17 +243,16 @@ class OrderProvider with ChangeNotifier {
   Future<ApiResponse> cancelOrder(BuildContext context, int? orderId) async {
     _isLoading = true;
     ApiResponse apiResponse = await orderRepo!.cancelOrder(orderId);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
-
     } else {
       _isLoading = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
-
 
   void downloadFile(String url, String dir) async {
     await FlutterDownloader.enqueue(
@@ -266,80 +264,90 @@ class OrderProvider with ChangeNotifier {
     );
   }
 
-
-
   bool searching = false;
-  Future<ApiResponse> trackYourOrder({String? orderId, String? phoneNumber}) async {
+  Future<ApiResponse> trackYourOrder(
+      {String? orderId, String? phoneNumber}) async {
     searching = true;
     notifyListeners();
-    ApiResponse apiResponse = await orderRepo!.trackYourOrder(orderId!, phoneNumber!);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await orderRepo!.trackYourOrder(orderId!, phoneNumber!);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       searching = false;
       _orderDetails = [];
-      apiResponse.response!.data.forEach((order) => _orderDetails!.add(OrderDetailsModel.fromJson(order)));
+      apiResponse.response!.data.forEach(
+          (order) => _orderDetails!.add(OrderDetailsModel.fromJson(order)));
     } else {
       searching = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
 
   Future<ApiResponse> downloadDigitalProduct({int? orderDetailsId}) async {
-    ApiResponse apiResponse = await orderRepo!.downloadDigitalProduct(orderDetailsId!);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      Provider.of<AuthController>(Get.context!, listen: false).resendTime = (apiResponse.response!.data["time_count_in_second"]);
+    ApiResponse apiResponse =
+        await orderRepo!.downloadDigitalProduct(orderDetailsId!);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      Provider.of<AuthController>(Get.context!, listen: false).resendTime =
+          (apiResponse.response!.data["time_count_in_second"]);
     } else {
       _isLoading = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
-
 
   Future<ApiResponse> resendOtpForDigitalProduct({int? orderId}) async {
-    ApiResponse apiResponse = await orderRepo!.resendOtpForDigitalProduct(orderId!);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-
+    ApiResponse apiResponse =
+        await orderRepo!.resendOtpForDigitalProduct(orderId!);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
     } else {
       _isLoading = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
 
-  Future<ApiResponse> otpVerificationDigitalProduct({required int orderId, required String otp}) async {
-    ApiResponse apiResponse = await orderRepo!.otpVerificationForDigitalProduct(orderId, otp);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+  Future<ApiResponse> otpVerificationDigitalProduct(
+      {required int orderId, required String otp}) async {
+    ApiResponse apiResponse =
+        await orderRepo!.otpVerificationForDigitalProduct(orderId, otp);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       Navigator.of(Get.context!).pop();
-      _launchUrl(Uri.parse('${AppConstants.baseUrl}${AppConstants.otpVerificationForDigitalProduct}?order_details_id=$orderId&otp=$otp&guest_id=1&action=download'));
-
+      _launchUrl(Uri.parse(
+          '${AppConstants.baseUrl}${AppConstants.otpVerificationForDigitalProduct}?order_details_id=$orderId&otp=$otp&guest_id=1&action=download'));
     } else {
       _isLoading = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
-
 
   Future<ApiResponse> reorder({String? orderId}) async {
-    _isLoading =true;
+    _isLoading = true;
 
     ApiResponse apiResponse = await orderRepo!.reorder(orderId!);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      showCustomSnackBar(apiResponse.response?.data['message'], Get.context!, isError: false);
-      Navigator.push(Get.context!, MaterialPageRoute(builder: (_) => const CartScreen()));
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      showCustomSnackBar(apiResponse.response?.data['message'], Get.context!,
+          isError: false);
+      Navigator.push(
+          Get.context!, MaterialPageRoute(builder: (_) => const CartScreen()));
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
-
 }
+
 Future<void> _launchUrl(Uri url) async {
   if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
     throw 'Could not launch $url';

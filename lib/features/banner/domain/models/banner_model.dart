@@ -1,4 +1,4 @@
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
+import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
 
 class BannerModel {
   int? id;
@@ -16,22 +16,22 @@ class BannerModel {
   String? buttonText;
   String? backgroundColor;
 
-  BannerModel(
-      {this.id,
-        this.photo,
-        this.bannerType,
-        this.published,
-        this.createdAt,
-        this.updatedAt,
-        this.url,
-        this.resourceType,
-        this.resourceId,
-        this.product,
-        this.title,
-        this.subTitle,
-        this.buttonText,
-        this.backgroundColor,
-      });
+  BannerModel({
+    this.id,
+    this.photo,
+    this.bannerType,
+    this.published,
+    this.createdAt,
+    this.updatedAt,
+    this.url,
+    this.resourceType,
+    this.resourceId,
+    this.product,
+    this.title,
+    this.subTitle,
+    this.buttonText,
+    this.backgroundColor,
+  });
 
   BannerModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -47,7 +47,7 @@ class BannerModel {
     subTitle = json['sub_title'];
     buttonText = json['button_text'];
     backgroundColor = json['background_color'];
-    product = json['product'] != null ? Product.fromJson(json['product']) : null;
+    product =
+        json['product'] != null ? Product.fromJson(json['product']) : null;
   }
-
 }

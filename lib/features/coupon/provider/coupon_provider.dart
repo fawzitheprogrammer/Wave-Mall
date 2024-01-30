@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/coupon/domain/model/coupon_item_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/coupon/domain/model/coupon_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/coupon/domain/repo/coupon_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/coupon/domain/model/coupon_item_model.dart';
+import 'package:wave_mall_user/features/coupon/domain/model/coupon_model.dart';
+import 'package:wave_mall_user/features/coupon/domain/repo/coupon_repo.dart';
+import 'package:wave_mall_user/helper/price_converter.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
 
 class CouponProvider extends ChangeNotifier {
   final CouponRepo? couponRepo;
@@ -21,33 +21,38 @@ class CouponProvider extends ChangeNotifier {
   String _couponCode = '';
   String get couponCode => _couponCode;
 
-  void removeCoupon(){
+  void removeCoupon() {
     _discount = null;
     _couponCode = '';
     notifyListeners();
   }
 
-
-
-  Future<void> applyCoupon(BuildContext context,String coupon, double order) async {
+  Future<void> applyCoupon(
+      BuildContext context, String coupon, double order) async {
     _isLoading = true;
     _discount = 0;
     notifyListeners();
     ApiResponse apiResponse = await couponRepo!.getCoupon(coupon);
-    if (apiResponse.response != null  && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       _couponCode = coupon;
       Map map = apiResponse.response!.data;
       String dis = map['coupon_discount'].toString();
-      if(map['coupon_discount'] !=null){
+      if (map['coupon_discount'] != null) {
         _discount = double.parse(dis);
       }
 
-      showCustomSnackBar('${getTranslated('you_got', Get.context!)} '
+      showCustomSnackBar(
+          '${getTranslated('you_got', Get.context!)} '
           '${PriceConverter.convertPrice(Get.context!, _discount)} '
-          '${getTranslated('discount', Get.context!)}', Get.context!, isError: false, isToaster: true);
+          '${getTranslated('discount', Get.context!)}',
+          Get.context!,
+          isError: false,
+          isToaster: true);
     } else {
-      showCustomSnackBar(apiResponse.response!.data, Get.context!, isToaster: true);
+      showCustomSnackBar(apiResponse.response!.data, Get.context!,
+          isToaster: true);
     }
     _isLoading = false;
     notifyListeners();
@@ -56,35 +61,36 @@ class CouponProvider extends ChangeNotifier {
   List<Coupons>? couponList;
   CouponItemModel? couponItemModel;
 
-
-  Future<void> getCouponList(BuildContext context,int offset) async {
+  Future<void> getCouponList(BuildContext context, int offset) async {
     _isLoading = true;
 
     ApiResponse apiResponse = await couponRepo!.getCouponList(offset);
-    if (apiResponse.response != null  && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       couponList = [];
       _isLoading = false;
-      couponList!.addAll(CouponItemModel.fromJson(apiResponse.response!.data).coupons!);
+      couponList!.addAll(
+          CouponItemModel.fromJson(apiResponse.response!.data).coupons!);
       couponItemModel = CouponItemModel.fromJson(apiResponse.response!.data);
-
     } else {
-      showCustomSnackBar(apiResponse.response!.data, Get.context!, isToaster: true);
+      showCustomSnackBar(apiResponse.response!.data, Get.context!,
+          isToaster: true);
     }
     _isLoading = false;
     notifyListeners();
   }
 
-
   List<Coupons>? availableCouponList;
   Future<void> getAvailableCouponList() async {
     availableCouponList = [];
     ApiResponse apiResponse = await couponRepo!.getAvailableCouponList();
-    if (apiResponse.response != null  && apiResponse.response!.statusCode == 200) {
-      apiResponse.response?.data.forEach((coupon)=> availableCouponList?.add(Coupons.fromJson(coupon)));
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      apiResponse.response?.data.forEach(
+          (coupon) => availableCouponList?.add(Coupons.fromJson(coupon)));
     }
     notifyListeners();
   }
-
 
   int couponCurrentIndex = 0;
   void setCurrentIndex(int index) {
@@ -92,21 +98,22 @@ class CouponProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   Future<void> getSellerWiseCouponList(int sellerId, int offset) async {
     _isLoading = true;
 
-    ApiResponse apiResponse = await couponRepo!.getSellerCouponList(sellerId, offset);
-    if (apiResponse.response != null  && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await couponRepo!.getSellerCouponList(sellerId, offset);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       couponItemModel = CouponItemModel.fromJson(apiResponse.response!.data);
     } else {
-      showCustomSnackBar(apiResponse.response!.data, Get.context!, isToaster: true);
+      showCustomSnackBar(apiResponse.response!.data, Get.context!,
+          isToaster: true);
     }
     _isLoading = false;
     notifyListeners();
   }
-
 
   void removePrevCouponData() {
     _coupon = null;

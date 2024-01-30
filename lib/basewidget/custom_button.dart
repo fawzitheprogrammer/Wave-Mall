@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
+import 'package:wave_mall_user/theme/provider/theme_provider.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
 import 'package:provider/provider.dart';
 
 class CustomButton extends StatelessWidget {
@@ -42,7 +42,8 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
             border: isBorder
                 ? Border.all(
-                    color: borderColor ?? Theme.of(context).colorScheme.tertiary,
+                    color:
+                        borderColor ?? Theme.of(context).colorScheme.tertiary,
                     width: borderWidth ?? 1)
                 : null,
             color: backgroundColor ??

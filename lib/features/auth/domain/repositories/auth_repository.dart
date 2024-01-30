@@ -2,39 +2,37 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/dio/dio_client.dart';
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/domain/repositories/contracts/auth_repository_interface.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
+import 'package:wave_mall_user/data/datasource/remote/dio/dio_client.dart';
+import 'package:wave_mall_user/data/datasource/remote/exception/api_error_handler.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/auth/controllers/auth_controller.dart';
+import 'package:wave_mall_user/features/auth/domain/repositories/contracts/auth_repository_interface.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-class AuthRepository implements AuthRepoInterface{
+class AuthRepository implements AuthRepoInterface {
   final DioClient? dioClient;
   final SharedPreferences? sharedPreferences;
   AuthRepository({required this.dioClient, required this.sharedPreferences});
 
-
   @override
-  Future<ApiResponse> socialLogin(Map<String, dynamic>  socialLogin) async {
+  Future<ApiResponse> socialLogin(Map<String, dynamic> socialLogin) async {
     try {
-      Response response = await dioClient!.post(AppConstants.socialLoginUri, data: socialLogin);
+      Response response =
+          await dioClient!.post(AppConstants.socialLoginUri, data: socialLogin);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
-
-
   @override
   Future<ApiResponse> registration(Map<String, dynamic> register) async {
     try {
-      Response response = await dioClient!.post(AppConstants.registrationUri, data: register);
+      Response response =
+          await dioClient!.post(AppConstants.registrationUri, data: register);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -43,7 +41,10 @@ class AuthRepository implements AuthRepoInterface{
 
   @override
   Future<ApiResponse> login(Map<String, dynamic> loginBody) async {
-    try {Response response = await dioClient!.post(AppConstants.loginUri, data: loginBody,
+    try {
+      Response response = await dioClient!.post(
+        AppConstants.loginUri,
+        data: loginBody,
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -53,8 +54,9 @@ class AuthRepository implements AuthRepoInterface{
 
   @override
   Future<ApiResponse> logout() async {
-    try {Response response = await dioClient!.get(AppConstants.logOut);
-    return ApiResponse.withSuccess(response);
+    try {
+      Response response = await dioClient!.get(AppConstants.logOut);
+      return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
@@ -67,9 +69,12 @@ class AuthRepository implements AuthRepoInterface{
       FirebaseMessaging.instance.subscribeToTopic(AppConstants.topic);
       Response response = await dioClient!.post(
         AppConstants.tokenUri,
-        data: {"_method": "put",
-          'guest_id' : Provider.of<AuthController>(Get.context!, listen: false).getGuestToken(),
-          "cm_firebase_token": deviceToken},
+        data: {
+          "_method": "put",
+          'guest_id': Provider.of<AuthController>(Get.context!, listen: false)
+              .getGuestToken(),
+          "cm_firebase_token": deviceToken
+        },
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -79,9 +84,9 @@ class AuthRepository implements AuthRepoInterface{
 
   Future<String?> _getDeviceToken() async {
     String? deviceToken;
-    if(Platform.isIOS) {
+    if (Platform.isIOS) {
       deviceToken = await FirebaseMessaging.instance.getAPNSToken();
-    }else {
+    } else {
       deviceToken = await FirebaseMessaging.instance.getToken();
     }
     if (deviceToken != null) {
@@ -89,7 +94,6 @@ class AuthRepository implements AuthRepoInterface{
     }
     return deviceToken;
   }
-
 
   @override
   Future<void> saveUserToken(String token) async {
@@ -104,10 +108,8 @@ class AuthRepository implements AuthRepoInterface{
   @override
   Future<ApiResponse> setLanguageCode(String languageCode) async {
     try {
-      final response = await dioClient!.post(AppConstants.setCurrentLanguage, data: {
-        'current_language' : languageCode,
-        '_method' : 'put'
-      });
+      final response = await dioClient!.post(AppConstants.setCurrentLanguage,
+          data: {'current_language': languageCode, '_method': 'put'});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -144,8 +146,6 @@ class AuthRepository implements AuthRepoInterface{
     return true;
   }
 
-
-
   @override
   bool isLoggedIn() {
     return sharedPreferences!.containsKey(AppConstants.userLoginToken);
@@ -158,23 +158,24 @@ class AuthRepository implements AuthRepoInterface{
     return true;
   }
 
-
   @override
-  Future<ApiResponse> sendOtpToEmail(String email, String temporaryToken) async {
+  Future<ApiResponse> sendOtpToEmail(
+      String email, String temporaryToken) async {
     try {
       Response response = await dioClient!.post(AppConstants.sendOtpToEmail,
-          data: {"email": email, "temporary_token" : temporaryToken});
-        return ApiResponse.withSuccess(response);
+          data: {"email": email, "temporary_token": temporaryToken});
+      return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
   @override
-  Future<ApiResponse> resendEmailOtp(String email, String temporaryToken) async {
+  Future<ApiResponse> resendEmailOtp(
+      String email, String temporaryToken) async {
     try {
       Response response = await dioClient!.post(AppConstants.resendEmailOtpUri,
-          data: {"email": email, "temporary_token" : temporaryToken});
+          data: {"email": email, "temporary_token": temporaryToken});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -182,22 +183,23 @@ class AuthRepository implements AuthRepoInterface{
   }
 
   @override
-  Future<ApiResponse> verifyEmail(String email, String token, String tempToken) async {
+  Future<ApiResponse> verifyEmail(
+      String email, String token, String tempToken) async {
     try {
-      Response response = await dioClient!.post(AppConstants.verifyEmailUri, data: {"email": email, "token": token, 'temporary_token': tempToken});
+      Response response = await dioClient!.post(AppConstants.verifyEmailUri,
+          data: {"email": email, "token": token, 'temporary_token': tempToken});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
-
-
   @override
-  Future<ApiResponse> sendOtpToPhone(String phone, String temporaryToken) async {
+  Future<ApiResponse> sendOtpToPhone(
+      String phone, String temporaryToken) async {
     try {
       Response response = await dioClient!.post(AppConstants.sendOtpToPhone,
-          data: {"phone": phone, "temporary_token" :temporaryToken});
+          data: {"phone": phone, "temporary_token": temporaryToken});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -205,11 +207,11 @@ class AuthRepository implements AuthRepoInterface{
   }
 
   @override
-  Future<ApiResponse> resendPhoneOtp(String phone, String temporaryToken) async {
+  Future<ApiResponse> resendPhoneOtp(
+      String phone, String temporaryToken) async {
     try {
-      Response response = await dioClient!.post(
-          AppConstants.resendPhoneOtpUri,
-          data: {"phone": phone, "temporary_token" :temporaryToken});
+      Response response = await dioClient!.post(AppConstants.resendPhoneOtpUri,
+          data: {"phone": phone, "temporary_token": temporaryToken});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -217,10 +219,11 @@ class AuthRepository implements AuthRepoInterface{
   }
 
   @override
-  Future<ApiResponse> verifyPhone(String phone, String token, String otp) async {
+  Future<ApiResponse> verifyPhone(
+      String phone, String token, String otp) async {
     try {
-      Response response = await dioClient!.post(
-          AppConstants.verifyPhoneUri, data: {"phone": phone.trim(), "temporary_token": token,"otp": otp});
+      Response response = await dioClient!.post(AppConstants.verifyPhoneUri,
+          data: {"phone": phone.trim(), "temporary_token": token, "otp": otp});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -230,8 +233,8 @@ class AuthRepository implements AuthRepoInterface{
   @override
   Future<ApiResponse> verifyOtp(String identity, String otp) async {
     try {
-      Response response = await dioClient!.post(
-          AppConstants.verifyOtpUri, data: {"identity": identity.trim(), "otp": otp});
+      Response response = await dioClient!.post(AppConstants.verifyOtpUri,
+          data: {"identity": identity.trim(), "otp": otp});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -239,18 +242,22 @@ class AuthRepository implements AuthRepoInterface{
   }
 
   @override
-  Future<ApiResponse> resetPassword(String identity, String otp ,String password, String confirmPassword) async {
+  Future<ApiResponse> resetPassword(String identity, String otp,
+      String password, String confirmPassword) async {
     try {
-      Response response = await dioClient!.post(
-          AppConstants.resetPasswordUri, data: {"_method" : "put", "identity": identity.trim(), "otp": otp,"password": password, "confirm_password":confirmPassword});
+      Response response =
+          await dioClient!.post(AppConstants.resetPasswordUri, data: {
+        "_method": "put",
+        "identity": identity.trim(),
+        "otp": otp,
+        "password": password,
+        "confirm_password": confirmPassword
+      });
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
-
-
-
 
   @override
   Future<void> saveUserEmailAndPassword(String email, String password) async {
@@ -281,7 +288,8 @@ class AuthRepository implements AuthRepoInterface{
   @override
   Future<ApiResponse> forgetPassword(String identity) async {
     try {
-      Response response = await dioClient!.post(AppConstants.forgetPasswordUri, data: {"identity": identity});
+      Response response = await dioClient!
+          .post(AppConstants.forgetPasswordUri, data: {"identity": identity});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -328,11 +336,9 @@ class AuthRepository implements AuthRepoInterface{
     throw UnimplementedError();
   }
 
-
   @override
   Future<ApiResponse> update(Map<String, dynamic> body) {
     // TODO: implement update
     throw UnimplementedError();
   }
-
 }

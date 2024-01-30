@@ -1,5 +1,3 @@
-import 'package:flutter_sixvalley_ecommerce/interface/repo_interface.dart';
+import 'package:wave_mall_user/interface/repo_interface.dart';
 
-abstract class OrderRepoInterface extends RepoInterface{
-
-}
+abstract class OrderRepoInterface extends RepoInterface {}

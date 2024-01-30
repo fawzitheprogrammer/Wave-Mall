@@ -1,18 +1,18 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/model/review_body.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/domain/model/review_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/repo/product_details_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_details_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/provider/order_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/product_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/features/order/domain/model/review_body.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/data/model/response_model.dart';
+import 'package:wave_mall_user/features/order/domain/model/review_model.dart';
+import 'package:wave_mall_user/features/product/domain/repo/product_details_repo.dart';
+import 'package:wave_mall_user/features/product/domain/model/product_details_model.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/features/order/provider/order_provider.dart';
+import 'package:wave_mall_user/features/product/provider/product_provider.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
@@ -34,7 +34,7 @@ class ProductDetailsProvider extends ChangeNotifier {
   String? _errorText;
   bool _hasConnection = true;
   bool _isDetails = false;
-  bool get isDetails =>_isDetails;
+  bool get isDetails => _isDetails;
 
   List<ReviewModel>? get reviewList => _reviewList;
   int? get imageSliderIndex => _imageSliderIndex;
@@ -52,52 +52,60 @@ class ProductDetailsProvider extends ChangeNotifier {
   ProductDetailsModel? _productDetailsModel;
   ProductDetailsModel? get productDetailsModel => _productDetailsModel;
 
-
-
   Future<void> getProductDetails(BuildContext context, String productId) async {
-
     _isDetails = true;
     ApiResponse apiResponse = await productDetailsRepo!.getProduct(productId);
 
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isDetails = false;
-      _productDetailsModel = ProductDetailsModel.fromJson(apiResponse.response!.data);
-      if(_productDetailsModel != null){
-        Provider.of<ProductProvider>(Get.context!, listen: false).getSellerProductList(Provider.of<ProductDetailsProvider>(Get.context!, listen: false).productDetailsModel!.userId.toString(), 1, Get.context!);
+      _productDetailsModel =
+          ProductDetailsModel.fromJson(apiResponse.response!.data);
+      if (_productDetailsModel != null) {
+        Provider.of<ProductProvider>(Get.context!, listen: false)
+            .getSellerProductList(
+                Provider.of<ProductDetailsProvider>(Get.context!, listen: false)
+                    .productDetailsModel!
+                    .userId
+                    .toString(),
+                1,
+                Get.context!);
       }
-
     } else {
       _isDetails = false;
-      if(context.mounted){}
+      if (context.mounted) {}
       showCustomSnackBar(apiResponse.error.toString(), Get.context!);
     }
     _isDetails = false;
     notifyListeners();
   }
 
-
-  Future<void> initProduct(int? productId,String? productSlug, BuildContext context) async {
+  Future<void> initProduct(
+      int? productId, String? productSlug, BuildContext context) async {
     _hasConnection = true;
     _variantIndex = 0;
-    ApiResponse reviewResponse = await productDetailsRepo!.getReviews(productId.toString());
-    if (reviewResponse.response != null && reviewResponse.response!.statusCode == 200) {
+    ApiResponse reviewResponse =
+        await productDetailsRepo!.getReviews(productId.toString());
+    if (reviewResponse.response != null &&
+        reviewResponse.response!.statusCode == 200) {
       _reviewList = [];
-      reviewResponse.response!.data.forEach((reviewModel) => _reviewList!.add(ReviewModel.fromJson(reviewModel)));
+      reviewResponse.response!.data.forEach(
+          (reviewModel) => _reviewList!.add(ReviewModel.fromJson(reviewModel)));
       _imageSliderIndex = 0;
       _quantity = 1;
     } else {
-      if(context.mounted){}
-      ApiChecker.checkApi( reviewResponse);
+      if (context.mounted) {}
+      ApiChecker.checkApi(reviewResponse);
     }
     notifyListeners();
   }
 
-
-  void initData(ProductDetailsModel product, int? minimumOrderQuantity, BuildContext context) {
+  void initData(ProductDetailsModel product, int? minimumOrderQuantity,
+      BuildContext context) {
     _variantIndex = 0;
     _quantity = minimumOrderQuantity;
     _variationIndex = [];
-    for (int i=0; i<= product.choiceOptions!.length; i++) {
+    for (int i = 0; i <= product.choiceOptions!.length; i++) {
       _variationIndex!.add(0);
     }
   }
@@ -109,19 +117,22 @@ class ProductDetailsProvider extends ChangeNotifier {
 
   void getCount(String productID, BuildContext context) async {
     ApiResponse apiResponse = await productDetailsRepo!.getCount(productID);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _orderCount = apiResponse.response!.data['order_count'];
       _wishCount = apiResponse.response!.data['wishlist_count'];
     } else {
-      if(context.mounted){}
-      ApiChecker.checkApi( apiResponse);
+      if (context.mounted) {}
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
 
   void getSharableLink(String productID, BuildContext context) async {
-    ApiResponse apiResponse = await productDetailsRepo!.getSharableLink(productID);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    ApiResponse apiResponse =
+        await productDetailsRepo!.getSharableLink(productID);
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _sharableLink = apiResponse.response!.data;
     } else {
       ApiChecker.checkApi(apiResponse);
@@ -154,13 +165,15 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setCartVariantIndex(int? minimumOrderQuantity,int index, BuildContext context) {
+  void setCartVariantIndex(
+      int? minimumOrderQuantity, int index, BuildContext context) {
     _variantIndex = index;
     _quantity = minimumOrderQuantity;
     notifyListeners();
   }
 
-  void setCartVariationIndex(int? minimumOrderQuantity, int index, int i, BuildContext context) {
+  void setCartVariationIndex(
+      int? minimumOrderQuantity, int index, int i, BuildContext context) {
     _variationIndex![index] = i;
     _quantity = minimumOrderQuantity;
     notifyListeners();
@@ -171,23 +184,28 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<ResponseModel> submitReview(ReviewBody reviewBody, List<File> files, String token) async {
+  Future<ResponseModel> submitReview(
+      ReviewBody reviewBody, List<File> files, String token) async {
     _isLoading = true;
     notifyListeners();
 
-    http.StreamedResponse response = await productDetailsRepo!.submitReview(reviewBody, files, token);
+    http.StreamedResponse response =
+        await productDetailsRepo!.submitReview(reviewBody, files, token);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
       Provider.of<OrderProvider>(Get.context!, listen: false).reviewImages = [];
       _rating = 0;
-      responseModel = ResponseModel('${getTranslated('Review submitted successfully', Get.context!)}', true);
+      responseModel = ResponseModel(
+          '${getTranslated('Review submitted successfully', Get.context!)}',
+          true);
       _errorText = null;
       notifyListeners();
     } else {
       if (kDebugMode) {
         print('${response.statusCode} ${response.reasonPhrase}');
       }
-      responseModel = ResponseModel('${response.statusCode} ${response.reasonPhrase}', false);
+      responseModel = ResponseModel(
+          '${response.statusCode} ${response.reasonPhrase}', false);
     }
     _isLoading = false;
     notifyListeners();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
 
 class CustomizedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -9,18 +9,30 @@ class CustomizedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? height;
   final Color? iconColor;
   final Color? textColor;
-  const CustomizedAppBar({super.key, required this.title, this.isBackButtonExist = true, this.color, this.height, this.iconColor, this.textColor});
+  const CustomizedAppBar(
+      {super.key,
+      required this.title,
+      this.isBackButtonExist = true,
+      this.color,
+      this.height,
+      this.iconColor,
+      this.textColor});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-
-      title: Text(title, style: textRegular.copyWith(fontSize: Dimensions.fontSizeLarge,
-          color: textColor ?? Theme.of(context).textTheme.bodyLarge!.color)),
+      title: Text(title,
+          style: textRegular.copyWith(
+              fontSize: Dimensions.fontSizeLarge,
+              color:
+                  textColor ?? Theme.of(context).textTheme.bodyLarge!.color)),
       centerTitle: false,
-      leading: isBackButtonExist ?
-      GestureDetector(onTap: ()=> Navigator.pop(context),
-          child: Icon(Icons.arrow_back_ios, color: iconColor ?? Theme.of(context).primaryColor)): const SizedBox(),
+      leading: isBackButtonExist
+          ? GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Icon(Icons.arrow_back_ios,
+                  color: iconColor ?? Theme.of(context).primaryColor))
+          : const SizedBox(),
       backgroundColor: color ?? Theme.of(context).cardColor,
       elevation: 0,
     );

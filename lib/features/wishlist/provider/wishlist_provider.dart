@@ -1,38 +1,39 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/repo/product_details_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/features/wishlist/domain/model/wishlist_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/wishlist/domain/repo/wishlist_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/product/domain/repo/product_details_repo.dart';
+import 'package:wave_mall_user/features/wishlist/domain/model/wishlist_model.dart';
+import 'package:wave_mall_user/features/wishlist/domain/repo/wishlist_repo.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
 
 class WishListProvider extends ChangeNotifier {
   final WishListRepo? wishListRepo;
   final ProductDetailsRepo? productDetailsRepo;
-  WishListProvider({required this.wishListRepo, required this.productDetailsRepo});
+  WishListProvider(
+      {required this.wishListRepo, required this.productDetailsRepo});
 
-   bool _isLoading = false;
+  bool _isLoading = false;
   bool get isLoading => _isLoading;
   List<WishlistModel>? _wishList;
   List<WishlistModel>? get wishList => _wishList;
-  List<int> addedIntoWish =[];
+  List<int> addedIntoWish = [];
 
-
-  void addWishList(int? productID, ) async {
+  void addWishList(
+    int? productID,
+  ) async {
     _isLoading = true;
     notifyListeners();
     addedIntoWish.add(productID!);
     ApiResponse apiResponse = await wishListRepo!.addWishList(productID);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _isLoading = false;
       Map map = apiResponse.response!.data;
       String? message = map['message'];
       showCustomSnackBar(message, Get.context!, isError: false);
-
     } else {
       _isLoading = false;
       showCustomSnackBar(apiResponse.error.toString(), Get.context!);
@@ -40,14 +41,16 @@ class WishListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeWishList(int? productID, {int? index, fromWishlist = false}) async {
+  void removeWishList(int? productID,
+      {int? index, fromWishlist = false}) async {
     _isLoading = true;
     log("===============ppId==>${addedIntoWish.indexOf(productID!)}/${addedIntoWish.toList()}");
     addedIntoWish.removeAt(addedIntoWish.indexOf(productID));
     notifyListeners();
     ApiResponse apiResponse = await wishListRepo!.removeWishList(productID);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      if(fromWishlist){
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      if (fromWishlist) {
         getWishList();
       }
       _isLoading = false;
@@ -62,23 +65,23 @@ class WishListProvider extends ChangeNotifier {
   }
 
   Future<void> getWishList() async {
-    List<WishlistModel>?  wishList =[];
+    List<WishlistModel>? wishList = [];
     ApiResponse apiResponse = await wishListRepo!.getWishList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _wishList = [];
       addedIntoWish = [];
-      apiResponse.response?.data.forEach((wish)=> _wishList?.add(WishlistModel.fromJson(wish)));
+      apiResponse.response?.data
+          .forEach((wish) => _wishList?.add(WishlistModel.fromJson(wish)));
       wishList = _wishList;
-      if(wishList!.isNotEmpty){
-        for(int i=0; i< wishList.length; i++){
+      if (wishList!.isNotEmpty) {
+        for (int i = 0; i < wishList.length; i++) {
           addedIntoWish.add(wishList[i].productId!);
         }
-
       }
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
-
 }

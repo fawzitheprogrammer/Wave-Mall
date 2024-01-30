@@ -1,10 +1,10 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/widgets/code_picker_widget.dart';
+import 'package:wave_mall_user/theme/provider/theme_provider.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/features/auth/widgets/code_picker_widget.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -162,7 +162,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.tertiary, //widget.borderColor,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .tertiary, //widget.borderColor,
                     width: widget.showBorder ? 0 : .75,
                   )),
               enabledBorder: OutlineInputBorder(
@@ -219,7 +221,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           widget.prefixIcon!,
                           height: 20,
                           width: 20,
-                          color: Theme.of(context).colorScheme.tertiary.withOpacity(.6),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .tertiary
+                              .withOpacity(.6),
                         )),
                       ),
                     )
@@ -234,7 +239,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                                   '+964',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).colorScheme.tertiary,
+                                    color:
+                                        Theme.of(context).colorScheme.tertiary,
                                   ),
                                 ),
                               )

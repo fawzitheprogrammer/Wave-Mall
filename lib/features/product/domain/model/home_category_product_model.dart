@@ -1,4 +1,4 @@
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
+import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
 
 class HomeCategoryProduct {
   int? id;
@@ -14,15 +14,15 @@ class HomeCategoryProduct {
 
   HomeCategoryProduct(
       {this.id,
-        this.name,
-        this.slug,
-        this.icon,
-        this.parentId,
-        this.position,
-        this.createdAt,
-        this.updatedAt,
-        this.products,
-        this.translations});
+      this.name,
+      this.slug,
+      this.icon,
+      this.parentId,
+      this.position,
+      this.createdAt,
+      this.updatedAt,
+      this.products,
+      this.translations});
 
   HomeCategoryProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -35,14 +35,14 @@ class HomeCategoryProduct {
     updatedAt = json['updated_at'];
     if (json['products'] != null) {
       products = [];
-      json['products'].forEach((v) { products!.add(Product.fromJson(v)); });
+      json['products'].forEach((v) {
+        products!.add(Product.fromJson(v));
+      });
     }
 
     if (json['translations'] != null) {
       translations = [];
       translations = List<dynamic>.from(translations!.map((x) => x));
     }
-
   }
-
 }

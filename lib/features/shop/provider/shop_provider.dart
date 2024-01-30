@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/features/shop/domain/model/seller_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/shop/domain/repo/shop_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/features/home/model/more_store_model.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/features/shop/domain/model/seller_model.dart';
+import 'package:wave_mall_user/features/shop/domain/repo/shop_repo.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/features/home/model/more_store_model.dart';
 
 class SellerProvider extends ChangeNotifier {
   final SellerRepo? sellerRepo;
@@ -16,43 +16,44 @@ class SellerProvider extends ChangeNotifier {
   SellerModel? get sellerModel => _sellerModel;
 
   void initSeller(String sellerId, BuildContext context) async {
-    _orderSellerList =[];
+    _orderSellerList = [];
     ApiResponse apiResponse = await sellerRepo!.getSeller(sellerId);
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _orderSellerList =[];
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      _orderSellerList = [];
       _orderSellerList.add(SellerModel.fromJson(apiResponse.response!.data));
       _sellerModel = SellerModel.fromJson(apiResponse.response!.data);
     } else {
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
   }
 
   int shopMenuIndex = 0;
-  void setMenuItemIndex(int index, {bool notify = true}){
+  void setMenuItemIndex(int index, {bool notify = true}) {
     debugPrint('===================index is ===> ${index.toString()}');
     shopMenuIndex = index;
-    if(notify){
+    if (notify) {
       notifyListeners();
     }
-
   }
 
   bool isLoading = false;
 
-  List<MoreStoreModel> moreStoreList =[];
+  List<MoreStoreModel> moreStoreList = [];
   Future<ApiResponse> getMoreStore() async {
     moreStoreList = [];
     isLoading = true;
     ApiResponse apiResponse = await sellerRepo!.getMoreStore();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      apiResponse.response?.data.forEach((store)=> moreStoreList.add(MoreStoreModel.fromJson(store)));
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      apiResponse.response?.data.forEach(
+          (store) => moreStoreList.add(MoreStoreModel.fromJson(store)));
     } else {
       isLoading = false;
-      ApiChecker.checkApi( apiResponse);
+      ApiChecker.checkApi(apiResponse);
     }
     notifyListeners();
     return apiResponse;
   }
-
 }

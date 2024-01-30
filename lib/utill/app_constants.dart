@@ -1,5 +1,5 @@
-import 'package:flutter_sixvalley_ecommerce/localization/model/language_model.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
+import 'package:wave_mall_user/localization/model/language_model.dart';
+import 'package:wave_mall_user/utill/images.dart';
 
 class AppConstants {
   static const String appName = 'Wave Mall';

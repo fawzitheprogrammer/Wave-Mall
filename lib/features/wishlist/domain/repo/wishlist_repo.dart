@@ -1,7 +1,7 @@
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/dio/dio_client.dart';
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
+import 'package:wave_mall_user/data/datasource/remote/dio/dio_client.dart';
+import 'package:wave_mall_user/data/datasource/remote/exception/api_error_handler.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
 
 class WishListRepo {
   final DioClient? dioClient;
@@ -19,7 +19,8 @@ class WishListRepo {
 
   Future<ApiResponse> addWishList(int? productID) async {
     try {
-      final response = await dioClient!.post(AppConstants.addWishListUri + productID.toString());
+      final response = await dioClient!
+          .post(AppConstants.addWishListUri + productID.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -28,7 +29,8 @@ class WishListRepo {
 
   Future<ApiResponse> removeWishList(int? productID) async {
     try {
-      final response = await dioClient!.delete(AppConstants.removeWishListUri + productID.toString());
+      final response = await dioClient!
+          .delete(AppConstants.removeWishListUri + productID.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

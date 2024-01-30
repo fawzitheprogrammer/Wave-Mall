@@ -1,7 +1,7 @@
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/main.dart';
 
-class ValidateCheck{
+class ValidateCheck {
   static String? validateEmail(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
@@ -22,23 +22,26 @@ class ValidateCheck{
 
   static String? validateEmptyText(String? value, String? message) {
     if (value == null || value.isEmpty) {
-      return getTranslated(message, Get.context!)??'This field is required';
+      return getTranslated(message, Get.context!) ?? 'This field is required';
     }
     return null;
   }
 
   static String? validatePassword(String? value, String? message) {
     if (value == null || value.isEmpty) {
-      return getTranslated(message, Get.context!)??'This field is required';
-    }else if(value.length < 7){
-      return getTranslated(getTranslated('minimum_password_is_8_character', Get.context!), Get.context!);
+      return getTranslated(message, Get.context!) ?? 'This field is required';
+    } else if (value.length < 7) {
+      return getTranslated(
+          getTranslated('minimum_password_is_8_character', Get.context!),
+          Get.context!);
     }
     return null;
   }
+
   static String? validateConfirmPassword(String? value, String? password) {
     if (value == null || value.isEmpty) {
       return getTranslated('confirm_password_must_be_required', Get.context!);
-    }else if(value != password){
+    } else if (value != password) {
       return getTranslated('confirm_password_not_matched', Get.context!);
     }
     return null;

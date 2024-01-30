@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/order/provider/order_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
+import 'package:wave_mall_user/features/order/provider/order_provider.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
 import 'package:provider/provider.dart';
 
 class OrderTypeButton extends StatelessWidget {
   final String? text;
   final int index;
-
 
   const OrderTypeButton({super.key, required this.text, required this.index});
 
@@ -15,7 +14,8 @@ class OrderTypeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: TextButton(
-        onPressed: () => Provider.of<OrderProvider>(context, listen: false).setIndex(index),
+        onPressed: () =>
+            Provider.of<OrderProvider>(context, listen: false).setIndex(index),
         style: TextButton.styleFrom(padding: const EdgeInsets.all(0)),
         child: Container(
           height: 35,
@@ -29,8 +29,12 @@ class OrderTypeButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(text!,
-                  style: titilliumBold.copyWith(color: Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == index
-                      ? Theme.of(context).highlightColor : ColorResources.getReviewRattingColor(context))),
+                  style: titilliumBold.copyWith(
+                      color: Provider.of<OrderProvider>(context, listen: false)
+                                  .orderTypeIndex ==
+                              index
+                          ? Theme.of(context).highlightColor
+                          : ColorResources.getReviewRattingColor(context))),
               const SizedBox(width: 5),
 
               // Container(

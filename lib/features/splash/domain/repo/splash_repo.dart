@@ -1,7 +1,7 @@
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/dio/dio_client.dart';
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
+import 'package:wave_mall_user/data/datasource/remote/dio/dio_client.dart';
+import 'package:wave_mall_user/data/datasource/remote/exception/api_error_handler.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/utill/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashRepo {
@@ -18,14 +18,11 @@ class SplashRepo {
     }
   }
 
-
-
-
   void initSharedData() async {
     if (!sharedPreferences!.containsKey(AppConstants.intro)) {
       sharedPreferences!.setBool(AppConstants.intro, true);
     }
-    if(!sharedPreferences!.containsKey(AppConstants.currency)) {
+    if (!sharedPreferences!.containsKey(AppConstants.currency)) {
       sharedPreferences!.setString(AppConstants.currency, '');
     }
   }
@@ -45,8 +42,4 @@ class SplashRepo {
   bool? showIntro() {
     return sharedPreferences!.getBool(AppConstants.intro);
   }
-
-
-
-
 }

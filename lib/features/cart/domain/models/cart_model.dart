@@ -1,4 +1,5 @@
-import 'package:flutter_sixvalley_ecommerce/features/product/domain/model/product_model.dart';
+import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
+
 class CartModel {
   int? id;
   int? productId;
@@ -25,7 +26,7 @@ class CartModel {
   String? shopInfo;
   List<ChoiceOptions>? choiceOptions;
   List<int>? variationIndexes;
-  double?  shippingCost;
+  double? shippingCost;
   String? shippingType;
   int? minimumOrderQuantity;
   ProductInfo? productInfo;
@@ -36,45 +37,41 @@ class CartModel {
   bool? increment;
   bool? decrement;
 
-
-
-
   CartModel(
-      this.id,
-      this.productId,
-      this.thumbnail,
-      this.name,
-      this.seller,
-      this.price,
-      this.discountedPrice,
-      this.quantity,
-      this.maxQuantity,
-      this.variant,
-      this.color,
-      this.variation,
-      this.discount,
-      this.discountType,
-      this.tax,
-      this.taxModel,
-      this.taxType,
-      this.shippingMethodId,
-      this.cartGroupId,
-      this.sellerId,
-      this.sellerIs,
-      this.image,
-      this.shopInfo,
-      this.choiceOptions,
-      this.variationIndexes,
-      this.shippingCost,
-      this.minimumOrderQuantity,
-      this.productType,
-      this.slug,
-      this.minimumOrderAmountInfo,
-      this.freeDeliveryOrderAmount,
-      this.increment,
-      this.decrement,
-      );
-
+    this.id,
+    this.productId,
+    this.thumbnail,
+    this.name,
+    this.seller,
+    this.price,
+    this.discountedPrice,
+    this.quantity,
+    this.maxQuantity,
+    this.variant,
+    this.color,
+    this.variation,
+    this.discount,
+    this.discountType,
+    this.tax,
+    this.taxModel,
+    this.taxType,
+    this.shippingMethodId,
+    this.cartGroupId,
+    this.sellerId,
+    this.sellerIs,
+    this.image,
+    this.shopInfo,
+    this.choiceOptions,
+    this.variationIndexes,
+    this.shippingCost,
+    this.minimumOrderQuantity,
+    this.productType,
+    this.slug,
+    this.minimumOrderAmountInfo,
+    this.freeDeliveryOrderAmount,
+    this.increment,
+    this.decrement,
+  );
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -91,7 +88,9 @@ class CartModel {
     maxQuantity = json['max_quantity'];
     variant = json['variant'];
     color = json['color'];
-    variation = json['variation'] != null ? Variation.fromJson(json['variation']) : null;
+    variation = json['variation'] != null
+        ? Variation.fromJson(json['variation'])
+        : null;
     discount = json['discount'].toDouble();
     discountType = json['discount_type'];
     tax = json['tax'].toDouble();
@@ -102,46 +101,50 @@ class CartModel {
     shopInfo = json['shop_info'];
     if (json['choice_options'] != null) {
       choiceOptions = [];
-      json['choice_options'].forEach((v) {choiceOptions!.add(ChoiceOptions.fromJson(v));
+      json['choice_options'].forEach((v) {
+        choiceOptions!.add(ChoiceOptions.fromJson(v));
       });
     }
-    variationIndexes = json['variation_indexes'] != null ? json['variation_indexes'].cast<int>() : [];
-    if(json['shipping_cost'] != null){
-      shippingCost =double.parse(json['shipping_cost'].toString());
+    variationIndexes = json['variation_indexes'] != null
+        ? json['variation_indexes'].cast<int>()
+        : [];
+    if (json['shipping_cost'] != null) {
+      shippingCost = double.parse(json['shipping_cost'].toString());
     }
-    if(json['shipping_type'] != null){
+    if (json['shipping_type'] != null) {
       shippingType = json['shipping_type'];
     }
-    productInfo = json['product'] != null ? ProductInfo.fromJson(json['product']) : null;
+    productInfo =
+        json['product'] != null ? ProductInfo.fromJson(json['product']) : null;
     productType = json['product_type'];
     slug = json['slug'];
-    if(json['minimum_order_amount_info'] != null){
-      try{
+    if (json['minimum_order_amount_info'] != null) {
+      try {
         minimumOrderAmountInfo = json['minimum_order_amount_info'].toDouble();
-      }catch(e){
-        minimumOrderAmountInfo = double.parse(json['minimum_order_amount_info'].toString());
+      } catch (e) {
+        minimumOrderAmountInfo =
+            double.parse(json['minimum_order_amount_info'].toString());
       }
     }
     increment = false;
     decrement = false;
-    freeDeliveryOrderAmount = json['free_delivery_order_amount'] != null ? FreeDeliveryOrderAmount.fromJson(json['free_delivery_order_amount']) : null;
-
+    freeDeliveryOrderAmount = json['free_delivery_order_amount'] != null
+        ? FreeDeliveryOrderAmount.fromJson(json['free_delivery_order_amount'])
+        : null;
   }
-
-
 }
 
 class ProductInfo {
   int? minimumOrderQty;
   int? totalCurrentStock;
 
-  ProductInfo({ this.minimumOrderQty, this.totalCurrentStock});
+  ProductInfo({this.minimumOrderQty, this.totalCurrentStock});
 
   ProductInfo.fromJson(Map<String, dynamic> json) {
-    if(json['minimum_order_qty'] != null) {
-      try{
+    if (json['minimum_order_qty'] != null) {
+      try {
         minimumOrderQty = json['minimum_order_qty'];
-      }catch(e){
+      } catch (e) {
         minimumOrderQty = int.parse(json['minimum_order_qty'].toString());
       }
     }
@@ -163,41 +166,35 @@ class FreeDeliveryOrderAmount {
   double? shippingCostSaved;
   double? amountNeed;
 
-
-  FreeDeliveryOrderAmount(
-      {this.status,
-        this.amount,
-        this.percentage,
-        this.shippingCostSaved,
-        this.amountNeed,
-        });
+  FreeDeliveryOrderAmount({
+    this.status,
+    this.amount,
+    this.percentage,
+    this.shippingCostSaved,
+    this.amountNeed,
+  });
 
   FreeDeliveryOrderAmount.fromJson(Map<String, dynamic> json) {
     status = int.parse(json['status'].toString());
-    if(json['amount'] != null){
+    if (json['amount'] != null) {
       amount = json['amount'].toDouble();
     }
 
-    if(json['percentage'] != null){
+    if (json['percentage'] != null) {
       percentage = int.parse(json['percentage'].toString());
     }
 
-    if(json['shipping_cost_saved'] != null){
+    if (json['shipping_cost_saved'] != null) {
       shippingCostSaved = json['shipping_cost_saved'].toDouble();
     }
 
-    if(json['amount_need'] != null){
+    if (json['amount_need'] != null) {
       amountNeed = json['amount_need'].toDouble();
     }
-
-
   }
-
 }
 
-
-
-class CartModelBody{
+class CartModelBody {
   int? productId;
   String? variant;
   String? color;
@@ -206,8 +203,8 @@ class CartModelBody{
 
   CartModelBody(
       {this.productId,
-        this.variant,
-        this.color,
-        this.variation,
-        this.quantity});
+      this.variant,
+      this.color,
+      this.variation,
+      this.quantity});
 }

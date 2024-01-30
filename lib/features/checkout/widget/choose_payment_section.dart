@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/checkout/provider/checkout_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_image.dart';
-import 'package:flutter_sixvalley_ecommerce/features/checkout/widget/payment_method_bottom_sheet.dart';
+import 'package:wave_mall_user/features/checkout/provider/checkout_provider.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/splash/provider/splash_provider.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/basewidget/custom_image.dart';
+import 'package:wave_mall_user/features/checkout/widget/payment_method_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class ChoosePaymentSection extends StatelessWidget {

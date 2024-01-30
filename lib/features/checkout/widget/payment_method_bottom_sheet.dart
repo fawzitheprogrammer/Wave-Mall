@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/checkout/provider/checkout_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/controllers/auth_controller.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/provider/localization_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/search_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_button.dart';
-import 'package:flutter_sixvalley_ecommerce/features/checkout/widget/custom_check_box.dart';
+import 'package:wave_mall_user/features/checkout/provider/checkout_provider.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/auth/controllers/auth_controller.dart';
+import 'package:wave_mall_user/localization/provider/localization_provider.dart';
+import 'package:wave_mall_user/features/product/provider/search_provider.dart';
+import 'package:wave_mall_user/features/splash/provider/splash_provider.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+import 'package:wave_mall_user/basewidget/custom_button.dart';
+import 'package:wave_mall_user/features/checkout/widget/custom_check_box.dart';
 import 'package:provider/provider.dart';
 
 class PaymentMethodBottomSheet extends StatefulWidget {

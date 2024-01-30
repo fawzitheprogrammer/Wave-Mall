@@ -1,18 +1,18 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/domain/models/login_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/domain/models/register_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/error_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/domain/models/social_login_model.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_sixvalley_ecommerce/features/auth/views/auth_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/provider/localization_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/show_custom_snakbar.dart';
+import 'package:wave_mall_user/features/auth/domain/models/login_model.dart';
+import 'package:wave_mall_user/features/auth/domain/models/register_model.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/data/model/error_response.dart';
+import 'package:wave_mall_user/data/model/response_model.dart';
+import 'package:wave_mall_user/features/auth/domain/models/social_login_model.dart';
+import 'package:wave_mall_user/features/auth/domain/repositories/auth_repository.dart';
+import 'package:wave_mall_user/features/auth/views/auth_screen.dart';
+import 'package:wave_mall_user/helper/api_checker.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/main.dart';
+import 'package:wave_mall_user/localization/provider/localization_provider.dart';
+import 'package:wave_mall_user/basewidget/show_custom_snakbar.dart';
 import 'package:provider/provider.dart';
 
 class AuthController with ChangeNotifier {

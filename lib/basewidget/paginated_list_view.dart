@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-
+import 'package:wave_mall_user/utill/dimensions.dart';
 
 class PaginatedListView extends StatefulWidget {
   final ScrollController scrollController;
@@ -11,8 +10,14 @@ class PaginatedListView extends StatefulWidget {
   final bool enabledPagination;
   final bool reverse;
   const PaginatedListView({
-    super.key, required this.scrollController, required this.onPaginate, required this.totalSize,
-    required this.offset, required this.itemView, this.enabledPagination = true, this.reverse = false,
+    super.key,
+    required this.scrollController,
+    required this.onPaginate,
+    required this.totalSize,
+    required this.offset,
+    required this.itemView,
+    this.enabledPagination = true,
+    this.reverse = false,
   });
 
   @override
@@ -32,9 +37,12 @@ class _PaginatedListViewState extends State<PaginatedListView> {
     _offsetList = [1];
 
     widget.scrollController.addListener(() {
-      if (widget.scrollController.position.pixels == widget.scrollController.position.maxScrollExtent
-          && widget.totalSize != null && !_isLoading && widget.enabledPagination) {
-        if(mounted) {
+      if (widget.scrollController.position.pixels ==
+              widget.scrollController.position.maxScrollExtent &&
+          widget.totalSize != null &&
+          !_isLoading &&
+          widget.enabledPagination) {
+        if (mounted) {
           _paginate();
         }
       }
@@ -43,8 +51,7 @@ class _PaginatedListViewState extends State<PaginatedListView> {
 
   void _paginate() async {
     int pageSize = (widget.totalSize! / 10).ceil();
-    if (_offset! < pageSize && !_offsetList.contains(_offset!+1)) {
-
+    if (_offset! < pageSize && !_offsetList.contains(_offset! + 1)) {
       setState(() {
         _offset = _offset! + 1;
         _offsetList.add(_offset);
@@ -54,9 +61,8 @@ class _PaginatedListViewState extends State<PaginatedListView> {
       setState(() {
         _isLoading = false;
       });
-
-    }else {
-      if(_isLoading) {
+    } else {
+      if (_isLoading) {
         setState(() {
           _isLoading = false;
         });
@@ -66,25 +72,30 @@ class _PaginatedListViewState extends State<PaginatedListView> {
 
   @override
   Widget build(BuildContext context) {
-    if(widget.offset != null) {
+    if (widget.offset != null) {
       _offset = widget.offset;
       _offsetList = [];
-      for(int index=1; index<=widget.offset!; index++) {
+      for (int index = 1; index <= widget.offset!; index++) {
         _offsetList.add(index);
       }
     }
 
     return Column(children: [
-
       widget.reverse ? const SizedBox() : widget.itemView,
-
-      ((widget.totalSize == null || _offset! >= (widget.totalSize! / 10).ceil() || _offsetList.contains(_offset!+1))) ? const SizedBox() : Center(child: Padding(
-        padding: (_isLoading) ?  const EdgeInsets.all(Dimensions.paddingSizeSmall) : EdgeInsets.zero,
-        child: _isLoading ? const CircularProgressIndicator() :  const SizedBox(),
-      )),
-
+      ((widget.totalSize == null ||
+              _offset! >= (widget.totalSize! / 10).ceil() ||
+              _offsetList.contains(_offset! + 1)))
+          ? const SizedBox()
+          : Center(
+              child: Padding(
+              padding: (_isLoading)
+                  ? const EdgeInsets.all(Dimensions.paddingSizeSmall)
+                  : EdgeInsets.zero,
+              child: _isLoading
+                  ? const CircularProgressIndicator()
+                  : const SizedBox(),
+            )),
       widget.reverse ? widget.itemView : const SizedBox(),
-
     ]);
   }
 }

@@ -1,8 +1,7 @@
-import 'package:flutter_sixvalley_ecommerce/data/model/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/interface/repo_interface.dart';
+import 'package:wave_mall_user/data/model/api_response.dart';
+import 'package:wave_mall_user/interface/repo_interface.dart';
 
-abstract class AuthRepoInterface extends RepoInterface{
-
+abstract class AuthRepoInterface extends RepoInterface {
   Future<ApiResponse> socialLogin(Map<String, dynamic> body);
 
   Future<ApiResponse> registration(Map<String, dynamic> body);
@@ -14,23 +13,23 @@ abstract class AuthRepoInterface extends RepoInterface{
   Future<ApiResponse> getGuestId();
 
   Future<ApiResponse> updateDeviceToken();
-  
+
   String getUserToken();
-  
+
   String? getGuestIdToken();
-  
+
   bool isGuestIdExist();
-  
+
   bool isLoggedIn();
-  
+
   Future<bool> clearSharedData();
-  
+
   Future<bool> clearGuestId();
-  
+
   String getUserEmail();
-  
+
   String getUserPassword();
-  
+
   Future<bool> clearUserEmailAndPassword();
 
   Future<void> saveUserToken(String token);
@@ -47,16 +46,16 @@ abstract class AuthRepoInterface extends RepoInterface{
 
   Future<ApiResponse> verifyEmail(String email, String code, String token);
 
-  Future<ApiResponse> sendOtpToPhone(String phone,  String token);
+  Future<ApiResponse> sendOtpToPhone(String phone, String token);
 
-  Future<ApiResponse> resendPhoneOtp(String phone,  String token);
+  Future<ApiResponse> resendPhoneOtp(String phone, String token);
 
-  Future<ApiResponse> verifyPhone(String phone,  String otp, String token);
+  Future<ApiResponse> verifyPhone(String phone, String otp, String token);
 
-  Future<ApiResponse> verifyOtp(String otp,  String identity);
-  
-  Future<void> saveUserEmailAndPassword(String email,  String password);
+  Future<ApiResponse> verifyOtp(String otp, String identity);
 
-  Future<ApiResponse> resetPassword(String otp,  String identity, String password, String confirmPassword);
+  Future<void> saveUserEmailAndPassword(String email, String password);
 
+  Future<ApiResponse> resetPassword(
+      String otp, String identity, String password, String confirmPassword);
 }

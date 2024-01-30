@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/product_details_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/rating_bar.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/view/faq_and_review_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/features/product/widget/review_widget.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
+import 'package:wave_mall_user/features/product/provider/product_details_provider.dart';
+import 'package:wave_mall_user/theme/provider/theme_provider.dart';
+import 'package:wave_mall_user/utill/color_resources.dart';
+import 'package:wave_mall_user/utill/custom_themes.dart';
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/basewidget/rating_bar.dart';
+import 'package:wave_mall_user/features/product/view/faq_and_review_screen.dart';
+import 'package:wave_mall_user/features/product/widget/review_widget.dart';
 import 'package:provider/provider.dart';
 
 class ReviewSection extends StatelessWidget {
@@ -16,46 +16,82 @@ class ReviewSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: MediaQuery.of(context).size.width,
+    return Container(
+      width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.only(top: Dimensions.paddingSizeSmall),
       padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
-      color:  Theme.of(context).cardColor,
+      color: Theme.of(context).cardColor,
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        Text(getTranslated('customer_reviews', context)!,
-          style: titilliumSemiBold.copyWith(fontSize: Dimensions.fontSizeLarge),),
-        const SizedBox(height: Dimensions.paddingSizeDefault,),
-        Container(width: 230,height: 30,
-          decoration: BoxDecoration(color: ColorResources.visitShop(context),
-            borderRadius: BorderRadius.circular(Dimensions.paddingSizeExtraLarge),),
-
-
-          child: Row(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center, children: [
-              RatingBar(rating: double.parse(details.productDetailsModel!.averageReview!), size: 18,),
+        Text(
+          getTranslated('customer_reviews', context)!,
+          style: titilliumSemiBold.copyWith(fontSize: Dimensions.fontSizeLarge),
+        ),
+        const SizedBox(
+          height: Dimensions.paddingSizeDefault,
+        ),
+        Container(
+          width: 230,
+          height: 30,
+          decoration: BoxDecoration(
+            color: ColorResources.visitShop(context),
+            borderRadius:
+                BorderRadius.circular(Dimensions.paddingSizeExtraLarge),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              RatingBar(
+                rating:
+                    double.parse(details.productDetailsModel!.averageReview!),
+                size: 18,
+              ),
               const SizedBox(width: Dimensions.paddingSizeDefault),
-              Text('${double.parse(details.productDetailsModel!.averageReview!).toStringAsFixed(1)} ${getTranslated('out_of_5', context)}',
-                  style: textRegular.copyWith(color: Provider.of<ThemeProvider>(context, listen: false).darkTheme? Theme.of(context).hintColor : Colors.black)),
+              Text(
+                  '${double.parse(details.productDetailsModel!.averageReview!).toStringAsFixed(1)} ${getTranslated('out_of_5', context)}',
+                  style: textRegular.copyWith(
+                      color: Provider.of<ThemeProvider>(context, listen: false)
+                              .darkTheme
+                          ? Theme.of(context).hintColor
+                          : Colors.black)),
             ],
           ),
         ),
-
         const SizedBox(height: Dimensions.paddingSizeDefault),
-        Text('${getTranslated('total', context)} ${details.reviewList != null ? details.reviewList!.length : 0} ${getTranslated('reviews', context)}'),
-
-
-
-        details.reviewList != null ? details.reviewList!.isNotEmpty ? ReviewWidget(reviewModel: details.reviewList![0])
-            : const SizedBox() : const ReviewShimmer(),
-        details.reviewList != null ? details.reviewList!.length > 1 ? ReviewWidget(reviewModel: details.reviewList![1])
-            : const SizedBox() : const ReviewShimmer(),
-        details.reviewList != null ? details.reviewList!.length > 2 ? ReviewWidget(reviewModel: details.reviewList![2])
-            : const SizedBox() : const ReviewShimmer(),
-
-        InkWell(onTap: () {
-          if(details.reviewList != null)
-          {Navigator.push(context, MaterialPageRoute(builder: (_) =>
-              ReviewScreen(reviewList: details.reviewList)));}},
-            child: details.reviewList != null && details.reviewList!.length > 3?
-            Text(getTranslated('view_more', context)!, style: titilliumRegular.copyWith(color: Theme.of(context).primaryColor),):const SizedBox())
+        Text(
+            '${getTranslated('total', context)} ${details.reviewList != null ? details.reviewList!.length : 0} ${getTranslated('reviews', context)}'),
+        details.reviewList != null
+            ? details.reviewList!.isNotEmpty
+                ? ReviewWidget(reviewModel: details.reviewList![0])
+                : const SizedBox()
+            : const ReviewShimmer(),
+        details.reviewList != null
+            ? details.reviewList!.length > 1
+                ? ReviewWidget(reviewModel: details.reviewList![1])
+                : const SizedBox()
+            : const ReviewShimmer(),
+        details.reviewList != null
+            ? details.reviewList!.length > 2
+                ? ReviewWidget(reviewModel: details.reviewList![2])
+                : const SizedBox()
+            : const ReviewShimmer(),
+        InkWell(
+            onTap: () {
+              if (details.reviewList != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) =>
+                            ReviewScreen(reviewList: details.reviewList)));
+              }
+            },
+            child: details.reviewList != null && details.reviewList!.length > 3
+                ? Text(
+                    getTranslated('view_more', context)!,
+                    style: titilliumRegular.copyWith(
+                        color: Theme.of(context).primaryColor),
+                  )
+                : const SizedBox())
       ]),
     );
   }

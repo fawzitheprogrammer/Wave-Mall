@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-enum SingingCharacter { bkash, mercado, sslcommerz}
+import 'package:wave_mall_user/utill/dimensions.dart';
+import 'package:wave_mall_user/utill/images.dart';
+
+enum SingingCharacter { bkash, mercado, sslcommerz }
 
 class PaymentRadioButton extends StatefulWidget {
   const PaymentRadioButton({super.key});
@@ -20,8 +21,9 @@ class _PaymentRadioButtonState extends State<PaymentRadioButton> {
         ListTile(
           horizontalTitleGap: 0,
           contentPadding: EdgeInsets.zero,
-          title: Row(children: [
-            Image.asset(Images.bKash, width: 50, height: 50),
+          title: Row(
+            children: [
+              Image.asset(Images.bKash, width: 50, height: 50),
               const Text('Bkash'),
               const SizedBox(width: Dimensions.marginSizeSmall),
             ],
@@ -39,11 +41,12 @@ class _PaymentRadioButtonState extends State<PaymentRadioButton> {
         ListTile(
           horizontalTitleGap: 0,
           contentPadding: EdgeInsets.zero,
-          title: Row(children: [
-            Image.asset(Images.mercadopago, width: 50, height: 50),
-            const Text('Mercado'),
-            const SizedBox(width: Dimensions.marginSizeSmall),
-          ],
+          title: Row(
+            children: [
+              Image.asset(Images.mercadopago, width: 50, height: 50),
+              const Text('Mercado'),
+              const SizedBox(width: Dimensions.marginSizeSmall),
+            ],
           ),
           leading: Radio<SingingCharacter>(
             value: SingingCharacter.mercado,
@@ -58,11 +61,12 @@ class _PaymentRadioButtonState extends State<PaymentRadioButton> {
         ListTile(
           horizontalTitleGap: 0,
           contentPadding: EdgeInsets.zero,
-          title: Row(children: [
-            Image.asset(Images.sslCommerz, width: 50, height: 50),
-            const Text('SSL COMMERZ'),
-            const SizedBox(width: Dimensions.marginSizeSmall),
-          ],
+          title: Row(
+            children: [
+              Image.asset(Images.sslCommerz, width: 50, height: 50),
+              const Text('SSL COMMERZ'),
+              const SizedBox(width: Dimensions.marginSizeSmall),
+            ],
           ),
           leading: Radio<SingingCharacter>(
             value: SingingCharacter.sslcommerz,
@@ -75,7 +79,6 @@ class _PaymentRadioButtonState extends State<PaymentRadioButton> {
           ),
         ),
         const SizedBox(height: Dimensions.marginSizeAuthSmall),
-
       ],
     );
   }

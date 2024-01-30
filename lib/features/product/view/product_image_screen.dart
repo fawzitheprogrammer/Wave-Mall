@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_sixvalley_ecommerce/features/product/provider/product_details_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/features/splash/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/basewidget/custom_app_bar.dart';
+import 'package:wave_mall_user/features/product/provider/product_details_provider.dart';
+import 'package:wave_mall_user/features/splash/provider/splash_provider.dart';
+import 'package:wave_mall_user/basewidget/custom_app_bar.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 class ProductImageScreen extends StatefulWidget {
   final String? title;
   final List<String>? imageList;
-  const ProductImageScreen({super.key, required this.title, required this.imageList});
+  const ProductImageScreen(
+      {super.key, required this.title, required this.imageList});
 
   @override
   ProductImageScreenState createState() => ProductImageScreenState();
@@ -23,18 +24,16 @@ class ProductImageScreenState extends State<ProductImageScreen> {
   @override
   void initState() {
     super.initState();
-    pageIndex = Provider.of<ProductDetailsProvider>(context, listen: false).imageSliderIndex;
+    pageIndex = Provider.of<ProductDetailsProvider>(context, listen: false)
+        .imageSliderIndex;
     _pageController = PageController(initialPage: pageIndex!);
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-
         CustomAppBar(title: widget.title),
-
         Expanded(
           child: Stack(
             children: [
@@ -42,20 +41,27 @@ class ProductImageScreenState extends State<ProductImageScreen> {
                 scrollPhysics: const BouncingScrollPhysics(),
                 builder: (BuildContext context, int index) {
                   return PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.imageList![index]}'),
+                    imageProvider: NetworkImage(
+                        '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productImageUrl}/${widget.imageList![index]}'),
                     initialScale: PhotoViewComputedScale.contained,
-                    heroAttributes: PhotoViewHeroAttributes(tag: index.toString()),
+                    heroAttributes:
+                        PhotoViewHeroAttributes(tag: index.toString()),
                   );
                 },
-                backgroundDecoration: BoxDecoration(color: Theme.of(context).highlightColor),
+                backgroundDecoration:
+                    BoxDecoration(color: Theme.of(context).highlightColor),
                 itemCount: widget.imageList!.length,
                 loadingBuilder: (context, event) => Center(
                   child: SizedBox(
                     width: 20.0,
                     height: 20.0,
                     child: CircularProgressIndicator(
-                      value: event == null ? 0 : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
-                        valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+                      value: event == null
+                          ? 0
+                          : event.cumulativeBytesLoaded /
+                              event.expectedTotalBytes!,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Theme.of(context).primaryColor),
                     ),
                   ),
                 ),
@@ -66,50 +72,60 @@ class ProductImageScreenState extends State<ProductImageScreen> {
                   });
                 },
               ),
-
-              pageIndex != 0 ? Positioned(
-                left: 5, top: 0, bottom: 0,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    shape: BoxShape.circle,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      if(pageIndex! > 0) {
-                        _pageController!.animateToPage(pageIndex!-1, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
-                      }
-                    },
-                    child: const Icon(Icons.chevron_left_outlined, size: 40),
-                  ),
-                ),
-              ) : const SizedBox.shrink(),
-
-              pageIndex != widget.imageList!.length-1 ? Positioned(
-                right: 5, top: 0, bottom: 0,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    shape: BoxShape.circle,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      if(pageIndex! < widget.imageList!.length) {
-                        _pageController!.animateToPage(pageIndex!+1, duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
-                      }
-                    },
-                    child: const Icon(Icons.chevron_right_outlined, size: 40),
-                  ),
-                ),
-              ) : const SizedBox.shrink(),
+              pageIndex != 0
+                  ? Positioned(
+                      left: 5,
+                      top: 0,
+                      bottom: 0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          shape: BoxShape.circle,
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            if (pageIndex! > 0) {
+                              _pageController!.animateToPage(pageIndex! - 1,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut);
+                            }
+                          },
+                          child:
+                              const Icon(Icons.chevron_left_outlined, size: 40),
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              pageIndex != widget.imageList!.length - 1
+                  ? Positioned(
+                      right: 5,
+                      top: 0,
+                      bottom: 0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          shape: BoxShape.circle,
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            if (pageIndex! < widget.imageList!.length) {
+                              _pageController!.animateToPage(pageIndex! + 1,
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut);
+                            }
+                          },
+                          child: const Icon(Icons.chevron_right_outlined,
+                              size: 40),
+                        ),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ],
           ),
         ),
-
       ]),
     );
   }
 }
-
