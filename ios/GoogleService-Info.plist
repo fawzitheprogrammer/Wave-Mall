@@ -17,9 +17,9 @@
 	<key>BUNDLE_ID</key>
 	<string>com.swift.wavemall.app</string>
 	<key>PROJECT_ID</key>
-	<string>sixvally-ecommerce</string>
+	<string>wave-mall</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sixvally-ecommerce.appspot.com</string>
+	<string>wave-mall.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
