@@ -194,7 +194,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             nextFocus: _emailNode,
                             showCodePicker:
                                 authProvider.isLoggedIn() ? false : true,
-                            countryDialCode: authProvider.countryDialCode,
+                            countryDialCode:'+964',
                             onCountryChanged: (CountryCode countryCode) {
                               authProvider.countryDialCode =
                                   countryCode.dialCode!;
@@ -657,7 +657,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                                   _contactPersonNameController
                                                       .text,
                                               phone:
-                                                  '${Provider.of<AuthController>(context, listen: false).countryDialCode}${_contactPersonNumberController.text.trim()}',
+                                                  _contactPersonNumberController.text.trim(),
                                               email: _contactPersonEmailController.text
                                                   .trim(),
                                               city: _cityController.text,

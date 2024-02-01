@@ -36,9 +36,9 @@ class _AddressListScreenState extends State<AddressListScreen> {
         onPressed: () => Navigator.of(context).push(MaterialPageRoute(
             builder: (_) => const AddNewAddressScreen(isBilling: false))),
         backgroundColor: Theme.of(context).colorScheme.tertiary,
-        child: Icon(
+        child: const Icon(
           Icons.add,
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Colors.white,
         ),
       ),
       body: Consumer<AddressController>(

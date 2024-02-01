@@ -281,7 +281,7 @@ class AddressInfoItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
           vertical: Dimensions.paddingSizeExtraSmall),
       child: Row(children: [
-        SizedBox(width: 18, child: Image.asset(icon!)),
+        SizedBox(width: 18, child: Image.asset(icon!,color: Theme.of(context).colorScheme.tertiary,)),
         Expanded(
             child: Padding(
                 padding: const EdgeInsets.symmetric(
