@@ -20,12 +20,14 @@ class AllCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:!isOpenedFromBottomNavBar ? CustomAppBar(
-        title: getTranslated('CATEGORY', context),
-      ):CustomAppBar(
-        title: getTranslated('CATEGORY', context),
-        isBackButtonExist: false,
-      ),
+      appBar: !isOpenedFromBottomNavBar
+          ? CustomAppBar(
+              title: getTranslated('CATEGORY', context),
+            )
+          : CustomAppBar(
+              title: getTranslated('CATEGORY', context),
+              isBackButtonExist: false,
+            ),
       body: Consumer<CategoryController>(
         builder: (context, categoryProvider, child) {
           return categoryProvider.categoryList!.isNotEmpty
@@ -280,7 +282,7 @@ class CategoryItem extends StatelessWidget {
           vertical: Dimensions.paddingSizeExtraSmall, horizontal: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: isSelected ? ColorResources.getPrimary(context) : null,
+        color: isSelected ? Theme.of(context).colorScheme.tertiary : null,
       ),
       child: Center(
         child:

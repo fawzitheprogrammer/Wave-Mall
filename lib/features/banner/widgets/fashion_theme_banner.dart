@@ -53,102 +53,139 @@ class FashionBannersView extends StatelessWidget {
 
                                 return ClipRRect(
                                     borderRadius: BorderRadius.circular(
-                                        Dimensions.paddingSizeSmall),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions.paddingSizeSmall),
-                                            color:
-                                                Color(int.parse(colorString))),
-                                        child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CustomImage(
-                                                  image:
+                                      Dimensions.paddingSizeSmall,
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        bannerController.clickBannerRedirect(
+                                          context,
+                                          bannerController
+                                              .mainBannerList![index]
+                                              .resourceId,
+                                          bannerController
+                                                      .mainBannerList![index]
+                                                      .resourceType ==
+                                                  'product'
+                                              ? bannerController
+                                                  .mainBannerList![index]
+                                                  .product
+                                              : null,
+                                          bannerController
+                                              .mainBannerList![index]
+                                              .resourceType,
+                                        );
+                                      },
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
                                                       '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.bannerImageUrl}'
                                                       '/${bannerController.mainBannerList![index].photo}'),
-                                              Expanded(
-                                                  child: Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 5.0),
-                                                      child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Text(
-                                                                bannerController
-                                                                        .mainBannerList![
-                                                                            index]
-                                                                        .title ??
-                                                                    '',
-                                                                maxLines: 1,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                style: textBold.copyWith(
-                                                                    color: ColorResources
-                                                                        .white,
-                                                                    fontSize:
+                                                  fit: BoxFit.cover),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      Dimensions
+                                                          .paddingSizeSmall),
+                                              color: Color(
+                                                  int.parse(colorString))),
+                                          child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                // CustomImage(
+                                                //   //width: MediaQuery.of(context).size.width*0.8,
+                                                //   fit: BoxFit.cover,
+                                                //   image:
+                                                //       '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.bannerImageUrl}'
+                                                //       '/${bannerController.mainBannerList![index].photo}',
+                                                // ),
+                                                Expanded(
+                                                    child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal:
+                                                                    5.0),
+                                                        child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Text(
+                                                                  bannerController
+                                                                          .mainBannerList![
+                                                                              index]
+                                                                          .title ??
+                                                                      '',
+                                                                  maxLines: 1,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style: textBold.copyWith(
+                                                                      color: ColorResources
+                                                                          .white,
+                                                                      fontSize:
+                                                                          Dimensions
+                                                                              .fontSizeLarge)),
+                                                              Padding(
+                                                                padding: const EdgeInsets
+                                                                    .symmetric(
+                                                                    vertical:
                                                                         Dimensions
-                                                                            .fontSizeLarge)),
-                                                            Padding(
-                                                              padding: const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical:
-                                                                      Dimensions
-                                                                          .paddingSizeSmall,
-                                                                  horizontal:
-                                                                      5),
-                                                              child: Text(
-                                                                bannerController
-                                                                        .mainBannerList![
-                                                                            index]
-                                                                        .subTitle ??
-                                                                    '',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                maxLines: 2,
-                                                                style: textRegular
-                                                                    .copyWith(
-                                                                        color: ColorResources
-                                                                            .white),
+                                                                            .paddingSizeSmall,
+                                                                    horizontal:
+                                                                        5),
+                                                                child: Text(
+                                                                  bannerController
+                                                                          .mainBannerList![
+                                                                              index]
+                                                                          .subTitle ??
+                                                                      '',
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  maxLines: 2,
+                                                                  style: textRegular
+                                                                      .copyWith(
+                                                                          color:
+                                                                              ColorResources.white),
+                                                                ),
                                                               ),
-                                                            ),
-                                                            SizedBox(
-                                                                height: 30,
-                                                                width: 100,
-                                                                child:
-                                                                    CustomButton(
-                                                                        backgroundColor: ColorResources
-                                                                            .white,
-                                                                        textColor: Colors
-                                                                            .black45,
-                                                                        onTap:
-                                                                            () {
-                                                                          bannerController.clickBannerRedirect(
-                                                                              context,
-                                                                              bannerController.mainBannerList![index].resourceId,
-                                                                              bannerController.mainBannerList![index].resourceType == 'product' ? bannerController.mainBannerList![index].product : null,
-                                                                              bannerController.mainBannerList![index].resourceType);
-                                                                        },
-                                                                        fontSize:
-                                                                            Dimensions
-                                                                                .fontSizeDefault,
-                                                                        radius:
-                                                                            5,
-                                                                        buttonText:
-                                                                            bannerController.mainBannerList![index].buttonText ??
-                                                                                'Check Now'))
-                                                          ])))
-                                            ])));
+                                                              // Align(
+                                                              //   alignment: Alignment
+                                                              //       .bottomLeft,
+                                                              //   child: SizedBox(
+                                                              //     height: 30,
+                                                              //     width: 100,
+                                                              //     child:
+                                                              //         CustomButton(
+                                                              //             backgroundColor: ColorResources
+                                                              //                 .white,
+                                                              //             textColor: Colors
+                                                              //                 .black45,
+                                                              //             onTap:
+                                                              //                 () {
+
+                                                              //             },
+                                                              //             fontSize:
+                                                              //                 Dimensions
+                                                              //                     .fontSizeDefault,
+                                                              //             radius:
+                                                              //                 5,
+                                                              //             buttonText:
+                                                              //                 bannerController.mainBannerList![index].buttonText ??
+                                                              //                     'Check Now'),
+                                                              //   ),
+                                                              // )
+                                                            ])))
+                                              ])),
+                                    ));
                               },
                             ))
                       ])

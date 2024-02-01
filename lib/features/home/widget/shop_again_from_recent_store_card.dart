@@ -96,7 +96,7 @@ class ShopAgainFromRecentStoreCard extends StatelessWidget {
                             context, shopAgainFromRecentStoreModel?.unitPrice),
                         style: robotoBold.copyWith(
                             fontSize: Dimensions.fontSizeLarge,
-                            color: Theme.of(context).primaryColor)),
+                            color: Theme.of(context).colorScheme.tertiary)),
                   ],
                 )),
             const SizedBox(width: Dimensions.paddingSizeSmall),
@@ -126,6 +126,15 @@ class ShopAgainFromRecentStoreCard extends StatelessWidget {
                   ),
                   const SizedBox(height: Dimensions.paddingSizeSmall),
                   OutlinedButton(
+                      style: ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(
+                            Theme.of(context).colorScheme.tertiary),
+                        side: MaterialStatePropertyAll(
+                          BorderSide(
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ),
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.push(
                             context,

@@ -158,9 +158,9 @@ class ProductWidget extends StatelessWidget {
                     height: 20,
                     padding: const EdgeInsets.symmetric(
                         horizontal: Dimensions.paddingSizeExtraSmall),
-                    decoration: BoxDecoration(
-                      color: ColorResources.getPrimary(context),
-                      borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                      color: Colors.redAccent,
+                      borderRadius: BorderRadius.only(
                           topRight:
                               Radius.circular(Dimensions.paddingSizeExtraSmall),
                           bottomRight: Radius.circular(
@@ -174,7 +174,7 @@ class ProductWidget extends StatelessWidget {
                               productModel.discount,
                               productModel.discountType),
                           style: textRegular.copyWith(
-                              color: Theme.of(context).highlightColor,
+                              color: Colors.white,
                               fontSize: Dimensions.fontSizeSmall)),
                     ),
                   ),

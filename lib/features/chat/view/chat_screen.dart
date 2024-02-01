@@ -326,12 +326,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                             Dimensions
                                                 .paddingSizeExtraExtraSmall,
                                             8),
-                                        child: Image.asset(Images.send,
-                                            color: Provider.of<ThemeProvider>(
-                                                        context)
-                                                    .darkTheme
-                                                ? Colors.white
-                                                : null),
+                                        child: Image.asset(
+                                          Images.send,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .tertiary,
+                                        ),
                                       )),
                                     ),
                                   ),
