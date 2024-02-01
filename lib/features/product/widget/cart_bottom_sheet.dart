@@ -725,7 +725,7 @@ class CartBottomSheetState extends State<CartBottomSheet> {
 
   void _navigateToNextScreen(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const CartScreen()));
+        .push(MaterialPageRoute(builder: (context) => const CartScreen(isOpenedFromBottomNavBar: false,)));
   }
 }
 

@@ -58,7 +58,7 @@ class CategoryWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: titilliumRegular.copyWith(
                         fontSize: Dimensions.fontSizeSmall,
-                        color: ColorResources.getTextTitle(context)))))
+                        color: ColorResources.homeBg))))
       ]),
     );
   }

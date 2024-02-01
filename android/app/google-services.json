@@ -81,7 +81,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:975837518429:android:0d09565065ca513b9f0bb4",
         "android_client_info": {
-          "package_name": "com.swift.wavemall.app"
+          "package_name": "com.swift.wavemall.android"
         }
       },
       "oauth_client": [
@@ -117,7 +117,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:975837518429:android:e9aa79ea44c0dd549f0bb4",
         "android_client_info": {
-          "package_name": "com.swift.wavemall.app.seller"
+          "package_name": "com.swift.wavemall.android.seller"
         }
       },
       "oauth_client": [
@@ -153,7 +153,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:975837518429:android:352e7a4c67eb4c079f0bb4",
         "android_client_info": {
-          "package_name": "com.swift.wavemall.app_delivery_boy"
+          "package_name": "com.swift.wavemall.android_delivery_boy"
         }
       },
       "oauth_client": [
@@ -161,7 +161,7 @@
           "client_id": "975837518429-vkv6djm84tlf6c2i9fsngo3ldf7m9vov.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.swift.wavemall.app_delivery_boy",
+            "package_name": "com.swift.wavemall.android_delivery_boy",
             "certificate_hash": "b0f12d389cacfdb6de975e12bc4cd7062ec75d04"
           }
         },

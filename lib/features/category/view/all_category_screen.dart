@@ -13,12 +13,19 @@ import 'package:wave_mall_user/features/product/view/brand_and_category_product_
 import 'package:provider/provider.dart';
 
 class AllCategoryScreen extends StatelessWidget {
-  const AllCategoryScreen({super.key});
+  const AllCategoryScreen({super.key, required this.isOpenedFromBottomNavBar});
+
+  final bool isOpenedFromBottomNavBar;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: getTranslated('CATEGORY', context)),
+      appBar:!isOpenedFromBottomNavBar ? CustomAppBar(
+        title: getTranslated('CATEGORY', context),
+      ):CustomAppBar(
+        title: getTranslated('CATEGORY', context),
+        isBackButtonExist: false,
+      ),
       body: Consumer<CategoryController>(
         builder: (context, categoryProvider, child) {
           return categoryProvider.categoryList!.isNotEmpty
@@ -114,6 +121,7 @@ class AllCategoryScreen extends StatelessWidget {
                                 ? ThemeData.dark()
                                 : ThemeData.light(),
                             child: ExpansionTile(
+                              iconColor: Theme.of(context).colorScheme.tertiary,
                               key: Key(
                                   '${Provider.of<CategoryController>(context).categorySelectedIndex}$index'),
                               title: Text(subCategory.name!,
@@ -144,14 +152,15 @@ class AllCategoryScreen extends StatelessWidget {
                                     .color),
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) =>
-                                          BrandAndCategoryProductScreen(
-                                            isBrand: false,
-                                            id: subCategory.id.toString(),
-                                            name: subCategory.name,
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BrandAndCategoryProductScreen(
+                                    isBrand: false,
+                                    id: subCategory.id.toString(),
+                                    name: subCategory.name,
+                                  ),
+                                ),
+                              );
                             },
                           ),
                         );
@@ -172,7 +181,7 @@ class AllCategoryScreen extends StatelessWidget {
       BuildContext context, SubCategory subCategory) {
     List<Widget> subSubCategories = [];
     subSubCategories.add(Container(
-      color: ColorResources.getIconBg(context),
+      color: Theme.of(context).primaryColor,
       margin: const EdgeInsets.symmetric(
           horizontal: Dimensions.paddingSizeExtraSmall),
       child: ListTile(
@@ -182,7 +191,7 @@ class AllCategoryScreen extends StatelessWidget {
               height: 7,
               width: 7,
               decoration: BoxDecoration(
-                  color: ColorResources.getPrimary(context),
+                  color: Theme.of(context).colorScheme.tertiary,
                   shape: BoxShape.circle),
             ),
             const SizedBox(width: Dimensions.paddingSizeSmall),
@@ -210,7 +219,7 @@ class AllCategoryScreen extends StatelessWidget {
     ));
     for (int index = 0; index < subCategory.subSubCategories!.length; index++) {
       subSubCategories.add(Container(
-        color: ColorResources.getIconBg(context),
+        color: Theme.of(context).primaryColor,
         margin: const EdgeInsets.symmetric(
             horizontal: Dimensions.paddingSizeExtraSmall),
         child: ListTile(
@@ -220,7 +229,7 @@ class AllCategoryScreen extends StatelessWidget {
                 height: 7,
                 width: 7,
                 decoration: BoxDecoration(
-                    color: ColorResources.getPrimary(context),
+                    color: Theme.of(context).colorScheme.tertiary,
                     shape: BoxShape.circle),
               ),
               const SizedBox(width: Dimensions.paddingSizeSmall),

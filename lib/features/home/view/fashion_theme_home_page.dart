@@ -251,12 +251,15 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: Dimensions.paddingSizeExtraSmall),
                               child: TitleRow(
-                                  title: getTranslated('CATEGORY', context),
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) =>
-                                              const AllCategoryScreen()))))
+                                title: getTranslated('CATEGORY', context),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const AllCategoryScreen(isOpenedFromBottomNavBar: false,),
+                                  ),
+                                ),
+                              ),
+                            )
                           : const SizedBox();
                     }),
                     const SizedBox(height: Dimensions.paddingSizeSmall),

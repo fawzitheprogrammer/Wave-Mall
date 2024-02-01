@@ -81,7 +81,7 @@ class _BottomCartViewState extends State<BottomCartView> {
               child: Stack(children: [
                 GestureDetector(
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CartScreen())),
+                        builder: (context) => const CartScreen(isOpenedFromBottomNavBar: false,))),
                     child: Image.asset(Images.cartArrowDownImage,
                         color: Theme.of(context).colorScheme.tertiary)),
                 Positioned(

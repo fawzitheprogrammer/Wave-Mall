@@ -182,10 +182,11 @@ class _MoreScreenState extends State<MoreScreen> {
                                       getTranslated('refer_and_earn', context),
                                   isProfile: true,
                                   navigateTo: const ReferAndEarnScreen()),
-                            TitleButton(
-                                image: Images.category,
-                                title: getTranslated('CATEGORY', context),
-                                navigateTo: const AllCategoryScreen()),
+                            // TitleButton(
+                            //   image: Images.category,
+                            //   title: getTranslated('CATEGORY', context),
+                            //   navigateTo: const AllCategoryScreen(),
+                            // ),
                             if (Provider.of<SplashProvider>(context,
                                             listen: false)
                                         .configModel!

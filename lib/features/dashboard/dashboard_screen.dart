@@ -59,12 +59,12 @@ class DashBoardScreenState extends State<DashBoardScreen> {
         NavigationModel(
           name: 'CATEGORY',
           icon: Images.category,
-          screen: const AllCategoryScreen(),
+          screen: const AllCategoryScreen(isOpenedFromBottomNavBar: true,),
         ),
       NavigationModel(
         name: 'cart',
         icon: Images.cartImage,
-        screen: const CartScreen(),
+        screen: const CartScreen(isOpenedFromBottomNavBar: true,),
       ),
       NavigationModel(
         name: 'inbox',
@@ -131,13 +131,16 @@ class DashBoardScreenState extends State<DashBoardScreen> {
   List<Widget> _getBottomWidget(bool isSingleVendor) {
     List<Widget> list = [];
     for (int index = 0; index < _screens.length; index++) {
-      list.add(Expanded(
+      list.add(
+        Expanded(
           child: CustomMenuItem(
-        isSelected: _pageIndex == index,
-        name: _screens[index].name,
-        icon: _screens[index].icon,
-        onTap: () => _setPage(index),
-      )));
+            isSelected: _pageIndex == index,
+            name: _screens[index].name,
+            icon: _screens[index].icon,
+            onTap: () => _setPage(index),
+          ),
+        ),
+      );
     }
     return list;
   }

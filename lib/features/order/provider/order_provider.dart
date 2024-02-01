@@ -339,7 +339,7 @@ class OrderProvider with ChangeNotifier {
       showCustomSnackBar(apiResponse.response?.data['message'], Get.context!,
           isError: false);
       Navigator.push(
-          Get.context!, MaterialPageRoute(builder: (_) => const CartScreen()));
+          Get.context!, MaterialPageRoute(builder: (_) => const CartScreen(isOpenedFromBottomNavBar: false,)));
     } else {
       ApiChecker.checkApi(apiResponse);
     }

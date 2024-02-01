@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wave_mall_user/localization/language_constrants.dart';
 import 'package:wave_mall_user/main.dart';
 import 'package:wave_mall_user/utill/custom_themes.dart';
 import 'package:wave_mall_user/utill/dimensions.dart';
@@ -15,17 +16,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? reset;
   final bool showLogo;
 
-  const CustomAppBar(
-      {super.key,
-      required this.title,
-      this.isBackButtonExist = true,
-      this.onBackPressed,
-      this.centerTitle = false,
-      this.showActionButton = true,
-      this.fontSize,
-      this.showResetIcon = false,
-      this.reset,
-      this.showLogo = false});
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    this.isBackButtonExist = true,
+    this.onBackPressed,
+    this.centerTitle = false,
+    this.showActionButton = true,
+    this.fontSize,
+    this.showResetIcon = false,
+    this.reset,
+    this.showLogo = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +65,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ?.color
                           ?.withOpacity(.75),
                     ),
-                    onPressed: () => onBackPressed != null
-                        ? onBackPressed!()
-                        : Navigator.pop(context))
+                    onPressed: () {
+                      if (onBackPressed != null) {
+                        onBackPressed!();
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    },
+                  )
                 : showLogo
                     ? Padding(
                         padding: const EdgeInsets.only(

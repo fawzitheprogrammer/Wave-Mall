@@ -25,7 +25,12 @@ import 'package:provider/provider.dart';
 class CartScreen extends StatefulWidget {
   final bool fromCheckout;
   final int sellerId;
-  const CartScreen({super.key, this.fromCheckout = false, this.sellerId = 1});
+  final bool isOpenedFromBottomNavBar;
+  const CartScreen(
+      {super.key,
+      this.fromCheckout = false,
+      this.sellerId = 1,
+      required this.isOpenedFromBottomNavBar});
 
   @override
   CartScreenState createState() => CartScreenState();
@@ -297,21 +302,22 @@ class CartScreenState extends State<CartScreen> {
                                         context);
                                   } else {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => CheckoutScreen(
-                                                quantity: totalQuantity,
-                                                cartList: cartList,
-                                                totalOrderAmount: amount,
-                                                shippingFee: shippingAmount -
-                                                    freeDeliveryAmountDiscount,
-                                                discount: discount,
-                                                tax: tax,
-                                                onlyDigital:
-                                                    sellerGroupList.length !=
-                                                        totalPhysical,
-                                                hasPhysical:
-                                                    totalPhysical > 0)));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => CheckoutScreen(
+                                          quantity: totalQuantity,
+                                          cartList: cartList,
+                                          totalOrderAmount: amount,
+                                          shippingFee: shippingAmount -
+                                              freeDeliveryAmountDiscount,
+                                          discount: discount,
+                                          tax: tax,
+                                          onlyDigital: sellerGroupList.length !=
+                                              totalPhysical,
+                                          hasPhysical: totalPhysical > 0,
+                                        ),
+                                      ),
+                                    );
                                   }
                                 },
                                 child: Container(
@@ -341,7 +347,14 @@ class CartScreenState extends State<CartScreen> {
                           : const SizedBox());
                 })
               : null,
-          appBar: CustomAppBar(title: getTranslated('my_cart', context)),
+          appBar: !widget.isOpenedFromBottomNavBar
+              ? CustomAppBar(
+                  title: getTranslated('my_cart', context),
+                )
+              : CustomAppBar(
+                  title: getTranslated('my_cart', context),
+                  isBackButtonExist: false,
+                ),
           body: Column(children: [
             cart.isXyz
                 ? const Expanded(child: CartPageShimmer())
