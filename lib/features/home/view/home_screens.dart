@@ -253,7 +253,9 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => const AllCategoryScreen(isOpenedFromBottomNavBar: false,),
+                                    builder: (_) => const AllCategoryScreen(
+                                      isOpenedFromBottomNavBar: false,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -371,23 +373,25 @@ class _HomePageState extends State<HomePage> {
                                               vertical: Dimensions
                                                   .paddingSizeExtraSmall),
                                           child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 20,
-                                                  left: 50,
-                                                  bottom: Dimensions
-                                                      .paddingSizeSmall),
-                                              child: TitleRow(
-                                                  title: getTranslated(
-                                                      'featured_products',
-                                                      context),
-                                                  onTap: () => Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) =>
-                                                              AllProductScreen(
-                                                                  productType:
-                                                                      ProductType
-                                                                          .featuredProduct))))),
+                                            padding: const EdgeInsets.only(
+                                                top: 20,
+                                                left: 50,
+                                                bottom: Dimensions
+                                                    .paddingSizeSmall),
+                                            child: TitleRow(
+                                              title: getTranslated(
+                                                  'featured_products', context),
+                                              onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      AllProductScreen(
+                                                          productType: ProductType
+                                                              .featuredProduct),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(

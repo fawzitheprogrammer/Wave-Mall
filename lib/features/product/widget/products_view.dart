@@ -100,12 +100,17 @@ class ProductView extends StatelessWidget {
           prodProvider.filterIsLoading
               ? Center(
                   child: Padding(
-                  padding: const EdgeInsets.all(Dimensions.iconSizeExtraSmall),
+                  padding: const EdgeInsets.only(
+                      bottom: Dimensions.iconSizeExtraLarge + 30, top: 10),
                   child: CircularProgressIndicator(
+                      backgroundColor: Theme.of(context).colorScheme.tertiary,
                       valueColor: AlwaysStoppedAnimation<Color>(
                           Theme.of(context).primaryColor)),
                 ))
               : const SizedBox.shrink(),
+          const SizedBox(
+            height: 50,
+          )
         ]);
       },
     );

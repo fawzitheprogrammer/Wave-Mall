@@ -2,7 +2,7 @@ name: wave_mall_user
 description: A new Flutter setup application for starting a project.
 
 publish_to: 'none'
-version: 2.0.9+13
+version: 2.0.9+14
 environment:
   sdk: '>=3.2.0 <4.0.0'
 
@@ -53,7 +53,7 @@ dependencies:
   dropdown_search: ^5.0.3
   flutter_inappwebview: ^5.7.2+3
   path: ^1.8.2
-  cached_network_image: ^3.3.0
+  cached_network_image: ^3.3.1
   http_parser: ^4.0.2
   intl: ^0.18.0
   sign_in_with_apple: ^5.0.0
