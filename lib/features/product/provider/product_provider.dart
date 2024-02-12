@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:wave_mall_user/data/model/api_response.dart';
 import 'package:wave_mall_user/features/category/domain/model/find_what_you_need.dart';
@@ -19,6 +21,34 @@ class ProductProvider extends ChangeNotifier {
   List<Product>? _lProductList;
   List<Product>? get lProductList => _lProductList;
   List<Product>? _featuredProductList;
+
+  List<Product> allProducts = [];
+
+  bool isShuffled = false;
+
+  void shuffleProduct(val) {
+    isShuffled = val;
+    notifyListeners();
+  }
+
+  void insertIntoList(List<Product> list) {
+    allProducts = list;
+    notifyListeners();
+  }
+
+  void shuffleListIfNeeded(List<Product> list) {
+    if (isShuffled == false) {
+      var random = Random();
+      for (var i = list.length - 1; i > 0; i--) {
+        var n = random.nextInt(i + 1);
+        var temp = list[i];
+        list[i] = list[n];
+        list[n] = temp;
+      }
+      // Prevent further shuffling
+    }
+    notifyListeners(); // Notify listeners about the update
+  }
 
   ProductType _productType = ProductType.newArrival;
   String? _title = 'xyz';
@@ -83,6 +113,8 @@ class ProductProvider extends ChangeNotifier {
               ProductModel.fromJson(apiResponse.response!.data).products!);
           _latestPageSize =
               ProductModel.fromJson(apiResponse.response!.data).totalSize;
+
+          // shuffleListIfNeeded(_latestProductList!);
         }
 
         _filterFirstLoading = false;
@@ -119,6 +151,9 @@ class ProductProvider extends ChangeNotifier {
               ProductModel.fromJson(apiResponse.response!.data).products!);
           _lPageSize =
               ProductModel.fromJson(apiResponse.response!.data).totalSize;
+
+          // Shuffle the _lProductList here
+          // shuffleListIfNeeded(_lProductList ?? []);
         }
 
         _firstLoading = false;

@@ -31,7 +31,6 @@ class SellerProvider extends ChangeNotifier {
 
   int shopMenuIndex = 0;
   void setMenuItemIndex(int index, {bool notify = true}) {
-    debugPrint('===================index is ===> ${index.toString()}');
     shopMenuIndex = index;
     if (notify) {
       notifyListeners();

@@ -25,7 +25,9 @@ class AllProductScreen extends StatelessWidget {
       body: SafeArea(
         child: RefreshIndicator(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          onRefresh: () async {},
+          onRefresh: () async {
+            
+          },
           child: CustomScrollView(
             controller: _scrollController,
             slivers: [

@@ -73,10 +73,10 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen>
   void initState() {
     super.initState();
     Provider.of<SellerProvider>(context, listen: false)
-        .setMenuItemIndex(0, notify: false);
+        .setMenuItemIndex(1, notify: false);
     searchController.clear();
     _load();
-    _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
+    _tabController = TabController(length: 2, initialIndex: 1, vsync: this);
   }
 
   @override
@@ -168,37 +168,41 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen>
                                       right: Dimensions.paddingSizeDefault),
                                   child: InkWell(
                                     onTap: () => showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        builder: (c) => ProductFilterDialog(
-                                            sellerId: widget.sellerId!)),
+                                      context: context,
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      builder: (c) => ProductFilterDialog(
+                                          sellerId: widget.sellerId!),
+                                    ),
                                     child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Provider.of<ThemeProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .darkTheme
-                                                ? Colors.white
-                                                : Theme.of(context).cardColor,
-                                            border: Border.all(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .tertiary
-                                                    .withOpacity(.5)),
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions
-                                                    .paddingSizeExtraSmall)),
-                                        width: 30,
-                                        height: 30,
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Image.asset(
-                                              Images.filterImage,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .tertiary,
-                                            ))),
+                                      decoration: BoxDecoration(
+                                        color: Provider.of<ThemeProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .darkTheme
+                                            ? Colors.white
+                                            : Theme.of(context).cardColor,
+                                        border: Border.all(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .tertiary
+                                                .withOpacity(.5)),
+                                        borderRadius: BorderRadius.circular(
+                                          Dimensions.paddingSizeExtraSmall,
+                                        ),
+                                      ),
+                                      width: 30,
+                                      height: 30,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Image.asset(
+                                          Images.filterImage,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .tertiary,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 )
                             ],
@@ -215,20 +219,22 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen>
                       ),
                     ))),
             SliverToBoxAdapter(
-                child: sellerProvider.shopMenuIndex == 0
-                    ? ShopOverviewScreen(
-                        sellerId: widget.sellerId!,
-                        scrollController: _scrollController,
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.fromLTRB(
-                            Dimensions.paddingSizeSmall,
-                            Dimensions.paddingSizeSmall,
-                            Dimensions.paddingSizeSmall,
-                            0),
-                        child: ShopProductViewList(
-                            scrollController: _scrollController,
-                            sellerId: widget.sellerId!))),
+              child: sellerProvider.shopMenuIndex == 0
+                  ? ShopOverviewScreen(
+                      sellerId: widget.sellerId!,
+                      scrollController: _scrollController,
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                          Dimensions.paddingSizeSmall,
+                          Dimensions.paddingSizeSmall,
+                          Dimensions.paddingSizeSmall,
+                          0),
+                      child: ShopProductViewList(
+                          scrollController: _scrollController,
+                          sellerId: widget.sellerId!),
+                    ),
+            ),
           ]);
         }));
   }

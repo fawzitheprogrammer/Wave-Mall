@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:wave_mall_user/features/product/domain/model/product_model.dart';
 
 import 'package:wave_mall_user/helper/product_type.dart';
 import 'package:wave_mall_user/features/product/provider/product_provider.dart';
+import 'package:wave_mall_user/main.dart';
 import 'package:wave_mall_user/utill/dimensions.dart';
 import 'package:wave_mall_user/basewidget/no_internet_screen.dart';
 import 'package:wave_mall_user/basewidget/product_shimmer.dart';
@@ -15,6 +18,17 @@ class ProductView extends StatelessWidget {
   final ProductType productType;
   final ScrollController? scrollController;
   final String? sellerId;
+
+  void shuffleList(List list) {
+    var random = Random();
+    for (var i = list.length - 1; i > 0; i--) {
+      var n = random.nextInt(i + 1);
+      var temp = list[i];
+      list[i] = list[n];
+      list[n] = temp;
+    }
+  }
+
   const ProductView(
       {super.key,
       required this.isHomePage,
@@ -62,24 +76,27 @@ class ProductView extends StatelessWidget {
 
     return Consumer<ProductProvider>(
       builder: (context, prodProvider, child) {
-        List<Product>? productList = [];
+        List<Product> productList = [];
+
         if (productType == ProductType.latestProduct) {
-          productList = prodProvider.lProductList;
+          productList = prodProvider.lProductList ?? [];
         } else if (productType == ProductType.featuredProduct) {
-          productList = prodProvider.featuredProductList;
+          productList = prodProvider.featuredProductList ?? [];
         } else if (productType == ProductType.topProduct) {
-          productList = prodProvider.latestProductList;
+          productList = prodProvider.latestProductList ?? [];
         } else if (productType == ProductType.bestSelling) {
-          productList = prodProvider.latestProductList;
+          productList = prodProvider.latestProductList ?? [];
         } else if (productType == ProductType.newArrival) {
-          productList = prodProvider.latestProductList;
+          productList = prodProvider.latestProductList ?? [];
         } else if (productType == ProductType.justForYou) {
-          productList = prodProvider.justForYouProduct;
+          productList = prodProvider.justForYouProduct ?? [];
         }
+
+        prodProvider.shuffleListIfNeeded(productList);
 
         return Column(children: [
           !prodProvider.filterFirstLoading
-              ? (productList != null && productList.isNotEmpty)
+              ? (productList.isNotEmpty)
                   ? MasonryGridView.count(
                       itemCount: isHomePage
                           ? productList.length > 4
@@ -91,7 +108,8 @@ class ProductView extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
-                        return ProductWidget(productModel: productList![index]);
+                        //shuffleList(productList);
+                        return ProductWidget(productModel: productList[index]);
                       },
                     )
                   : const NoInternetOrDataScreen(isNoInternet: false)
