@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wave_mall_user/data/model/api_response.dart';
 import 'package:wave_mall_user/features/category/domain/model/find_what_you_need.dart';
 import 'package:wave_mall_user/features/product/domain/model/most_demanded_product_model.dart';
@@ -111,23 +112,32 @@ class ProductProvider extends ChangeNotifier {
             null) {
           _latestProductList!.addAll(
               ProductModel.fromJson(apiResponse.response!.data).products!);
+
+                    print('=======_latestProductList======= ${_latestProductList!.length}==================');
+
           _latestPageSize =
               ProductModel.fromJson(apiResponse.response!.data).totalSize;
-
-          // shuffleListIfNeeded(_latestProductList!);
         }
 
         _filterFirstLoading = false;
         _filterIsLoading = false;
-        _filterIsLoading = false;
+
         removeFirstLoading();
       } else {
         ApiChecker.checkApi(apiResponse);
       }
+
+      shuffleListIfNeeded(_latestProductList!);
+
+      allProducts = _latestProductList ?? [];
+
+      print('=======INSIDE PROVIDER======= ${allProducts.length}==================');
+
       notifyListeners();
     } else {
       if (_filterIsLoading) {
         _filterIsLoading = false;
+        _isLoading = false;
         notifyListeners();
       }
     }
@@ -186,6 +196,7 @@ class ProductProvider extends ChangeNotifier {
     _filterFirstLoading = true;
     _filterIsLoading = true;
     selectedProductTypeIndex = index;
+    allProducts = [];
     getLatestProductList(1, reload: true);
     notifyListeners();
   }
@@ -238,6 +249,7 @@ class ProductProvider extends ChangeNotifier {
     } else {
       ApiChecker.checkApi(apiResponse);
     }
+
     notifyListeners();
     return apiResponse;
   }

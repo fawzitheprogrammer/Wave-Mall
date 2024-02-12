@@ -60,8 +60,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadData(bool reload) async {
     // Use the shuffleProduct method to change the value and notify listeners
-    Provider.of<ProductProvider>(Get.context!, listen: false)
-        .shuffleProduct(false);
+    // Provider.of<ProductProvider>(Get.context!, listen: false)
+    //     .shuffleProduct(false);
     await Provider.of<BannerController>(Get.context!, listen: false)
         .getBannerList(reload);
     await Provider.of<CategoryController>(Get.context!, listen: false)

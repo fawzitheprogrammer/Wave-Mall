@@ -38,6 +38,8 @@ class ProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        '========= length =========${Provider.of<ProductProvider>(context, listen: false).allProducts.length}==============');
     int offset = 1;
     scrollController?.addListener(() {
       if (scrollController!.position.maxScrollExtent ==
@@ -76,40 +78,41 @@ class ProductView extends StatelessWidget {
 
     return Consumer<ProductProvider>(
       builder: (context, prodProvider, child) {
-        List<Product> productList = [];
+        //List<Product> productList = [];
 
-        if (productType == ProductType.latestProduct) {
-          productList = prodProvider.lProductList ?? [];
-        } else if (productType == ProductType.featuredProduct) {
-          productList = prodProvider.featuredProductList ?? [];
-        } else if (productType == ProductType.topProduct) {
-          productList = prodProvider.latestProductList ?? [];
-        } else if (productType == ProductType.bestSelling) {
-          productList = prodProvider.latestProductList ?? [];
-        } else if (productType == ProductType.newArrival) {
-          productList = prodProvider.latestProductList ?? [];
-        } else if (productType == ProductType.justForYou) {
-          productList = prodProvider.justForYouProduct ?? [];
-        }
+        // if (productType == ProductType.latestProduct) {
+        //   productList = prodProvider.allProducts.lProductList ?? [];
+        // } else if (productType == ProductType.featuredProduct) {
+        //   productList = prodProvider.allProducts.featuredProductList ?? [];
+        // } else if (productType == ProductType.topProduct) {
+        //   productList = prodProvider.allProducts.latestProductList ?? [];
+        // } else if (productType == ProductType.bestSelling) {
+        //   productList = prodProvider.allProducts.latestProductList ?? [];
+        // } else if (productType == ProductType.newArrival) {
+        //   productList = prodProvider.allProducts.latestProductList ?? [];
+        // } else if (productType == ProductType.justForYou) {
+        //   productList = prodProvider.allProducts.justForYouProduct ?? [];
+        // }
 
-        prodProvider.shuffleListIfNeeded(productList);
+        //shuffleList(productList);
 
         return Column(children: [
           !prodProvider.filterFirstLoading
-              ? (productList.isNotEmpty)
+              ? (prodProvider.allProducts.isNotEmpty)
                   ? MasonryGridView.count(
                       itemCount: isHomePage
-                          ? productList.length > 4
+                          ? prodProvider.allProducts.length > 4
                               ? 4
-                              : productList.length
-                          : productList.length,
+                              : prodProvider.allProducts.length
+                          : prodProvider.allProducts.length,
                       crossAxisCount: 2,
                       padding: const EdgeInsets.all(0),
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         //shuffleList(productList);
-                        return ProductWidget(productModel: productList[index]);
+                        return ProductWidget(
+                            productModel: prodProvider.allProducts[index]);
                       },
                     )
                   : const NoInternetOrDataScreen(isNoInternet: false)
