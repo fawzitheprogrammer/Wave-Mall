@@ -145,40 +145,44 @@ class SocialLoginWidgetState extends State<SocialLoginWidget> {
                         }
                       },
                       child: Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  color: Theme.of(context).cardColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Theme.of(context)
-                                            .hintColor
-                                            .withOpacity(.25),
-                                        blurRadius: 1,
-                                        spreadRadius: 1,
-                                        offset: const Offset(0, 0))
-                                  ]),
-                              child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Wrap(
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      children: [
-                                        Container(
-                                            decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(5))),
-                                            height: 47,
-                                            width: 47,
-                                            child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                    Dimensions
-                                                        .paddingSizeSmall),
-                                                child: Image.asset(Images
-                                                    .google))), // <-- Use 'Image.asset(...)' here
-                                      ])))))
+                        padding: const EdgeInsets.all(6),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .hintColor
+                                      .withOpacity(.25),
+                                  blurRadius: 1,
+                                  spreadRadius: 1,
+                                  offset: const Offset(0, 0),
+                                )
+                              ]),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  height: 47,
+                                  width: 47,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(
+                                        Dimensions.paddingSizeSmall),
+                                    child: Image.asset(Images.google),
+                                  ),
+                                ), // <-- Use 'Image.asset(...)' here
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                   : const SizedBox(),
               Provider.of<SplashProvider>(context, listen: false)
                       .configModel!
