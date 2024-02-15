@@ -32,6 +32,9 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
     </queries>
 
+
+
+
     <application
         android:label="Wave Mall"
         android:requestLegacyExternalStorage="true"
