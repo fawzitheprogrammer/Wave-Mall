@@ -1,54 +1,54 @@
 {
-  "project_info": {
-    "project_number": "393788335337",
-    "project_id": "wave-mall-customer",
-    "storage_bucket": "wave-mall-customer.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:393788335337:android:0c03785231a408ed863c78",
-        "android_client_info": {
-          "package_name": "com.swift.wavemall.android"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "393788335337-7tkodjusv7b29d5n43lhbghg7ndi340n.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.swift.wavemall.android",
-            "certificate_hash": "6f317bc1ba52f338cff9700c984a3d195e3f4404"
+    "project_info": {
+      "project_number": "393788335337",
+      "project_id": "wave-mall-customer",
+      "storage_bucket": "wave-mall-customer.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:393788335337:android:0c03785231a408ed863c78",
+          "android_client_info": {
+            "package_name": "com.swift.wavemall.android"
           }
         },
-        {
-          "client_id": "393788335337-qniaf302cdse178meqgfq8av7jnslsrt.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCwtqxS9D_En6qstSaErsddT7rLBPjh-oI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "393788335337-qniaf302cdse178meqgfq8av7jnslsrt.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "393788335337-rm413193gamfv6onv6ru144j783s7lc7.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.swift.wavemall.app"
-              }
+        "oauth_client": [
+          {
+            "client_id": "393788335337-7tkodjusv7b29d5n43lhbghg7ndi340n.apps.googleusercontent.com",
+            "client_type": 1,
+            "android_info": {
+              "package_name": "com.swift.wavemall.android",
+              "certificate_hash": "6f317bc1ba52f338cff9700c984a3d195e3f4404"
             }
-          ]
+          },
+          {
+            "client_id": "393788335337-qniaf302cdse178meqgfq8av7jnslsrt.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyCwtqxS9D_En6qstSaErsddT7rLBPjh-oI"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "393788335337-qniaf302cdse178meqgfq8av7jnslsrt.apps.googleusercontent.com",
+                "client_type": 3
+              },
+              {
+                "client_id": "393788335337-rm413193gamfv6onv6ru144j783s7lc7.apps.googleusercontent.com",
+                "client_type": 2,
+                "ios_info": {
+                  "bundle_id": "com.swift.wavemall.app"
+                }
+              }
+            ]
+          }
         }
       }
-    }
-  ],
-  "configuration_version": "1"
-}
+    ],
+    "configuration_version": "1"
+  }
