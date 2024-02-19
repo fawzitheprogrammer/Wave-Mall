@@ -16,17 +16,17 @@ class AppConstants {
   static const String loginUri = '/api/v1/auth/login';
   static const String logOut = '/api/v1/auth/logout';
   static const String latestProductUri =
-      '/api/v1/products/latest?guest_id=1&limit=100&&offset=';
+      '/api/v1/products/latest?guest_id=1&limit=50&&offset=';
   static const String newArrivalProductUri =
-      '/api/v1/products/latest?guest_id=1&limit=100&&offset=';
+      '/api/v1/products/latest?guest_id=1&limit=50&&offset=';
   static const String topProductUri =
-      '/api/v1/products/top-rated?guest_id=1&limit=100&&offset=';
+      '/api/v1/products/top-rated?guest_id=1&limit=50&&offset=';
   static const String bestSellingProductUri =
-      '/api/v1/products/best-sellings?guest_id=1&limit=100&offset=';
+      '/api/v1/products/best-sellings?guest_id=1&limit=50&offset=';
   static const String discountedProductUri =
-      '/api/v1/products/discounted-product?guest_id=1&limit=100&&offset=';
+      '/api/v1/products/discounted-product?guest_id=1&limit=50&&offset=';
   static const String featuredProductUri =
-      '/api/v1/products/featured?guest_id=1&limit=100&&offset=';
+      '/api/v1/products/featured?guest_id=1&limit=50&&offset=';
   static const String homeCategoryProductUri =
       '/api/v1/products/home-categories?guest_id=1';
   static const String productDetailsUri = '/api/v1/products/details/';
@@ -49,7 +49,7 @@ class AppConstants {
       '/api/v1/customer/support-ticket/create';
   static const String getBannerList = '/api/v1/banners';
   static const String relatedProductUri = '/api/v1/products/related-products/';
-  static const String orderUri = '/api/v1/customer/order/list?limit=100&offset=';
+  static const String orderUri = '/api/v1/customer/order/list?limit=50&offset=';
   static const String orderDetailsUri =
       '/api/v1/customer/order/details?order_id=';
   static const String orderPlaceUri = '/api/v1/customer/order/place';
@@ -107,7 +107,7 @@ class AppConstants {
       '/api/v1/shipping-method/check-shipping-type';
   static const String dealOfTheDay = '/api/v1/dealsoftheday/deal-of-the-day';
   static const String walletTransactionUri =
-      '/api/v1/customer/wallet/list?limit=100&offset=';
+      '/api/v1/customer/wallet/list?limit=50&offset=';
   static const String loyaltyPointUri =
       '/api/v1/customer/loyalty/list?limit=20&offset=';
   static const String loyaltyPointConvert =
@@ -122,7 +122,7 @@ class AppConstants {
   static const String offlinePayment =
       '/api/v1/customer/order/place-by-offline-payment';
   static const String walletPayment = '/api/v1/customer/order/place-by-wallet';
-  static const String couponListApi = '/api/v1/coupon/list?limit=100&offset=';
+  static const String couponListApi = '/api/v1/coupon/list?limit=50&offset=';
   static const String sellerWiseCouponListApi = '/api/v1/coupons/';
   static const String sellerWiseBestSellingProduct = '/api/v1/seller/';
   static const String digitalPayment = '/api/v4/digital-payment';
@@ -189,7 +189,7 @@ class AppConstants {
   static const pi = 3.14;
   static const defaultSpread = 0.0872665;
   static const double minFilter = 0;
-  static const double maxFilter = 1000000;
+  static const double maxFilter = 500000;
 
   // order status
   static const String pending = 'pending';

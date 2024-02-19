@@ -37,7 +37,7 @@ class _WishListScreenState extends State<WishListScreen> {
           'wishList',
           context,
         ),
-        isBackButtonExist: false,
+        isBackButtonExist: true,
       ),
       resizeToAvoidBottomInset: true,
       body: Column(
