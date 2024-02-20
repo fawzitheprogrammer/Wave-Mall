@@ -128,7 +128,6 @@ class _HomePageState extends State<HomePage> {
             onRefresh: () async {
               // Use the shuffleProduct method to change the value and notify listeners
               value.shuffleProduct(false);
-
               await _loadData(true);
               await Provider.of<FlashDealProvider>(Get.context!, listen: false)
                   .getMegaDealList(true, false);
@@ -586,16 +585,16 @@ class _HomePageState extends State<HomePage> {
                                                     'best_selling', context)!),
                                               ),
                                               PopupMenuItem(
-                                                  value: ProductType
-                                                      .discountedProduct,
-                                                  textStyle:
-                                                      textRegular.copyWith(
-                                                    color: Theme.of(context)
-                                                        .hintColor,
-                                                  ),
-                                                  child: Text(getTranslated(
-                                                      'discounted_product',
-                                                      context)!)),
+                                                value: ProductType
+                                                    .discountedProduct,
+                                                textStyle: textRegular.copyWith(
+                                                  color: Theme.of(context)
+                                                      .hintColor,
+                                                ),
+                                                child: Text(getTranslated(
+                                                    'discounted_product',
+                                                    context)!),
+                                              ),
                                             ];
                                           },
                                           shape: RoundedRectangleBorder(

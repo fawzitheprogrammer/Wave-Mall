@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wave_mall_user/features/category/controllers/category_controller.dart';
 import 'package:wave_mall_user/localization/language_constrants.dart';
 import 'package:wave_mall_user/main.dart';
 import 'package:wave_mall_user/utill/custom_themes.dart';
