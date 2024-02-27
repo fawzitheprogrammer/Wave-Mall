@@ -78,21 +78,21 @@ class ProductView extends StatelessWidget {
 
     return Consumer<ProductProvider>(
       builder: (context, prodProvider, child) {
-        //List<Product> productList = [];
+        List<Product> productList = [];
 
-        // if (productType == ProductType.latestProduct) {
-        //   productList = prodProvider.allProducts.lProductList ?? [];
-        // } else if (productType == ProductType.featuredProduct) {
-        //   productList = prodProvider.allProducts.featuredProductList ?? [];
-        // } else if (productType == ProductType.topProduct) {
-        //   productList = prodProvider.allProducts.latestProductList ?? [];
-        // } else if (productType == ProductType.bestSelling) {
-        //   productList = prodProvider.allProducts.latestProductList ?? [];
-        // } else if (productType == ProductType.newArrival) {
-        //   productList = prodProvider.allProducts.latestProductList ?? [];
-        // } else if (productType == ProductType.justForYou) {
-        //   productList = prodProvider.allProducts.justForYouProduct ?? [];
-        // }
+        if (productType == ProductType.latestProduct) {
+          productList = prodProvider.lProductList ?? [];
+        } else if (productType == ProductType.featuredProduct) {
+          productList = prodProvider.featuredProductList ?? [];
+        } else if (productType == ProductType.topProduct) {
+          productList = prodProvider.latestProductList ?? [];
+        } else if (productType == ProductType.bestSelling) {
+          productList = prodProvider.latestProductList ?? [];
+        } else if (productType == ProductType.newArrival) {
+          productList = prodProvider.latestProductList ?? [];
+        } else if (productType == ProductType.justForYou) {
+          productList = prodProvider.justForYouProduct ?? [];
+        }
 
         //shuffleList(productList);
 

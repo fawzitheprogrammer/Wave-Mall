@@ -127,7 +127,7 @@ class ProductProvider extends ChangeNotifier {
         ApiChecker.checkApi(apiResponse);
       }
 
-      shuffleListIfNeeded(_latestProductList!);
+      // shuffleListIfNeeded(_latestProductList!);
 
       allProducts = _latestProductList ?? [];
 

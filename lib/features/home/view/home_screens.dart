@@ -126,8 +126,6 @@ class _HomePageState extends State<HomePage> {
         body: SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
-              // Use the shuffleProduct method to change the value and notify listeners
-              value.shuffleProduct(false);
               await _loadData(true);
               await Provider.of<FlashDealProvider>(Get.context!, listen: false)
                   .getMegaDealList(true, false);

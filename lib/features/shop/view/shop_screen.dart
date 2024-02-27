@@ -59,12 +59,12 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen>
         .getSellerWiseBestSellingProductList(widget.sellerId.toString(), 1);
     Provider.of<ProductProvider>(context, listen: false)
         .getSellerWiseFeaturedProductList(widget.sellerId.toString(), 1);
-    Provider.of<ProductProvider>(context, listen: false)
-        .getSellerWiseRecommandedProductList(widget.sellerId.toString(), 1);
+    // Provider.of<ProductProvider>(context, listen: false)
+    //     .getSellerWiseRecommandedProductList(widget.sellerId.toString(), 1);
     Provider.of<CouponProvider>(context, listen: false)
         .getSellerWiseCouponList(widget.sellerId!, 1);
-    Provider.of<CategoryController>(context, listen: false)
-        .getSellerWiseCategoryList(widget.sellerId!);
+    // Provider.of<CategoryController>(context, listen: false)
+    //     .getSellerWiseCategoryList(widget.sellerId!);
     Provider.of<BrandController>(context, listen: false)
         .getSellerWiseBrandList(widget.sellerId!);
   }
