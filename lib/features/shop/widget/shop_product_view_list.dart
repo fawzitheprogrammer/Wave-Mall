@@ -41,10 +41,12 @@ class _ShopProductViewListState extends State<ShopProductViewList> {
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       return ProductWidget(
-                          productModel:
-                              productProvider.sellerProduct!.products![index]);
+                        productModel:
+                            productProvider.sellerProduct!.products![index],
+                      );
                     },
-                  ))
+                  ),
+                )
               : const NoInternetOrDataScreen(
                   isNoInternet: false,
                   icon: Images.noProduct,
