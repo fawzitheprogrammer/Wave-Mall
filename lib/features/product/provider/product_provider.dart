@@ -27,29 +27,29 @@ class ProductProvider extends ChangeNotifier {
 
   bool isShuffled = false;
 
-  void shuffleProduct(val) {
-    isShuffled = val;
-    notifyListeners();
-  }
+  // void shuffleProduct(val) {
+  //   isShuffled = val;
+  //   notifyListeners();
+  // }
 
-  void insertIntoList(List<Product> list) {
-    allProducts = list;
-    notifyListeners();
-  }
+  // void insertIntoList(List<Product> list) {
+  //   allProducts = list;
+  //   notifyListeners();
+  // }
 
-  void shuffleListIfNeeded(List<Product> list) {
-    if (isShuffled == false) {
-      var random = Random();
-      for (var i = list.length - 1; i > 0; i--) {
-        var n = random.nextInt(i + 1);
-        var temp = list[i];
-        list[i] = list[n];
-        list[n] = temp;
-      }
-      // Prevent further shuffling
-    }
-    notifyListeners(); // Notify listeners about the update
-  }
+  // void shuffleListIfNeeded(List<Product> list) {
+  //   if (isShuffled == false) {
+  //     var random = Random();
+  //     for (var i = list.length - 1; i > 0; i--) {
+  //       var n = random.nextInt(i + 1);
+  //       var temp = list[i];
+  //       list[i] = list[n];
+  //       list[n] = temp;
+  //     }
+  //     // Prevent further shuffling
+  //   }
+  //   notifyListeners(); // Notify listeners about the update
+  // }
 
   ProductType _productType = ProductType.newArrival;
   String? _title = 'xyz';

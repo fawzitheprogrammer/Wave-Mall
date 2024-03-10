@@ -2,7 +2,7 @@ name: wave_mall_user
 description: A new Flutter setup application for starting a project.
 
 publish_to: 'none'
-version: 2.0.9+18
+version: 2.0.9+19
 environment:
   sdk: '>=3.2.0 <4.0.0'
 
