@@ -91,7 +91,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         padding: const EdgeInsets.only(
                             left: Dimensions.paddingSizeDefault),
                         child: SizedBox(
-                            child: Image.asset(Images.logoWithNameImage)))
+                          child: Image.asset(Images.logoWithNameImage),
+                        ),
+                      )
                     : const SizedBox()));
   }
 
