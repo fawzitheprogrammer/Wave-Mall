@@ -255,7 +255,9 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                                 onTap: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => const AllCategoryScreen(isOpenedFromBottomNavBar: false,),
+                                    builder: (_) => const AllCategoryScreen(
+                                      isOpenedFromBottomNavBar: false,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -658,12 +660,13 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                              padding: const EdgeInsets.only(
-                                  top: Dimensions.homePagePadding,
-                                  bottom: Dimensions.paddingSizeSmall),
-                              child: TitleRow(
-                                  title:
-                                      getTranslated('all_products', context)!)),
+                            padding: const EdgeInsets.only(
+                                top: Dimensions.homePagePadding,
+                                bottom: Dimensions.paddingSizeSmall),
+                            child: TitleRow(
+                              title: getTranslated('all_products', context)!,
+                            ),
+                          ),
                           Consumer<ProductProvider>(
                               builder: (context, productProvider, _) {
                             return Padding(

@@ -97,18 +97,19 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen>
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(title: widget.name),
+      appBar: CustomAppBar(title: widget.name,reloadProduct: true,),
       body: Consumer<SellerProvider>(
         builder: (context, sellerProvider, _) {
           return CustomScrollView(controller: _scrollController, slivers: [
             SliverToBoxAdapter(
               child: ShopInfoWidget(
-                  vacationIsOn: vacationIsOn,
-                  sellerName: widget.name ?? "",
-                  sellerId: widget.sellerId!,
-                  banner: widget.banner ?? '',
-                  shopImage: widget.image ?? '',
-                  temporaryClose: widget.temporaryClose!),
+                vacationIsOn: vacationIsOn,
+                sellerName: widget.name ?? "",
+                sellerId: widget.sellerId!,
+                banner: widget.banner ?? '',
+                shopImage: widget.image ?? '',
+                temporaryClose: widget.temporaryClose!,
+              ),
             ),
             SliverPersistentHeader(
               pinned: true,

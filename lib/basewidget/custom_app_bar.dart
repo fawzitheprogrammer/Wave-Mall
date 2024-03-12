@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wave_mall_user/features/category/controllers/category_controller.dart';
+import 'package:wave_mall_user/features/product/provider/product_provider.dart';
 import 'package:wave_mall_user/localization/language_constrants.dart';
 import 'package:wave_mall_user/main.dart';
 import 'package:wave_mall_user/utill/custom_themes.dart';
@@ -17,6 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showResetIcon;
   final Widget? reset;
   final bool showLogo;
+  final bool reloadProduct;
 
   const CustomAppBar({
     super.key,
@@ -29,6 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showResetIcon = false,
     this.reset,
     this.showLogo = false,
+    this.reloadProduct = false,
   });
 
   @override
@@ -67,11 +70,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           ?.color
                           ?.withOpacity(.75),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (onBackPressed != null) {
                         onBackPressed!();
                       } else {
                         Navigator.pop(context);
+                        if (reloadProduct) {
+                          await Provider.of<ProductProvider>(Get.context!,
+                                  listen: false)
+                              .getLProductList('1', reload: reloadProduct);
+                          await Provider.of<ProductProvider>(Get.context!,
+                                  listen: false)
+                              .getLatestProductList(1, reload: true);
+                        }
                       }
                     },
                   )

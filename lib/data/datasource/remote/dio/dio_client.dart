@@ -25,7 +25,7 @@ class DioClient {
     countryCode = sharedPreferences.getString(AppConstants.countryCode) ??
         AppConstants.languages[0].countryCode;
     if (kDebugMode) {
-      print("NNNN $token");
+      //print("NNNN $token");
     }
     dio = dioC ?? Dio();
     dio
