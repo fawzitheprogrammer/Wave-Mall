@@ -1,10 +1,10 @@
 name: wave_mall_user
 description: A new Flutter setup application for starting a project.
 
-publish_to: 'none'
+publish_to: "none"
 version: 2.0.9+22
 environment:
-  sdk: '>=3.2.0 <4.0.0'
+  sdk: ">=3.2.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -73,15 +73,11 @@ dependencies:
   sqflite: 2.2.7
   just_audio: ^0.9.36
   file_picker: ^6.1.1
-  firebase_crashlytics: ^3.4.19
-
-
 
 dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
-
 
 flutter:
   uses-material-design: true
