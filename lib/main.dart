@@ -40,7 +40,6 @@ import 'package:wave_mall_user/push_notification/notification_helper.dart';
 import 'package:wave_mall_user/theme/provider/theme_provider.dart';
 import 'package:wave_mall_user/features/wishlist/provider/wishlist_provider.dart';
 import 'package:wave_mall_user/theme/dark_theme.dart';
-import 'package:wave_mall_user/theme/light_theme.dart';
 import 'package:wave_mall_user/utill/app_constants.dart';
 import 'package:wave_mall_user/features/splash/view/splash_screen.dart';
 import 'package:permission_handler/permission_handler.dart';
