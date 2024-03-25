@@ -415,48 +415,48 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                           : const FeaturedProductShimmer();
                     }),
 
-                    // top seller
-                    // singleVendor
-                    //     ? const SizedBox()
-                    //     : Consumer<TopSellerProvider>(
-                    //         builder: (context, topStoreProvider, _) {
-                    //         return (topStoreProvider.topSellerList != null &&
-                    //                 topStoreProvider.topSellerList!.isNotEmpty)
-                    //             ? Column(
-                    //                 crossAxisAlignment:
-                    //                     CrossAxisAlignment.start,
-                    //                 children: [
-                    //                   TitleRow(
-                    //                       title: getTranslated(
-                    //                           'top_fashion_house', context),
-                    //                       onTap: () => Navigator.push(
-                    //                           context,
-                    //                           MaterialPageRoute(
-                    //                               builder: (_) =>
-                    //                                   const AllTopSellerScreen(
-                    //                                     topSeller: null,
-                    //                                     title:
-                    //                                         'top_fashion_house',
-                    //                                   )))),
-                    //                   singleVendor
-                    //                       ? const SizedBox(height: 0)
-                    //                       : const SizedBox(
-                    //                           height:
-                    //                               Dimensions.paddingSizeSmall),
-                    //                   singleVendor
-                    //                       ? const SizedBox()
-                    //                       : const Padding(
-                    //                           padding: EdgeInsets.only(
-                    //                               bottom: Dimensions
-                    //                                   .homePagePadding),
-                    //                           child: SizedBox(
-                    //                               height: 165,
-                    //                               child: TopSellerView(
-                    //                                   isHomePage: true))),
-                    //                 ],
-                    //               )
-                    //             : const SizedBox();
-                    //       }),
+                    //top seller
+                    singleVendor
+                        ? const SizedBox()
+                        : Consumer<TopSellerProvider>(
+                            builder: (context, topStoreProvider, _) {
+                            return (topStoreProvider.topSellerList != null &&
+                                    topStoreProvider.topSellerList!.isNotEmpty)
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TitleRow(
+                                          title: getTranslated(
+                                              'top_fashion_house', context),
+                                          onTap: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      const AllTopSellerScreen(
+                                                        topSeller: null,
+                                                        title:
+                                                            'top_fashion_house',
+                                                      )))),
+                                      singleVendor
+                                          ? const SizedBox(height: 0)
+                                          : const SizedBox(
+                                              height:
+                                                  Dimensions.paddingSizeSmall),
+                                      singleVendor
+                                          ? const SizedBox()
+                                          : const Padding(
+                                              padding: EdgeInsets.only(
+                                                  bottom: Dimensions
+                                                      .homePagePadding),
+                                              child: SizedBox(
+                                                  height: 165,
+                                                  child: TopSellerView(
+                                                      isHomePage: true))),
+                                    ],
+                                  )
+                                : const SizedBox();
+                          }),
 
                     Consumer<BannerController>(
                         builder: (context, bannerProvider, child) {
@@ -622,36 +622,39 @@ class _FashionThemeHomePageState extends State<FashionThemeHomePage> {
                     }),
 
                     // //other Store
-                    // Consumer<SellerProvider>(
-                    //     builder: (context, moreSellerProvider, _) {
-                    //   return moreSellerProvider.moreStoreList.isNotEmpty
-                    //       ? Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             Padding(
-                    //               padding: const EdgeInsets.symmetric(
-                    //                   vertical:
-                    //                       Dimensions.paddingSizeExtraSmall),
-                    //               child: TitleRow(
-                    //                   title:
-                    //                       getTranslated('other_store', context),
-                    //                   onTap: () => Navigator.push(
-                    //                       context,
-                    //                       MaterialPageRoute(
-                    //                           builder: (_) =>
-                    //                               const MoreStoreViewListView()))),
-                    //             ),
-                    //             const SizedBox(
-                    //                 height: Dimensions.paddingSizeSmall),
-                    //             const SizedBox(
-                    //                 height: 100,
-                    //                 child: MoreStoreView(
-                    //                   isHome: true,
-                    //                 )),
-                    //           ],
-                    //         )
-                    //       : const SizedBox();
-                    // }),
+                    Consumer<SellerProvider>(
+                        builder: (context, moreSellerProvider, _) {
+                      return moreSellerProvider.moreStoreList.isNotEmpty
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical:
+                                          Dimensions.paddingSizeExtraSmall),
+                                  child: TitleRow(
+                                    title:
+                                        getTranslated('other_store', context),
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            const MoreStoreViewListView(),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                    height: Dimensions.paddingSizeSmall),
+                                const SizedBox(
+                                    height: 100,
+                                    child: MoreStoreView(
+                                      isHome: true,
+                                    )),
+                              ],
+                            )
+                          : const SizedBox();
+                    }),
 
                     Container(
                       decoration: BoxDecoration(

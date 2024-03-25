@@ -155,14 +155,14 @@ class MyInAppBrowser extends InAppBrowser {
   @override
   Future onBrowserCreated() async {
     if (kDebugMode) {
-      print("\n\nBrowser Created!\n\n");
+      // print("\n\nBrowser Created!\n\n");
     }
   }
 
   @override
   Future onLoadStart(url) async {
     if (kDebugMode) {
-      print("\n\nStarted: $url\n\n");
+      //print("\n\nStarted: $url\n\n");
     }
     _pageRedirect(url.toString());
   }
@@ -171,7 +171,7 @@ class MyInAppBrowser extends InAppBrowser {
   Future onLoadStop(url) async {
     pullToRefreshController?.endRefreshing();
     if (kDebugMode) {
-      print("\n\nStopped: $url\n\n");
+      //print("\n\nStopped: $url\n\n");
     }
     _pageRedirect(url.toString());
   }
@@ -180,7 +180,7 @@ class MyInAppBrowser extends InAppBrowser {
   void onLoadError(url, code, message) {
     pullToRefreshController?.endRefreshing();
     if (kDebugMode) {
-      print("Can't load [$url] Error: $message");
+      //print("Can't load [$url] Error: $message");
     }
   }
 
@@ -190,7 +190,7 @@ class MyInAppBrowser extends InAppBrowser {
       pullToRefreshController?.endRefreshing();
     }
     if (kDebugMode) {
-      print("Progress: $progress");
+      //print("Progress: $progress");
     }
   }
 
@@ -214,7 +214,7 @@ class MyInAppBrowser extends InAppBrowser {
     }
 
     if (kDebugMode) {
-      print("\n\nBrowser closed!\n\n");
+      //print("\n\nBrowser closed!\n\n");
     }
   }
 
@@ -222,7 +222,7 @@ class MyInAppBrowser extends InAppBrowser {
   Future<NavigationActionPolicy> shouldOverrideUrlLoading(
       navigationAction) async {
     if (kDebugMode) {
-      print("\n\nOverride ${navigationAction.request.url}\n\n");
+      //print("\n\nOverride ${navigationAction.request.url}\n\n");
     }
     return NavigationActionPolicy.ALLOW;
   }
@@ -235,11 +235,11 @@ class MyInAppBrowser extends InAppBrowser {
   @override
   void onConsoleMessage(consoleMessage) {
     if (kDebugMode) {
-      print("""
-    console output:
-      message: ${consoleMessage.message}
-      messageLevel: ${consoleMessage.messageLevel.toValue()}
-   """);
+     // print("""
+   //console output:
+     // message: ${consoleMessage.message}
+     // messageLevel: ${consoleMessage.messageLevel.toValue()}
+   //""");
     }
   }
 

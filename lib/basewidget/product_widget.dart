@@ -91,26 +91,15 @@ class ProductWidget extends StatelessWidget {
                             productModel.minimumOrderQuantity! &&
                         productModel.productType == 'physical')
                       Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: Dimensions.paddingSizeExtraSmall),
-                          child: Text(
-                              getTranslated('out_of_stock', context) ?? '',
-                              style: textRegular.copyWith(
-                                  color: const Color(0xFFF36A6A)))),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      const Icon(Icons.star_rate_rounded,
-                          color: Colors.orange, size: 20),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                        child: Text(double.parse(ratting).toStringAsFixed(1),
-                            style: textRegular.copyWith(
-                                fontSize: Dimensions.fontSizeDefault)),
-                      ),
-                      Text('(${productModel.reviewCount.toString()})',
+                        padding: const EdgeInsets.only(
+                            bottom: Dimensions.paddingSizeExtraSmall),
+                        child: Text(
+                          getTranslated('out_of_stock', context) ?? '',
                           style: textRegular.copyWith(
-                              fontSize: Dimensions.fontSizeSmall,
-                              color: Theme.of(context).hintColor))
-                    ]),
+                            color: const Color(0xFFF36A6A),
+                          ),
+                        ),
+                      ),
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: Text(productModel.name ?? '',
@@ -127,27 +116,50 @@ class ProductWidget extends StatelessWidget {
                             style: titleRegular.copyWith(
                                 color: Theme.of(context).hintColor,
                                 decoration: TextDecoration.lineThrough,
-                                fontSize: Dimensions.fontSizeSmall))
+                                fontSize: Dimensions.fontSizeSmall),
+                          )
                         : const SizedBox.shrink(),
                     const SizedBox(
                       height: 2,
                     ),
-                    Text(
-                      PriceConverter.convertPrice(
-                          context, productModel.unitPrice,
-                          discountType: productModel.discountType,
-                          discount: productModel.discount),
-                      style: titilliumSemiBold.copyWith(
-                        fontSize: Dimensions.fontSizeExtraLarge,
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                PriceConverter.convertPrice(
+                                    context, productModel.unitPrice,
+                                    discountType: productModel.discountType,
+                                    discount: productModel.discount),
+                                style: titilliumSemiBold.copyWith(
+                                  fontSize: Dimensions.fontSizeDefault,
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                ),
+                              ),
+                              const Icon(Icons.star_rate_rounded,
+                                  color: Colors.orange, size: 20),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                child: Text(
+                                    double.parse(ratting).toStringAsFixed(1),
+                                    style: textRegular.copyWith(
+                                        fontSize: Dimensions.fontSizeDefault)),
+                              ),
+                              Text('(${productModel.reviewCount.toString()})',
+                                  style: textRegular.copyWith(
+                                      fontSize: Dimensions.fontSizeSmall,
+                                      color: Theme.of(context).hintColor))
+                            ]),
+                      ],
                     ),
                   ],
                 ),
               ),
             ),
           ]),
-
           // Off
 
           productModel.discount! > 0

@@ -94,7 +94,7 @@ class ProductView extends StatelessWidget {
           productList = prodProvider.justForYouProduct ?? [];
         }
 
-        //shuffleList(productList);
+        //productList.shuffle();
 
         return Column(children: [
           !prodProvider.filterFirstLoading

@@ -12,8 +12,8 @@ class LoggingInterceptor extends InterceptorsWrapper {
   @override
   Future onResponse(Response response, ResponseInterceptorHandler handler) async {
     if (kDebugMode) {
-      print(
-        "<-- ${response.statusCode} ${response.requestOptions.method} ${response.requestOptions.path}");
+      // print(
+      //   "<-- ${response.statusCode} ${response.requestOptions.method} ${response.requestOptions.path}");
     }
 
     String responseAsString = response.data.toString();
@@ -26,8 +26,8 @@ class LoggingInterceptor extends InterceptorsWrapper {
           endingIndex = responseAsString.length;
         }
         if (kDebugMode) {
-          print(
-            responseAsString.substring(i * maxCharactersPerLine, endingIndex));
+          // print(
+          //   responseAsString.substring(i * maxCharactersPerLine, endingIndex));
         }
       }
     } else {
@@ -37,7 +37,7 @@ class LoggingInterceptor extends InterceptorsWrapper {
     }
 
     if (kDebugMode) {
-      print("<-- END HTTP");
+      // print("<-- END HTTP");
     }
 
     return super.onResponse(response, handler);
@@ -46,7 +46,7 @@ class LoggingInterceptor extends InterceptorsWrapper {
   @override
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
     if (kDebugMode) {
-      print("ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}");
+      //print("ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}");
     }
     return super.onError(err, handler);
   }

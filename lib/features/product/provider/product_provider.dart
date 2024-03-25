@@ -37,19 +37,19 @@ class ProductProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  // void shuffleListIfNeeded(List<Product> list) {
-  //   if (isShuffled == false) {
-  //     var random = Random();
-  //     for (var i = list.length - 1; i > 0; i--) {
-  //       var n = random.nextInt(i + 1);
-  //       var temp = list[i];
-  //       list[i] = list[n];
-  //       list[n] = temp;
-  //     }
-  //     // Prevent further shuffling
-  //   }
-  //   notifyListeners(); // Notify listeners about the update
-  // }
+  void shuffleListIfNeeded(List<Product> list) {
+    if (isShuffled == false) {
+      var random = Random();
+      for (var i = list.length - 1; i > 0; i--) {
+        var n = random.nextInt(i + 1);
+        var temp = list[i];
+        list[i] = list[n];
+        list[n] = temp;
+      }
+      // Prevent further shuffling
+    }
+    notifyListeners(); // Notify listeners about the update
+  }
 
   ProductType _productType = ProductType.newArrival;
   String? _title = 'xyz';
@@ -113,8 +113,6 @@ class ProductProvider extends ChangeNotifier {
           _latestProductList!.addAll(
               ProductModel.fromJson(apiResponse.response!.data).products!);
 
-                    print('=======_latestProductList======= ${_latestProductList!.length}==================');
-
           _latestPageSize =
               ProductModel.fromJson(apiResponse.response!.data).totalSize;
         }
@@ -127,11 +125,12 @@ class ProductProvider extends ChangeNotifier {
         ApiChecker.checkApi(apiResponse);
       }
 
-      // shuffleListIfNeeded(_latestProductList!);
+      shuffleListIfNeeded(_latestProductList!);
 
       allProducts = _latestProductList ?? [];
 
-      print('=======INSIDE PROVIDER======= ${allProducts.length}==================');
+      print(
+          '=======INSIDE PROVIDER======= ${allProducts.length}==================');
 
       notifyListeners();
     } else {
